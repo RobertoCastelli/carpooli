@@ -1,6 +1,8 @@
+// -- CONTEXT
 import React, { useContext } from "react";
-import { NavLink } from "react-router-dom";
 import { MyContext } from "../context";
+// --- ROUTER
+import { NavLink } from "react-router-dom";
 
 export const ElencoAuto = () => {
   const { auto } = useContext(MyContext);

@@ -1,7 +1,8 @@
+// --- REACT
 import React, { useState, useEffect } from "react";
+// --- FIREBASE
 import { db } from "./FirebaseConfig";
 import { getDocs, collection } from "firebase/firestore";
-
 // --- CONTEXT
 export const MyContext = React.createContext();
 
