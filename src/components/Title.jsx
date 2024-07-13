@@ -6,10 +6,17 @@ import { NavLink } from "react-router-dom";
 export const Title = () => {
   return (
     <div>
-      <div>
-        <NavLink to="/">home</NavLink>
-      </div>
-      <h1>Title</h1>
+      <ul>
+        <li>
+          <NavLink to="/">home</NavLink>
+        </li>
+        <li>
+          <NavLink to="/riepilogo">riepilogo</NavLink>
+        </li>
+      </ul>
+      <h1>
+        CAR<span className="title_highlight">POOLI</span>
+      </h1>
     </div>
   );
 };

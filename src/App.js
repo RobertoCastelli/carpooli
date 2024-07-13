@@ -6,7 +6,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Title } from "./components/Title";
 import { ElencoAuto } from "./components/ElencoAuto";
 import { Autisti } from "./components/Autisti";
-import { CarpoolForm } from "./components/CarpoolForm";
+import { FormPartenza } from "./components/FormPartenza";
+import { FormRitorno } from "./components/FormRitorno";
+import { Riepilogo } from "./components/Riepilogo";
 import { Footer } from "./components/Footer";
 
 function App() {
@@ -17,7 +19,9 @@ function App() {
         <Routes>
           <Route exact path="/" element={<ElencoAuto />} />
           <Route path="/autisti" element={<Autisti />} />
-          <Route path="/carpoolform" element={<CarpoolForm />} />
+          <Route path="/partenza" element={<FormPartenza />} />
+          <Route path="/ritorno" element={<FormRitorno />} />
+          <Route path="/riepilogo" element={<Riepilogo />} />
         </Routes>
         <Footer />
       </Router>

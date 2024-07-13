@@ -2,13 +2,18 @@
 import React, { useState, useEffect } from "react";
 // --- FIREBASE
 import { db } from "./FirebaseConfig";
-import { getDocs, collection } from "firebase/firestore";
+import { getDoc, getDocs, collection } from "firebase/firestore";
 // --- CONTEXT
 export const MyContext = React.createContext();
 
 export const ContextProvider = ({ children }) => {
-  const [auto, setAuto] = useState([]);
+  const [parcoAuto, setParcoAuto] = useState([]);
+  const [autoSelezionata, setAutoSelezionata] = useState("");
+  const [autista, setAutista] = useState("");
+  /* const [km, setKm] = useState(0);
+  const [statoPrenotazione, setStatoPrenotazione] = useState(true); */
 
+  // --- FETCH AUTO DAL DB
   useEffect(() => {
     const fetchAuto = async () => {
       try {
@@ -17,7 +22,7 @@ export const ContextProvider = ({ children }) => {
         querySnapshot.forEach((doc) => {
           autoArray.push({ id: doc.id, ...doc.data() });
         });
-        setAuto(autoArray);
+        setParcoAuto(autoArray);
       } catch (error) {
         console.error("Error fetching data: ", error);
       }
@@ -26,5 +31,33 @@ export const ContextProvider = ({ children }) => {
     fetchAuto();
   }, []);
 
-  return <MyContext.Provider value={{ auto }}>{children}</MyContext.Provider>;
+  // --- GET AUTISTA SELEZIONATO
+  const handleAutista = (e) => {
+    if (e.target.tagName === "LI") {
+      setAutista(e.target.textContent);
+    }
+  };
+
+  // --- GET AUTO SELEZIONATO
+  const handleAuto = async (e) => {
+    try {
+      const autoRef = doc(db, "auto", e.id);
+      const autoSnap = await getDoc(autoRef);
+      if (autoRef.exists()) {
+        console.log(autoSnap.data());
+      } else {
+        console.log("non trovato");
+      }
+    } catch (error) {
+      console.error("Errore nel recuper dei dati dell'auto ", error);
+    }
+  };
+
+  return (
+    <MyContext.Provider
+      value={{ parcoAuto, autista, autoSelezionata, handleAuto, handleAutista }}
+    >
+      {children}
+    </MyContext.Provider>
+  );
 };
