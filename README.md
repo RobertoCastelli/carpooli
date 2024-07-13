@@ -1,4 +1,4 @@
-# CARPPOLI
+# CARPOOLI
 
 > simple carpool manager
 
