@@ -12,6 +12,8 @@ export const ContextProvider = ({ children }) => {
   const [autista, setAutista] = useState("");
   const [kmPartenza, setKmPartenza] = useState(0);
 
+  const [condizioneAuto, setCondizioneAuto] = useState("pulita");
+
   // --- FETCH AUTO DAL DB
   useEffect(() => {
     const fetchAuto = async () => {
@@ -38,8 +40,15 @@ export const ContextProvider = ({ children }) => {
 
   // --- AGGIORNA KM RILEVATI
   const handleKmAggiornati = () => {
-    const kmAggiornati = prompt("inserisci i km effettivi:");
-    kmAggiornati !== null && setKmPartenza(kmAggiornati);
+    const inputKmAggiornati = prompt("inserisci i km aggiornati:");
+    if (inputKmAggiornati !== null) {
+      if (/^\d+$/.test(inputKmAggiornati)) {
+        // ACCETTA SOLO NUMERI
+        setKmPartenza(inputKmAggiornati);
+      } else {
+        alert("Inserisci numeri validi.");
+      }
+    }
   };
 
   return (
