@@ -2,16 +2,15 @@
 import React, { useState, useEffect } from "react";
 // --- FIREBASE
 import { db } from "./FirebaseConfig";
-import { getDoc, getDocs, collection } from "firebase/firestore";
+import { getDocs, collection } from "firebase/firestore";
 // --- CONTEXT
 export const MyContext = React.createContext();
 
 export const ContextProvider = ({ children }) => {
   const [parcoAuto, setParcoAuto] = useState([]);
-  const [autoSelezionata, setAutoSelezionata] = useState("");
+  const [autoSelezionata, setAutoSelezionata] = useState([]);
   const [autista, setAutista] = useState("");
-  /* const [km, setKm] = useState(0);
-  const [statoPrenotazione, setStatoPrenotazione] = useState(true); */
+  const [kmPartenza, setKmPartenza] = useState(0);
 
   // --- FETCH AUTO DAL DB
   useEffect(() => {
@@ -32,30 +31,29 @@ export const ContextProvider = ({ children }) => {
   }, []);
 
   // --- GET AUTISTA SELEZIONATO
-  const handleAutista = (e) => {
-    if (e.target.tagName === "LI") {
-      setAutista(e.target.textContent);
-    }
-  };
+  const handleAutista = (e) => setAutista(e.target.textContent);
 
-  // --- GET AUTO SELEZIONATO
-  const handleAuto = async (e) => {
-    try {
-      const autoRef = doc(db, "auto", e.id);
-      const autoSnap = await getDoc(autoRef);
-      if (autoRef.exists()) {
-        console.log(autoSnap.data());
-      } else {
-        console.log("non trovato");
-      }
-    } catch (error) {
-      console.error("Errore nel recuper dei dati dell'auto ", error);
-    }
+  // --- CONFERMA KM RILEVATI
+  const handleKmRilevati = () => setKmPartenza(autoSelezionata.kmRilevati);
+
+  // --- AGGIORNA KM RILEVATI
+  const handleKmAggiornati = () => {
+    const kmAggiornati = prompt("inserisci i km effettivi:");
+    kmAggiornati !== null && setKmPartenza(kmAggiornati);
   };
 
   return (
     <MyContext.Provider
-      value={{ parcoAuto, autista, autoSelezionata, handleAuto, handleAutista }}
+      value={{
+        parcoAuto,
+        autista,
+        autoSelezionata,
+        setAutoSelezionata,
+        handleAutista,
+        kmPartenza,
+        handleKmRilevati,
+        handleKmAggiornati,
+      }}
     >
       {children}
     </MyContext.Provider>

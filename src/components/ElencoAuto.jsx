@@ -5,14 +5,14 @@ import { MyContext } from "../context";
 import { NavLink } from "react-router-dom";
 
 export const ElencoAuto = () => {
-  const { parcoAuto, handleAuto } = useContext(MyContext);
+  const { parcoAuto, setAutoSelezionata } = useContext(MyContext);
 
   return (
     <div>
-      <ul onClick={handleAuto}>
+      <ul>
         {parcoAuto.map((auto) => (
           <NavLink key={auto.id} to="/autisti">
-            <li onClick={() => handleAuto(auto)}>
+            <li onClick={() => setAutoSelezionata(auto)}>
               <div>
                 <div>marca: {auto.marca}</div>
                 <div>modello: {auto.modello}</div>

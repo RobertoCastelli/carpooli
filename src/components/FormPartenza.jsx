@@ -4,20 +4,28 @@ import React, { useContext } from "react";
 import { MyContext } from "../context";
 
 export const FormPartenza = () => {
-  const { autista } = useContext(MyContext);
+  const {
+    autista,
+    autoSelezionata,
+    handleKmRilevati,
+    kmPartenza,
+    handleKmAggiornati,
+  } = useContext(MyContext);
 
   return (
     <div>
       <form>
         <div>autista: {autista}</div>
-        <div>auto: </div>
-        <div>Km rilevati:</div>
         <div>
-          <button>conferma</button>
-          <button>aggiorna</button>
+          auto: {autoSelezionata.marca} {autoSelezionata.modello}
+        </div>
+        <div>Km rilevati: {autoSelezionata.kmRilevati}</div>
+        <div>
+          <button onClick={() => handleKmRilevati()}>conferma</button>
+          <button onClick={() => handleKmAggiornati()}>aggiorna</button>
         </div>
 
-        <div>km partenza:</div>
+        <div>km partenza:{kmPartenza}</div>
         <div>
           <label>pulita</label>
           <input
