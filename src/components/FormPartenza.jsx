@@ -16,49 +16,69 @@ export const FormPartenza = () => {
   } = useContext(MyContext);
 
   return (
-    <div>
-      <form onSubmit={handleSubmitPartenza}>
-        <div>Autista: {autista}</div>
-
-        <div>
-          Auto: {autoSelezionata.marca} {autoSelezionata.modello}
+    <div className="form-container">
+      <form onSubmit={handleSubmitPartenza} className="form">
+        <div className="form-item">
+          <label>Autista:</label>
+          <div>{autista}</div>
         </div>
 
-        <div>Km rilevati: {autoSelezionata.kmRilevati}</div>
-
-        <div>
-          <button type="button" onClick={() => handleKmRilevati()}>
-            Conferma
-          </button>
-          <button type="button" onClick={() => handleKmAggiornati()}>
-            Aggiorna
-          </button>
+        <div className="form-item">
+          <label>Auto:</label>
+          <div>
+            {autoSelezionata.marca} {autoSelezionata.modello}
+          </div>
         </div>
 
-        <div>Km partenza: {kmPartenza}</div>
-
-        <div>
-          <label>
-            <div>Condizione: </div>
-            <input
-              type="radio"
-              onChange={(e) => setCondizione(e.target.value)}
-              name="condizione"
-              value="pulita"
-            ></input>
-            Pulita
-          </label>
+        <div className="form-item">
+          <label>Km rilevati:</label>
+          <div>{autoSelezionata.kmRilevati}</div>
         </div>
 
-        <div>
-          <label>
-            <input type="radio" name="condizione" value="sporca"></input>
-            Sporca
-          </label>
+        <div className="form-item">
+          <div>
+            <button type="button" onClick={handleKmRilevati}>
+              Conferma
+            </button>
+            <button type="button" onClick={handleKmAggiornati}>
+              Aggiorna
+            </button>
+          </div>
         </div>
 
-        <div>
-          <label htmlFor="destinazione">Destinazione finale</label>
+        <div className="form-item">
+          <label>Km partenza:</label>
+          <div>{kmPartenza}</div>
+        </div>
+
+        <div className="form-item">
+          <label>Condizione:</label>
+          <div>
+            <label>
+              <input
+                type="radio"
+                onChange={(e) => setCondizione(e.target.value)}
+                name="condizione"
+                value="pulita"
+              />
+              Pulita
+            </label>
+          </div>
+          <div>
+            <label>
+              <input
+                type="radio"
+                onChange={(e) => setCondizione(e.target.value)}
+                name="condizione"
+                value="sporca"
+              />
+              Sporca
+            </label>
+          </div>
+        </div>
+
+        <div className="form-item">
+          <label htmlFor="destinazione">Destinazione finale:</label>
           <select
             id="destinazione"
             onChange={(e) => setDestinazione(e.target.value)}
@@ -72,7 +92,9 @@ export const FormPartenza = () => {
           </select>
         </div>
 
-        <button type="submit">Start</button>
+        <div className="form-item">
+          <button type="submit">Start</button>
+        </div>
       </form>
     </div>
   );

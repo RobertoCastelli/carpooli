@@ -1,15 +1,298 @@
 body {
   margin: 0;
+  background-color: #f4f4f4;
   font-family: monospace, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+* {
+  box-sizing: border-box;
 }
 
-.title_highlight {
+/* CONTEINER */
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 300px;
+  margin: auto;
+}
+.content {
+  flex-grow: 1;
+}
+
+/* NAVBAR */
+.navbar-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #282c34;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.navbar-list {
+  list-style-type: none;
+  display: flex;
+  gap: 20px;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.navbar-item {
+  display: inline;
+}
+
+.navbar-link {
   color: cadetblue;
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.navbar-link:hover {
+  color: orange;
+}
+
+.active-link {
+  font-weight: bold;
+  border-bottom: 2px solid #61dafb;
+}
+
+.navbar-title {
+  color: white;
+  font-size: 36px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.title-highlight {
+  color: cadetblue;
+}
+
+/* RIEPILOGO */
+.riepilogo-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.riepilogo-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.riepilogo-item {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.riepilogo-item:hover {
+  background-color: #f1f1f1;
+}
+
+.riepilogo-field {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+}
+
+.riepilogo-label {
+  font-weight: bold;
+  color: #333;
+}
+
+.riepilogo-value {
+  color: #555;
+}
+
+/* FOOTER */
+.footer-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.footer-content {
+  background-color: #282c34;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+}
+
+/* AUTISTI */
+.autisti-list-container {
+  margin-top: 20px;
+}
+
+.autisti-list {
+  list-style-type: none;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.autista-link {
+  text-decoration: none;
+}
+
+.autista-item {
+  background-color: #282c34;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.autista-item:hover {
+  background-color: cadetblue;
+  transform: translateY(-2px);
+}
+
+.parco-auto-list-container {
+  margin-top: 20px;
+}
+
+/* AUTO */
+.parco-auto-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.parco-auto-item {
+  background-color: #f0f0f0;
+  padding: 20px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.parco-auto-item:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+.auto-info {
+  margin-bottom: 10px;
+}
+
+.auto-detail {
+  font-weight: bold;
+}
+
+.auto-status {
+  font-style: italic;
+  color: #555;
+  margin-top: 5px;
+}
+
+.prenotata-details {
+  margin-left: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
+}
+
+/* FORM */
+.form-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form {
+  display: grid;
+  gap: 15px;
+}
+
+.form-item {
+  display: grid;
+  gap: 5px;
+}
+
+label {
+  font-weight: bold;
+}
+
+button {
+  padding: 10px 20px;
+  background-color: cadetblue;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: cadetblue;
+}
+
+input[type="radio"] {
+  margin-right: 5px;
+}
+
+.component-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.info {
+  margin-bottom: 20px;
+}
+
+.info > div {
+  margin-bottom: 10px;
+}
+
+.form {
+  display: grid;
+  gap: 10px;
+}
+
+.form-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.form-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-button {
+  padding: 10px 20px;
+  background-color: cadetblue;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.form-button:hover {
+  background-color: cadetblue;
 }

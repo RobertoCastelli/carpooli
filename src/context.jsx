@@ -52,6 +52,29 @@ export const ContextProvider = ({ children }) => {
     fetchAuto();
   }, []);
 
+  // --- FETCH PRENOTAZIONI DAL DB
+  useEffect(() => {
+    const fetchPrenotazioni = () => {
+      try {
+        const unsubscribe = onSnapshot(
+          collection(db, "Prenotazioni"),
+          (snapshot) => {
+            const prenotazioniArray = snapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            }));
+            setRiepilogo(prenotazioniArray);
+          }
+        );
+        return () => unsubscribe(); // Pulizia dell'ascoltatore
+      } catch (error) {
+        console.error("Error fetching data: ", error);
+      }
+    };
+
+    fetchPrenotazioni();
+  }, []);
+
   // --- UPDATE DATI PARTENZA
   const handleSubmitPartenza = async (e) => {
     e.preventDefault();
@@ -100,8 +123,8 @@ export const ContextProvider = ({ children }) => {
     e.preventDefault();
     try {
       await addDoc(collection(db, "Prenotazioni"), {
-        autista,
-        destinazione,
+        autista: autista,
+        destinazione: destinazione,
         kmPartenza,
         kmRitorno,
         carburante,
@@ -155,6 +178,7 @@ export const ContextProvider = ({ children }) => {
         autoSelezionata,
         kmPartenza,
         parcoAuto,
+        riepilogo,
         handleAutista,
         handleKmRilevati,
         handleKmAggiornati,

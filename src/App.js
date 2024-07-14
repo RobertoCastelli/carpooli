@@ -15,15 +15,19 @@ function App() {
   return (
     <Router>
       <ContextProvider>
-        <Title />
-        <Routes>
-          <Route exact path="/" element={<Autisti />} />
-          <Route path="/auto" element={<ElencoAuto />} />
-          <Route path="/partenza" element={<FormPartenza />} />
-          <Route path="/ritorno" element={<FormRitorno />} />
-          <Route path="/riepilogo" element={<Riepilogo />} />
-        </Routes>
-        <Footer />
+        <div className="container">
+          <div className="content">
+            <Title />
+            <Routes>
+              <Route exact path="/" element={<Autisti />} />
+              <Route path="/auto" element={<ElencoAuto />} />
+              <Route path="/partenza" element={<FormPartenza />} />
+              <Route path="/ritorno" element={<FormRitorno />} />
+              <Route path="/riepilogo" element={<Riepilogo />} />
+            </Routes>
+          </div>
+          <Footer />
+        </div>
       </ContextProvider>
     </Router>
   );

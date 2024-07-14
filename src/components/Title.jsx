@@ -5,17 +5,25 @@ import { NavLink } from "react-router-dom";
 
 export const Title = () => {
   return (
-    <div>
-      <ul>
-        <li>
-          <NavLink to="/">home</NavLink>
+    <div className="navbar-container">
+      <ul className="navbar-list">
+        <li className="navbar-item">
+          <NavLink to="/" className="navbar-link" activeclassName="active-link">
+            Home
+          </NavLink>
         </li>
-        <li>
-          <NavLink to="/riepilogo">riepilogo</NavLink>
+        <li className="navbar-item">
+          <NavLink
+            to="/riepilogo"
+            className="navbar-link"
+            activeclassName="active-link"
+          >
+            Riepilogo
+          </NavLink>
         </li>
       </ul>
-      <h1>
-        CAR<span className="title_highlight">POOLI</span>
+      <h1 className="navbar-title">
+        CAR<span className="title-highlight">POOLI</span>
       </h1>
     </div>
   );

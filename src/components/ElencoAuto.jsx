@@ -7,23 +7,26 @@ export const ElencoAuto = () => {
   const { parcoAuto, handlePrenotazione } = useContext(MyContext);
 
   return (
-    <div>
-      <ul>
+    <div className="parco-auto-list-container">
+      <ul className="parco-auto-list">
         {parcoAuto.map((auto) => (
-          <li key={auto.id} onClick={() => handlePrenotazione(auto)}>
-            <div>
-              <div>marca: {auto.marca}</div>
-              <div>modello: {auto.modello}</div>
-              <div>km rilevati: {auto.kmRilevati}</div>
-              <div>
-                stato prenotazione:
-                {auto.isPrenotata ? "prenotata" : "libera"}
+          <li
+            key={auto.id}
+            className="parco-auto-item"
+            onClick={() => handlePrenotazione(auto)}
+          >
+            <div className="auto-info">
+              <div className="auto-detail">Marca: {auto.marca}</div>
+              <div className="auto-detail">Modello: {auto.modello}</div>
+              <div className="auto-detail">Km Rilevati: {auto.kmRilevati}</div>
+              <div className="auto-status">
+                Stato Prenotazione: {auto.isPrenotata ? "Prenotata" : "Libera"}
                 {auto.isPrenotata && (
-                  <>
-                    <div>autista: {auto.autista}</div>
-                    <div>destinazione: {auto.destinazione}</div>
-                    <div>giorno prenotazione: {auto.timePartenza}</div>
-                  </>
+                  <div className="prenotata-details">
+                    <div>Autista: {auto.autista}</div>
+                    <div>Destinazione: {auto.destinazione}</div>
+                    <div>Giorno Prenotazione: {auto.timePartenza}</div>
+                  </div>
                 )}
               </div>
             </div>
