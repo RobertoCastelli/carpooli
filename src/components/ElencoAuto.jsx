@@ -1,29 +1,33 @@
-// -- CONTEXT
+// --- REACT
 import React, { useContext } from "react";
+// --- CONTEXT
 import { MyContext } from "../context";
-// --- ROUTER
-import { NavLink } from "react-router-dom";
 
 export const ElencoAuto = () => {
-  const { parcoAuto, setAutoSelezionata } = useContext(MyContext);
+  const { parcoAuto, handlePrenotazione } = useContext(MyContext);
 
   return (
     <div>
       <ul>
         {parcoAuto.map((auto) => (
-          <NavLink key={auto.id} to="/autisti">
-            <li onClick={() => setAutoSelezionata(auto)}>
+          <li key={auto.id} onClick={() => handlePrenotazione(auto)}>
+            <div>
+              <div>marca: {auto.marca}</div>
+              <div>modello: {auto.modello}</div>
+              <div>km rilevati: {auto.kmRilevati}</div>
               <div>
-                <div>marca: {auto.marca}</div>
-                <div>modello: {auto.modello}</div>
-                <div>km: {auto.km}</div>
-                <div>
-                  stato prenotazione:
-                  {auto.stato ? "prenotata" : "libera"}
-                </div>
+                stato prenotazione:
+                {auto.isPrenotata ? "prenotata" : "libera"}
+                {auto.isPrenotata && (
+                  <>
+                    <div>autista: {auto.autista}</div>
+                    <div>destinazione: {auto.destinazione}</div>
+                    <div>giorno prenotazione: {auto.timePartenza}</div>
+                  </>
+                )}
               </div>
-            </li>
-          </NavLink>
+            </div>
+          </li>
         ))}
       </ul>
     </div>

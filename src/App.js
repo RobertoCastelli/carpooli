@@ -13,19 +13,19 @@ import { Footer } from "./components/Footer";
 
 function App() {
   return (
-    <ContextProvider>
-      <Router>
+    <Router>
+      <ContextProvider>
         <Title />
         <Routes>
-          <Route exact path="/" element={<ElencoAuto />} />
-          <Route path="/autisti" element={<Autisti />} />
+          <Route exact path="/" element={<Autisti />} />
+          <Route path="/auto" element={<ElencoAuto />} />
           <Route path="/partenza" element={<FormPartenza />} />
           <Route path="/ritorno" element={<FormRitorno />} />
           <Route path="/riepilogo" element={<Riepilogo />} />
         </Routes>
         <Footer />
-      </Router>
-    </ContextProvider>
+      </ContextProvider>
+    </Router>
   );
 }
 

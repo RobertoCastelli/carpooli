@@ -10,56 +10,69 @@ export const FormPartenza = () => {
     handleKmRilevati,
     kmPartenza,
     handleKmAggiornati,
+    handleSubmitPartenza,
+    setDestinazione,
+    setCondizione,
   } = useContext(MyContext);
 
   return (
     <div>
-      <form>
-        <div>autista: {autista}</div>
+      <form onSubmit={handleSubmitPartenza}>
+        <div>Autista: {autista}</div>
+
         <div>
-          auto: {autoSelezionata.marca} {autoSelezionata.modello}
-        </div>
-        <div>Km rilevati: {autoSelezionata.kmRilevati}</div>
-        <div>
-          <button onClick={() => handleKmRilevati()}>conferma</button>
-          <button onClick={() => handleKmAggiornati()}>aggiorna</button>
+          Auto: {autoSelezionata.marca} {autoSelezionata.modello}
         </div>
 
-        <div>km partenza:{kmPartenza}</div>
+        <div>Km rilevati: {autoSelezionata.kmRilevati}</div>
+
         <div>
-          <label>pulita</label>
-          <input
-            type="radio"
-            name="condizione"
-            value="pulita"
-            //onChange={handleChange}
-          ></input>
+          <button type="button" onClick={() => handleKmRilevati()}>
+            Conferma
+          </button>
+          <button type="button" onClick={() => handleKmAggiornati()}>
+            Aggiorna
+          </button>
         </div>
+
+        <div>Km partenza: {kmPartenza}</div>
+
         <div>
-          <label>sporca</label>
-          <input
-            type="radio"
-            name="condizione"
-            value="sporca"
-            //onChange={handleChange}
-          ></input>
+          <label>
+            <div>Condizione: </div>
+            <input
+              type="radio"
+              onChange={(e) => setCondizione(e.target.value)}
+              name="condizione"
+              value="pulita"
+            ></input>
+            Pulita
+          </label>
         </div>
+
         <div>
-          <label htmlFor="destinazione">destinazione</label>
+          <label>
+            <input type="radio" name="condizione" value="sporca"></input>
+            Sporca
+          </label>
+        </div>
+
+        <div>
+          <label htmlFor="destinazione">Destinazione finale</label>
           <select
             id="destinazione"
+            onChange={(e) => setDestinazione(e.target.value)}
             name="destinazione"
-            //value={formData.statoAuto}
-            //onChange={handleChange}
             required
           >
-            <option value=""></option>
-            <option value="lecco">lecco</option>
-            <option value="como">como</option>
-            <option value="milano">milano</option>
+            <option value="">Seleziona...</option>
+            <option value="lecco">Lecco</option>
+            <option value="como">Como</option>
+            <option value="milano">Milano</option>
           </select>
         </div>
-        <button type="submit">start</button>
+
+        <button type="submit">Start</button>
       </form>
     </div>
   );

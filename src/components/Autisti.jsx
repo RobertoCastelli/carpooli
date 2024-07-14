@@ -5,14 +5,13 @@ import { MyContext } from "../context";
 import { NavLink } from "react-router-dom";
 
 export const Autisti = () => {
-  const autisti = ["pippo", "pluto", "paperino"];
-  const { handleAutista } = useContext(MyContext);
+  const { autisti, handleAutista } = useContext(MyContext);
 
   return (
     <div>
       <ul onClick={handleAutista}>
         {autisti.map((autista, index) => (
-          <NavLink key={index} to="/partenza">
+          <NavLink key={index} to="/auto">
             <li>{autista}</li>
           </NavLink>
         ))}
