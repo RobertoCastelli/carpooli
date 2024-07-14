@@ -17,7 +17,12 @@ export const MyContext = React.createContext();
 export const ContextProvider = ({ children }) => {
   const [parcoAuto, setParcoAuto] = useState([]);
   const [autoSelezionata, setAutoSelezionata] = useState([]);
-  const [autisti] = useState(["Pippo", "Pluto", "Paperino"]);
+  const [autisti] = useState([
+    "Alberto Crespi",
+    "Giacomo Rossello",
+    "Rino Imperatrice",
+    "Roberto Colombo",
+  ]);
   const [autista, setAutista] = useState("");
   const [destinazione, setDestinazione] = useState("");
   const [kmPartenza, setKmPartenza] = useState(0);
@@ -30,7 +35,13 @@ export const ContextProvider = ({ children }) => {
   const navigate = useNavigate();
 
   // --- TIMESTAMP
-  const timeStamp = new Date().toLocaleString();
+  const timeStamp = new Date().toLocaleString("it-IT", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
   // --- FETCH AUTO DAL DB
   useEffect(() => {
@@ -75,6 +86,13 @@ export const ContextProvider = ({ children }) => {
     fetchPrenotazioni();
   }, []);
 
+  // --- UPDATE DATI RITORNO & RIEPILOGO
+  const handleSubmitRitorno = (e) => {
+    e.preventDefault();
+    handleRitorno();
+    handleRiepilogo();
+  };
+
   // --- UPDATE DATI PARTENZA
   const handleSubmitPartenza = async (e) => {
     e.preventDefault();
@@ -97,8 +115,7 @@ export const ContextProvider = ({ children }) => {
   };
 
   // --- UPDATE DATI RITORNO
-  const handleSubmitRitorno = async (e) => {
-    e.preventDefault();
+  const handleRitorno = async () => {
     try {
       await updateDoc(doc(db, "Auto", autoSelezionata.id), {
         autista: "",
@@ -115,12 +132,11 @@ export const ContextProvider = ({ children }) => {
         error
       );
     }
-    navigate("/auto");
+    navigate("/riepilogo");
   };
 
   // --- UPDATE DATI RIEPILOGO
-  const handleRiepilogo = async (e) => {
-    e.preventDefault();
+  const handleRiepilogo = async () => {
     try {
       await addDoc(collection(db, "Prenotazioni"), {
         autista: autista,
@@ -185,7 +201,6 @@ export const ContextProvider = ({ children }) => {
         handlePrenotazione,
         handleSubmitPartenza,
         handleSubmitRitorno,
-        handleRiepilogo,
         setAutoSelezionata,
         setCarburante,
         setCondizione,

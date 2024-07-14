@@ -1,6 +1,9 @@
 import React, { useContext } from "react";
 // --- CONTEXT
 import { MyContext } from "../context";
+// --- ICONS
+import { FaCarSide } from "react-icons/fa";
+import { TbSteeringWheel } from "react-icons/tb";
 
 export const FormRitorno = () => {
   const {
@@ -16,9 +19,12 @@ export const FormRitorno = () => {
   return (
     <div className="component-container">
       <div className="info">
-        <div>Autista: {autista}</div>
-        <div>
-          Auto: {autoSelezionata.marca} {autoSelezionata.modello}
+        <div className="info-icons">
+          <FaCarSide size={30} />
+          {autoSelezionata.marca} {autoSelezionata.modello}
+        </div>
+        <div className="info-icons">
+          <TbSteeringWheel size={30} /> {autista}
         </div>
       </div>
       <form onSubmit={handleSubmitRitorno} className="form">
@@ -41,7 +47,7 @@ export const FormRitorno = () => {
           />
         </label>
         <button type="submit" className="form-button">
-          Stop
+          TERMINA MISSIONE
         </button>
       </form>
     </div>

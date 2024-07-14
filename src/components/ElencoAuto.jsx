@@ -2,6 +2,9 @@
 import React, { useContext } from "react";
 // --- CONTEXT
 import { MyContext } from "../context";
+// --- ICONS
+import { FaCarSide } from "react-icons/fa";
+import { FaRoadLock } from "react-icons/fa6";
 
 export const ElencoAuto = () => {
   const { parcoAuto, handlePrenotazione } = useContext(MyContext);
@@ -16,16 +19,22 @@ export const ElencoAuto = () => {
             onClick={() => handlePrenotazione(auto)}
           >
             <div className="auto-info">
-              <div className="auto-detail">Marca: {auto.marca}</div>
-              <div className="auto-detail">Modello: {auto.modello}</div>
-              <div className="auto-detail">Km Rilevati: {auto.kmRilevati}</div>
-              <div className="auto-status">
-                Stato Prenotazione: {auto.isPrenotata ? "Prenotata" : "Libera"}
+              <div className="parco-auto-icons">
+                <FaCarSide size={30} />
+                {auto.marca} {auto.modello}
+              </div>
+
+              <div>
+                <div className="parco-auto-icons">
+                  <FaRoadLock size={30} />
+                  {auto.isPrenotata ? "Prenotata" : "Libera"}
+                </div>
+
                 {auto.isPrenotata && (
                   <div className="prenotata-details">
-                    <div>Autista: {auto.autista}</div>
+                    <div>Conducente: {auto.autista}</div>
                     <div>Destinazione: {auto.destinazione}</div>
-                    <div>Giorno Prenotazione: {auto.timePartenza}</div>
+                    <div>In uso dal: {auto.timePartenza}</div>
                   </div>
                 )}
               </div>

@@ -2,6 +2,9 @@
 import React from "react";
 // --- ROUTER
 import { NavLink } from "react-router-dom";
+// --- ICONS
+import { FaHome } from "react-icons/fa";
+import { FaRegRectangleList } from "react-icons/fa6";
 
 export const Title = () => {
   return (
@@ -9,7 +12,7 @@ export const Title = () => {
       <ul className="navbar-list">
         <li className="navbar-item">
           <NavLink to="/" className="navbar-link" activeclassName="active-link">
-            Home
+            <FaHome size={30} />
           </NavLink>
         </li>
         <li className="navbar-item">
@@ -18,13 +21,16 @@ export const Title = () => {
             className="navbar-link"
             activeclassName="active-link"
           >
-            Riepilogo
+            <FaRegRectangleList size={30} />
           </NavLink>
         </li>
       </ul>
-      <h1 className="navbar-title">
-        CAR<span className="title-highlight">POOLI</span>
-      </h1>
+      <div>
+        <h1 className="navbar-title">
+          CAR<span className="title-highlight">POOLI</span>
+          <div className="title-subtitle">POLITECNICO DI MILANO</div>
+        </h1>
+      </div>
     </div>
   );
 };

@@ -2,6 +2,9 @@
 import React, { useContext } from "react";
 // --- CONTEXT
 import { MyContext } from "../context";
+// --- ICONS
+import { FaCarSide } from "react-icons/fa";
+import { TbSteeringWheel } from "react-icons/tb";
 
 export const FormPartenza = () => {
   const {
@@ -18,32 +21,42 @@ export const FormPartenza = () => {
   return (
     <div className="form-container">
       <form onSubmit={handleSubmitPartenza} className="form">
-        <div className="form-item">
-          <label>Autista:</label>
-          <div>{autista}</div>
+        <div className="info-icons">
+          <label>
+            <FaCarSide size={30} />
+          </label>
+          {autoSelezionata.marca} {autoSelezionata.modello}
         </div>
 
-        <div className="form-item">
-          <label>Auto:</label>
+        <div className="info-icons">
+          <label>
+            <TbSteeringWheel size={30} />
+          </label>
           <div>
-            {autoSelezionata.marca} {autoSelezionata.modello}
+            <div>{autista}</div>
           </div>
         </div>
 
         <div className="form-item">
-          <label>Km rilevati:</label>
+          <label>Km rilevati quadro:</label>
           <div>{autoSelezionata.kmRilevati}</div>
         </div>
 
-        <div className="form-item">
-          <div>
-            <button type="button" onClick={handleKmRilevati}>
-              Conferma
-            </button>
-            <button type="button" onClick={handleKmAggiornati}>
-              Aggiorna
-            </button>
-          </div>
+        <div className="form-item--buttons">
+          <button
+            className="form-button-conferma"
+            type="button"
+            onClick={handleKmRilevati}
+          >
+            Conferma km rilevati
+          </button>
+          <button
+            className="form-button-aggiorna"
+            type="button"
+            onClick={handleKmAggiornati}
+          >
+            Aggiorna km rilevati
+          </button>
         </div>
 
         <div className="form-item">
@@ -52,7 +65,6 @@ export const FormPartenza = () => {
         </div>
 
         <div className="form-item">
-          <label>Condizione:</label>
           <div>
             <label>
               <input
@@ -78,7 +90,7 @@ export const FormPartenza = () => {
         </div>
 
         <div className="form-item">
-          <label htmlFor="destinazione">Destinazione finale:</label>
+          <label htmlFor="destinazione">Destinazione:</label>
           <select
             id="destinazione"
             onChange={(e) => setDestinazione(e.target.value)}
@@ -92,8 +104,8 @@ export const FormPartenza = () => {
           </select>
         </div>
 
-        <div className="form-item">
-          <button type="submit">Start</button>
+        <div className="form-item-button">
+          <button type="submit">INIZIA MISSIONE</button>
         </div>
       </form>
     </div>
