@@ -25,7 +25,11 @@ export const ElencoAuto = () => {
               </div>
 
               <div>
-                <div className="parco-auto-icons">
+                <div
+                  className={
+                    auto.isPrenotata ? "prenotata" : "parco-auto-icons"
+                  }
+                >
                   <FaRoadLock size={30} />
                   {auto.isPrenotata ? "Prenotata" : "Libera"}
                 </div>

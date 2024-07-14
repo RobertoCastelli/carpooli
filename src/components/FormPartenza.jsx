@@ -63,9 +63,27 @@ export const FormPartenza = () => {
           <label>Km partenza:</label>
           <div>{kmPartenza}</div>
         </div>
+        <br />
 
         <div className="form-item">
-          <div>
+          <label htmlFor="destinazione">Destinazione:</label>
+          <select
+            id="destinazione"
+            onChange={(e) => setDestinazione(e.target.value)}
+            name="destinazione"
+            required
+          >
+            <option value="">Seleziona...</option>
+            <option value="lecco">Lecco</option>
+            <option value="como">Como</option>
+            <option value="milano">Milano</option>
+          </select>
+        </div>
+        <br />
+
+        <div>
+          <div className="form-radio">
+            <label>Condizione auto:</label>
             <label>
               <input
                 type="radio"
@@ -88,23 +106,9 @@ export const FormPartenza = () => {
             </label>
           </div>
         </div>
+        <br />
 
-        <div className="form-item">
-          <label htmlFor="destinazione">Destinazione:</label>
-          <select
-            id="destinazione"
-            onChange={(e) => setDestinazione(e.target.value)}
-            name="destinazione"
-            required
-          >
-            <option value="">Seleziona...</option>
-            <option value="lecco">Lecco</option>
-            <option value="como">Como</option>
-            <option value="milano">Milano</option>
-          </select>
-        </div>
-
-        <div className="form-item-button">
+        <div>
           <button type="submit">INIZIA MISSIONE</button>
         </div>
       </form>

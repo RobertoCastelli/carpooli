@@ -2,6 +2,7 @@
 
 body {
   margin: 0;
+  color: #282c34;
   background-color: cadetblue;
   font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -12,7 +13,9 @@ body {
   box-sizing: border-box;
 }
 
-/* CONTEINER */
+/* --------- */
+/* CONTAINER */
+/* --------- */
 .container {
   display: flex;
   flex-direction: column;
@@ -24,7 +27,9 @@ body {
   flex-grow: 1;
 }
 
+/* ------ */
 /* NAVBAR */
+/* ------ */
 .navbar-container {
   display: flex;
   flex-direction: column;
@@ -60,12 +65,12 @@ body {
 }
 
 .active-link {
-  border-bottom: 2px solid #61dafb;
+  border-bottom: 2px solid orange;
 }
 
 .navbar-title {
   text-align: center;
-  color: white;
+  color: #f3f3f3;
   font-size: 36px;
   margin: 0;
 }
@@ -75,13 +80,15 @@ body {
 }
 
 .title-subtitle {
-  font-size: 1rem;
+  font-size: 0.8rem;
 }
 
+/* --------- */
 /* RIEPILOGO */
+/* --------- */
 .riepilogo-container {
   padding: 10px;
-  background-color: #f9f9f9;
+  background-color: lightgray;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   max-width: 600px;
   margin: 0 auto;
@@ -102,25 +109,26 @@ body {
 }
 
 .riepilogo-item:hover {
-  background-color: #f1f1f1;
+  background-color: #f3f3f3;
 }
 
 .riepilogo-field {
   display: flex;
   justify-content: space-between;
-  padding: 0px 0;
 }
 
 .riepilogo-label {
   font-weight: bold;
-  color: #333;
+  color: #282c34;
 }
 
 .riepilogo-value {
-  color: #555;
+  color: #282c34;
 }
 
+/* ------- */
 /* AUTISTI */
+/* ------- */
 .autisti-list-container {
   margin-top: 20px;
 }
@@ -159,7 +167,7 @@ body {
 }
 
 .parco-auto-item {
-  background-color: #f0f0f0;
+  background-color: #fff;
   padding: 20px;
   margin-bottom: 10px;
   border-radius: 5px;
@@ -184,14 +192,18 @@ body {
   margin-bottom: 10px;
 }
 
-.auto-status {
-  font-style: italic;
+.prenotata-details {
   color: #555;
-  margin-top: 5px;
+  font-style: italic;
+  padding-top: 10px;
 }
 
-.prenotata-details {
-  padding-top: 10px;
+.prenotata {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  color: brown;
 }
 
 /* FORM */
@@ -199,19 +211,10 @@ body {
   max-width: 600px;
   margin: 20px auto;
   padding: 20px;
-  background-color: #f0f0f0;
+  background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.form {
-  display: grid;
-  gap: 15px;
-}
-
-.form-item {
-  display: grid;
-  gap: 5px;
+  color: #282c34;
 }
 
 label {
@@ -220,27 +223,22 @@ label {
 
 button {
   padding: 10px 20px;
-  margin: 5px;
   background-color: cadetblue;
   color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
+  width: 100%;
 }
 
 input[type="radio"] {
   margin-right: 5px;
 }
 
-/* RITORNO */
-.component-container {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: #f0f0f0;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+.form-radio {
+  display: grid;
+  gap: 10px;
 }
 
 .info {
@@ -273,7 +271,7 @@ input[type="radio"] {
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
-  width: 100px;
+  width: 100%;
 }
 
 .form-item--buttons {
@@ -284,18 +282,12 @@ input[type="radio"] {
 .form-button-conferma {
   background-color: orange;
   color: #282c34;
+  margin-right: 5px;
 }
 
-.form-button {
-  background-color: cadetblue;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
+/* ------ */
 /* FOOTER */
+/* ------ */
 .footer-container {
   text-align: center;
   margin-top: 20px;

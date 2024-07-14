@@ -17,7 +17,7 @@ export const FormRitorno = () => {
   } = useContext(MyContext);
 
   return (
-    <div className="component-container">
+    <div className="form-container">
       <div className="info">
         <div className="info-icons">
           <FaCarSide size={30} />
@@ -46,9 +46,7 @@ export const FormRitorno = () => {
             className="form-input"
           />
         </label>
-        <button type="submit" className="form-button">
-          TERMINA MISSIONE
-        </button>
+        <button type="submit">TERMINA MISSIONE</button>
       </form>
     </div>
   );
