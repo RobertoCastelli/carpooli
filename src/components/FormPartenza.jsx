@@ -10,8 +10,6 @@ export const FormPartenza = () => {
   const {
     autista,
     autoSelezionata,
-   
-    kmPartenza,
     handleKmAggiornati,
     handleSubmitPartenza,
     setDestinazione,
@@ -22,7 +20,6 @@ export const FormPartenza = () => {
     <>
       <h3 className="form-titolo">form partenza</h3>
       <div className="form-container">
-
         <div className="form-content">
           <div className="form-veicolo">
             <FaCarSide size={30} /> {autoSelezionata.marca}{" "}
@@ -36,21 +33,16 @@ export const FormPartenza = () => {
         <form onSubmit={handleSubmitPartenza} className="form">
           <div className="form-content">
             <div className="form-partenza">
-           <label className="form-label">Km rilevati quadro:</label>
-            <div>{autoSelezionata.kmRilevati}</div>   
+              <label className="form-label">Km rilevati quadro:</label>
+              <div>{autoSelezionata.kmRilevati}</div>
             </div>
           </div>
- 
-                  <div className="form-buttons">
-         
 
+          <div className="form-buttons">
             <button type="button" onClick={handleKmAggiornati}>
               Aggiorna km rilevati
             </button>
           </div>
-
-          
-       
 
           <div className="form-item">
             <label htmlFor="destinazione">destinazione:</label>
