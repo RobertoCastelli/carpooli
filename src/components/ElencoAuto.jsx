@@ -10,39 +10,47 @@ export const ElencoAuto = () => {
   const { parcoAuto, handlePrenotazione } = useContext(MyContext);
 
   return (
-    <div className="parco-auto-list-container">
-      <ul className="parco-auto-list">
+    <div className="parco-auto-container">
+      <h3 className="parco-auto-titolo">parco auto</h3>
+      <ul className="parco-auto-ul">
         {parcoAuto.map((auto) => (
           <li
             key={auto.id}
-            className="parco-auto-item"
+            className="parco-auto-li"
             onClick={() => handlePrenotazione(auto)}
           >
-            <div className="auto-info">
-              <div className="parco-auto-icons">
-                <FaCarSide size={30} />
-                {auto.marca} {auto.modello}
-              </div>
-
-              <div>
-                <div
-                  className={
-                    auto.isPrenotata ? "prenotata" : "parco-auto-icons"
-                  }
-                >
-                  <FaRoadLock size={30} />
-                  {auto.isPrenotata ? "Prenotata" : "Libera"}
-                </div>
-
-                {auto.isPrenotata && (
-                  <div className="prenotata-details">
-                    <div>Conducente: {auto.autista}</div>
-                    <div>Destinazione: {auto.destinazione}</div>
-                    <div>In uso dal: {auto.timePartenza}</div>
-                  </div>
-                )}
-              </div>
+            <div className="parco-auto-veicolo">
+              <FaCarSide size={30} />
+              {auto.marca} {auto.modello}
             </div>
+
+            <div
+              className={
+                auto.isPrenotata
+                  ? "parco-auto-prenotata"
+                  : "parco-auto-stato-prenotazione"
+              }
+            >
+              <FaRoadLock size={30} />
+              {auto.isPrenotata ? "prenotata" : "libera"}
+            </div>
+
+            {auto.isPrenotata && (
+              <div className="parco-auto-dettagli">
+                <div className="parco-auto-info">
+                  <div>conducente:</div>
+                  <div>{auto.autista}</div>
+                </div>
+                <div className="parco-auto-info">
+                  <div>destinazione:</div>
+                  <div>{auto.destinazione}</div>
+                </div>
+                <div className="parco-auto-info">
+                  <div>in uso dal:</div>
+                  <div>{auto.timePartenza}</div>
+                </div>
+              </div>
+            )}
           </li>
         ))}
       </ul>

@@ -7,42 +7,44 @@ export const Riepilogo = () => {
   const { riepilogo } = useContext(MyContext);
 
   return (
+    <>
+    <h3 className="riepilogo-titolo">riepilogo</h3>
     <div className="riepilogo-container">
-      <ul className="riepilogo-list">
+      <ul className="riepilogo-ul">
         {riepilogo.map((record) => {
           const kmPercorsi = record.kmRitorno - record.kmPartenza;
           return (
-            <li key={record.id} className="riepilogo-item">
-              <div className="riepilogo-field">
-                <span className="riepilogo-label">Conducente:</span>
-                <span className="riepilogo-value">{record.autista}</span>
+            <li key={record.id} className="riepilogo-li">
+              <div className="riepilogo-field-autista">
+                <span className="riepilogo-label-autista">conducente:</span>
+                <span className="riepilogo-value-autista">{record.autista}</span>
               </div>
               <div className="riepilogo-field">
-                <span className="riepilogo-label">Destinazione:</span>
+                <span className="riepilogo-label">destinazione:</span>
                 <span className="riepilogo-value">{record.destinazione}</span>
               </div>
               <div className="riepilogo-field">
-                <span className="riepilogo-label">Spesa per carburante:</span>
+                <span className="riepilogo-label">spesa carburante:</span>
                 <span className="riepilogo-value">{record.carburante} €</span>
               </div>
               <div className="riepilogo-field">
-                <span className="riepilogo-label">Km partenza:</span>
+                <span className="riepilogo-label">km partenza:</span>
                 <span className="riepilogo-value">{record.kmPartenza}</span>
               </div>
               <div className="riepilogo-field">
-                <span className="riepilogo-label">Km ritorno:</span>
+                <span className="riepilogo-label">km ritorno:</span>
                 <span className="riepilogo-value">{record.kmRitorno}</span>
               </div>
               <div className="riepilogo-field">
-                <span className="riepilogo-label">Km percorsi:</span>
+                <span className="riepilogo-label">km percorsi:</span>
                 <span className="riepilogo-value">{kmPercorsi}</span>
               </div>
               <div className="riepilogo-field">
-                <span className="riepilogo-label">Data:</span>
+                <span className="riepilogo-label">data:</span>
                 <span className="riepilogo-value">{record.time}</span>
               </div>
               <div className="riepilogo-field">
-                <span className="riepilogo-label">Condizione auto:</span>
+                <span className="riepilogo-label">condizione auto:</span>
                 <span className="riepilogo-value">{record.condizione}</span>
               </div>
             </li>
@@ -50,5 +52,6 @@ export const Riepilogo = () => {
         })}
       </ul>
     </div>
+    </>
   );
 };

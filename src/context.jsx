@@ -18,10 +18,10 @@ export const ContextProvider = ({ children }) => {
   const [parcoAuto, setParcoAuto] = useState([]);
   const [autoSelezionata, setAutoSelezionata] = useState([]);
   const [autisti] = useState([
-    "Alberto Crespi",
-    "Giacomo Rossello",
-    "Rino Imperatrice",
-    "Roberto Colombo",
+    "alberto crespi",
+    "giacomo rossello",
+    "rino imperatrice",
+    "roberto colombo",
   ]);
   const [autista, setAutista] = useState("");
   const [destinazione, setDestinazione] = useState("");
@@ -135,7 +135,7 @@ export const ContextProvider = ({ children }) => {
     navigate("/riepilogo");
   };
 
-  // --- UPDATE DATI RIEPILOGO
+  // --- ADD DATI RIEPILOGO
   const handleRiepilogo = async () => {
     try {
       await addDoc(collection(db, "Prenotazioni"), {
@@ -155,8 +155,7 @@ export const ContextProvider = ({ children }) => {
   // --- SET AUTISTA SELEZIONATO
   const handleAutista = (e) => setAutista(e.target.textContent);
 
-  // --- SET KM RILEVATI
-  const handleKmRilevati = () => setKmPartenza(autoSelezionata.kmRilevati);
+
 
   // --- UPDATE KM RILEVATI
   const handleKmAggiornati = () => {
@@ -196,7 +195,7 @@ export const ContextProvider = ({ children }) => {
         parcoAuto,
         riepilogo,
         handleAutista,
-        handleKmRilevati,
+      
         handleKmAggiornati,
         handlePrenotazione,
         handleSubmitPartenza,

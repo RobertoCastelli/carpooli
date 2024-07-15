@@ -5,31 +5,36 @@ import { NavLink } from "react-router-dom";
 // --- ICONS
 import { FaHome } from "react-icons/fa";
 import { FaRegRectangleList } from "react-icons/fa6";
+import { HiMiniWrenchScrewdriver } from "react-icons/hi2";
 
 export const Title = () => {
   return (
     <div className="navbar-container">
-      <ul className="navbar-list">
-        <li className="navbar-item">
-          <NavLink to="/" className="navbar-link" activeclassName="active-link">
+      <ul className="navbar-ul">
+        <li className="navbar-li">
+          <NavLink to="/" className={({isActive}) => (isActive ? "active-link" : "navbar-link")}>
             <FaHome size={30} />
           </NavLink>
         </li>
-        <li className="navbar-item">
+        <li className="navbar-li">
+          <NavLink 
+          to="/Manutenzione" className={({isActive}) => (isActive ? "active-link" : "navbar-link")}>
+            <HiMiniWrenchScrewdriver size={30} />
+          </NavLink>
+        </li>
+        <li className="navbar-li">
           <NavLink
             to="/riepilogo"
-            className="navbar-link"
-            activeclassName="active-link"
-          >
+            className={({isActive}) => (isActive ? "active-link" : "navbar-link")}>
             <FaRegRectangleList size={30} />
           </NavLink>
         </li>
       </ul>
-      <div>
-        <h1 className="navbar-title">
-          CAR<span className="title-highlight">POOLI</span>
-          <div className="title-subtitle">POLITECNICO DI MILANO</div>
+      <div className="navbar-title">
+        <h1 >
+          car<span className="title-highlight">pooli</span>
         </h1>
+          <div className="title-subtitle">politecnico di milano</div>
       </div>
     </div>
   );

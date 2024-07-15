@@ -17,37 +17,46 @@ export const FormRitorno = () => {
   } = useContext(MyContext);
 
   return (
-    <div className="form-container">
-      <div className="info">
-        <div className="info-icons">
-          <FaCarSide size={30} />
-          {autoSelezionata.marca} {autoSelezionata.modello}
+    <>
+      <h3 className="form-titolo">form ritorno</h3>
+      <div className="form-container">
+        
+        <div className="form-content">
+          <div className="form-veicolo">
+            <FaCarSide size={30} />
+            {autoSelezionata.marca} {autoSelezionata.modello}
+          </div>
+          <div className="form-autista">
+            <TbSteeringWheel size={30} /> {autista}
+          </div>
         </div>
-        <div className="info-icons">
-          <TbSteeringWheel size={30} /> {autista}
-        </div>
+
+        <form onSubmit={handleSubmitRitorno} className="form">
+          <div className="form-content">
+            <div className="form-ritorno">
+              <label className="form-label">km ritorno:</label>
+              <input
+                type="number"
+                value={kmRitorno}
+                onChange={(e) => setKmRitorno(e.target.value)}
+                className="form-input"
+              />
+            </div>
+
+            <div className="form-ritorno">
+              <label className="form-label">spese carburante:</label>
+              <input
+                type="number"
+                value={carburante}
+                onChange={(e) => setCarburante(e.target.value)}
+                className="form-input"
+              />
+            </div>
+          </div>
+
+          <button type="submit">termina missione</button>
+        </form>
       </div>
-      <form onSubmit={handleSubmitRitorno} className="form">
-        <label className="form-item">
-          Km ritorno:
-          <input
-            type="number"
-            value={kmRitorno}
-            onChange={(e) => setKmRitorno(e.target.value)}
-            className="form-input"
-          />
-        </label>
-        <label className="form-item">
-          Spese carburante:
-          <input
-            type="number"
-            value={carburante}
-            onChange={(e) => setCarburante(e.target.value)}
-            className="form-input"
-          />
-        </label>
-        <button type="submit">TERMINA MISSIONE</button>
-      </form>
-    </div>
+    </>
   );
 };

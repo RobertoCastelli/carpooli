@@ -4,6 +4,7 @@ body {
   margin: 0;
   color: #282c34;
   background-color: cadetblue;
+  letter-spacing: 1px;
   font-family: "Montserrat", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -13,6 +14,10 @@ body {
   box-sizing: border-box;
 }
 
+h1 {
+  margin: 0;
+}
+
 /* --------- */
 /* CONTAINER */
 /* --------- */
@@ -20,7 +25,7 @@ body {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  max-width: 300px;
+  max-width: 350px;
   margin: auto;
 }
 .content {
@@ -33,23 +38,22 @@ body {
 .navbar-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   background-color: #282c34;
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
 }
 
-.navbar-list {
+.navbar-ul {
   list-style-type: none;
   display: flex;
-  gap: 20px;
+  justify-content: space-evenly;
   padding: 0;
   margin: 0 0 20px 0;
 }
 
-.navbar-item {
+.navbar-li {
   display: inline;
 }
 
@@ -65,14 +69,25 @@ body {
 }
 
 .active-link {
+  color: orange;
   border-bottom: 2px solid orange;
 }
 
 .navbar-title {
+  text-transform: uppercase;
   text-align: center;
-  color: #f3f3f3;
-  font-size: 36px;
+  color: #f3f3f3f0;
   margin: 0;
+}
+
+.autisti-titolo,
+.riepilogo-titolo,
+.parco-auto-titolo,
+.form-titolo{
+  color: #282c34;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
 }
 
 .title-highlight {
@@ -80,50 +95,7 @@ body {
 }
 
 .title-subtitle {
-  font-size: 0.8rem;
-}
-
-/* --------- */
-/* RIEPILOGO */
-/* --------- */
-.riepilogo-container {
-  padding: 10px;
-  background-color: lightgray;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.riepilogo-list {
-  list-style-type: none;
-  padding: 0;
-}
-
-.riepilogo-item {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.riepilogo-item:hover {
-  background-color: #f3f3f3;
-}
-
-.riepilogo-field {
-  display: flex;
-  justify-content: space-between;
-}
-
-.riepilogo-label {
-  font-weight: bold;
-  color: #282c34;
-}
-
-.riepilogo-value {
-  color: #282c34;
+  font-size: 0.6rem;
 }
 
 /* ------- */
@@ -132,6 +104,8 @@ body {
 .autisti-list-container {
   margin-top: 20px;
 }
+
+
 
 .autisti-list {
   list-style-type: none;
@@ -145,6 +119,7 @@ body {
 }
 
 .autista-item {
+  text-transform: capitalize;
   background-color: #282c34;
   color: white;
   padding: 10px;
@@ -160,13 +135,15 @@ body {
   transform: translateY(-2px);
 }
 
-/* AUTO */
-.parco-auto-list {
+/*-------------*/
+/* PARCO AUTO  */
+/*-------------*/
+.parco-auto-ul {
   list-style-type: none;
   padding: 0;
 }
 
-.parco-auto-item {
+.parco-auto-li {
   background-color: #fff;
   padding: 20px;
   margin-bottom: 10px;
@@ -176,29 +153,20 @@ body {
   transition: background-color 0.3s, transform 0.3s;
 }
 
-.parco-auto-item:hover {
+.parco-auto-li:hover {
   background-color: #e0e0e0;
   transform: translateY(-2px);
 }
 
-.parco-auto-icons {
+.parco-auto-veicolo,
+.parco-auto-stato-prenotazione {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #ccc;
 }
 
-.auto-info {
-  margin-bottom: 10px;
-}
-
-.prenotata-details {
-  color: #555;
-  font-style: italic;
-  padding-top: 10px;
-}
-
-.prenotata {
+.parco-auto-prenotata {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -206,9 +174,21 @@ body {
   color: brown;
 }
 
+.parco-auto-dettagli {
+  color: #555;
+  font-style: italic;
+  margin-top: 20px;
+}
+
+.parco-auto-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+/*------*/
 /* FORM */
+/*------*/
 .form-container {
-  max-width: 600px;
   margin: 20px auto;
   padding: 20px;
   background-color: #fff;
@@ -217,20 +197,55 @@ body {
   color: #282c34;
 }
 
-label {
-  font-weight: bold;
-}
-
 button {
+  letter-spacing: 1px;
+  text-transform: uppercase;
   padding: 10px 20px;
   background-color: cadetblue;
-  color: white;
+  color: #fff;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s;
   width: 100%;
 }
+
+.form-content {
+  margin-bottom: 20px;
+}
+
+.form-ritorno,
+.form-partenza {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.form-input {
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 10px;
+  font-size: 14px;
+  background-color: #f3f3f3;
+  width: 40%;
+}
+
+.form-veicolo,
+.form-autista {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom:1px solid #ccc;
+}
+
+
+
+
+
 
 input[type="radio"] {
   margin-right: 5px;
@@ -252,27 +267,16 @@ input[type="radio"] {
   border-bottom: 1px solid #ccc;
 }
 
+
+
+
+
+
+
 .info > div {
   margin-bottom: 10px;
 }
 
-.form {
-  display: grid;
-  gap: 5px;
-}
-
-.form-item {
-  display: grid;
-  gap: 10px;
-}
-
-.form-input {
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 14px;
-  width: 100%;
-}
 
 .form-item--buttons {
   display: flex;
@@ -283,6 +287,61 @@ input[type="radio"] {
   background-color: orange;
   color: #282c34;
   margin-right: 5px;
+}
+
+/* --------- */
+/* RIEPILOGO */
+/* --------- */
+
+.riepilogo-ul {
+  text-transform: capitalize;  
+  list-style-type: none;
+  padding: 0;
+}
+
+.riepilogo-li {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 10px 15px 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.riepilogo-li:hover {
+  background-color: #f3f3f3;
+}
+
+.riepilogo-label-autista {
+  color: #282c34;
+  font-weight: bold;
+}
+
+.riepilogo-value-autista{
+color: cadetblue;
+font-weight: bold;
+}
+
+.riepilogo-field-autista {
+ display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  padding: 5px 0 0 0;
+}
+
+.riepilogo-field {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  padding: 5px 0 0 15px;
+}
+
+.riepilogo-label {
+  color: #282c34;
+}
+
+.riepilogo-value {
+  color: #282c34;
 }
 
 /* ------ */
@@ -297,8 +356,12 @@ input[type="radio"] {
   background-color: #282c34;
   color: white;
   padding: 10px;
-  border-bottom-right-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 14px;
+}
+
+.footer-copyright{
+  color: orange;
 }
