@@ -184,6 +184,26 @@ h1 {
   display: flex;
   justify-content: space-between;
 }
+.parco-auto-filtri {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.parco-auto-filtri button {
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background-color: #282c34;
+  color: #f3f3f3f0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+  height: 30px;
+  margin: 1px;
+  font-size: 0.6rem;
+}
 
 /*------*/
 /* FORM */
@@ -207,15 +227,18 @@ h1 {
 
 .form-partenza-km-cruscotto-aggiornati {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 20px;
 }
 
 .form-content-veicolo-autista {
   margin-bottom: 20px;
 }
 
-.form-partenza-cruscotto {
-  text-align: center;
+.form-partenza-km-cruscotto {
+  font-weight: bold;
 }
 
 .form-ritorno-km,
@@ -293,7 +316,6 @@ input[type="radio"] {
 .btn-aggiorna-km {
   background-color: orange;
   color: #282c34;
-  margin-bottom: 20px;
 }
 
 /* --------- */

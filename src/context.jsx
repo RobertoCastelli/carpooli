@@ -194,6 +194,7 @@ export const ContextProvider = ({ children }) => {
   // --- SET AUTISTA SELEZIONATO
   const handleAutista = (e) => {
     setAutista(e.target.textContent);
+    setFiltro("tutte");
     setKmPartenza(0);
   };
 
