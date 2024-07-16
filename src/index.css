@@ -105,6 +105,11 @@ h1 {
   margin-top: 20px;
 }
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 8bdefd1bf01fa77cc94ee0fba65bb4263302f2c0
 .autisti-list {
   list-style-type: none;
   padding: 0;
@@ -213,7 +218,11 @@ button {
 }
 
 .form-ritorno,
+<<<<<<< HEAD
 .form-partenza-cruscotto{
+=======
+.form-partenza {
+>>>>>>> 8bdefd1bf01fa77cc94ee0fba65bb4263302f2c0
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -240,6 +249,7 @@ button {
   border-bottom:1px solid #ccc;
 }
 
+<<<<<<< HEAD
 .form-autista {
   text-transform: capitalize;
 }
@@ -256,6 +266,53 @@ input[type="radio"] {
   display: flex;
   justify-content: space-between;
   align-items:  center;
+=======
+
+
+
+
+
+input[type="radio"] {
+  margin-right: 5px;
+}
+
+.form-radio {
+  display: grid;
+  gap: 10px;
+}
+
+.info {
+  margin-bottom: 20px;
+}
+
+.info-icons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+}
+
+
+
+
+
+
+
+.info > div {
+  margin-bottom: 10px;
+}
+
+
+.form-item--buttons {
+  display: flex;
+  justify-content: space-around;
+}
+
+.form-button-conferma {
+  background-color: orange;
+  color: #282c34;
+  margin-right: 5px;
+>>>>>>> 8bdefd1bf01fa77cc94ee0fba65bb4263302f2c0
 }
 
 /* --------- */
