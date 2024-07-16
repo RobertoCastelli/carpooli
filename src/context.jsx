@@ -3,11 +3,14 @@ import React, { useState, useEffect } from "react";
 // --- FIREBASE
 import { db } from "./FirebaseConfig";
 import {
+  query,
   doc,
   onSnapshot,
   updateDoc,
   collection,
   addDoc,
+  orderBy,
+  where,
 } from "firebase/firestore";
 // --- ROUTER
 import { useNavigate } from "react-router-dom";
@@ -17,12 +20,7 @@ export const MyContext = React.createContext();
 export const ContextProvider = ({ children }) => {
   const [parcoAuto, setParcoAuto] = useState([]);
   const [autoSelezionata, setAutoSelezionata] = useState([]);
-  const [autisti] = useState([
-    "alberto crespi",
-    "giacomo rossello",
-    "rino imperatrice",
-    "roberto colombo",
-  ]);
+  const [autisti, setAutisti] = useState([]);
   const [autista, setAutista] = useState("");
   const [destinazione, setDestinazione] = useState("");
   const [kmPartenza, setKmPartenza] = useState(0);
@@ -30,6 +28,9 @@ export const ContextProvider = ({ children }) => {
   const [condizione, setCondizione] = useState("");
   const [carburante, setCarburante] = useState(0);
   const [riepilogo, setRiepilogo] = useState([]);
+  const [filtro, setFiltro] = useState("tutte");
+
+  const [destinazioni] = useState(["leonardo", "newton", "pareto", "einstein"]);
 
   // --- NAVIGATE
   const navigate = useNavigate();
@@ -45,9 +46,25 @@ export const ContextProvider = ({ children }) => {
 
   // --- FETCH AUTO DAL DB
   useEffect(() => {
-    const fetchAuto = () => {
+    const fetchAuto = async (filtro) => {
       try {
-        const unsubscribe = onSnapshot(collection(db, "Auto"), (snapshot) => {
+        let q;
+        if (filtro === "prenotate") {
+          q = query(
+            collection(db, "Auto"),
+            where("isPrenotata", "==", true),
+            orderBy("marca", "asc")
+          );
+        } else if (filtro === "libere") {
+          q = query(
+            collection(db, "Auto"),
+            where("isPrenotata", "==", false),
+            orderBy("marca", "asc")
+          );
+        } else {
+          q = query(collection(db, "Auto"), orderBy("marca", "asc"));
+        }
+        const unsubscribe = onSnapshot(q, (snapshot) => {
           const autoArray = snapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
@@ -56,42 +73,57 @@ export const ContextProvider = ({ children }) => {
         });
         return () => unsubscribe(); // Pulizia dell'ascoltatore
       } catch (error) {
-        console.error("Error fetching data: ", error);
+        console.error("Errore nel recupero dei dati: ", error);
       }
     };
 
-    fetchAuto();
-  }, []);
+    fetchAuto(filtro);
+  }, [filtro]);
 
-  // --- FETCH PRENOTAZIONI DAL DB
+  // --- FETCH RIEPILOGO DAL DB
   useEffect(() => {
-    const fetchPrenotazioni = () => {
+    const fetchPrenotazioni = async () => {
       try {
-        const unsubscribe = onSnapshot(
+        const q = query(
           collection(db, "Prenotazioni"),
-          (snapshot) => {
-            const prenotazioniArray = snapshot.docs.map((doc) => ({
-              id: doc.id,
-              ...doc.data(),
-            }));
-            setRiepilogo(prenotazioniArray);
-          }
+          orderBy("timeRitorno", "desc")
         );
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+          const prenotazioniArray = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setRiepilogo(prenotazioniArray);
+        });
         return () => unsubscribe(); // Pulizia dell'ascoltatore
       } catch (error) {
-        console.error("Error fetching data: ", error);
+        console.error("Errore nel recupero dei dati: ", error);
       }
     };
 
     fetchPrenotazioni();
   }, []);
 
-  // --- UPDATE DATI RITORNO & RIEPILOGO
-  const handleSubmitRitorno = (e) => {
-    e.preventDefault();
-    handleRitorno();
-    handleRiepilogo();
-  };
+  // --- FETCH AUTISTI DAL DB
+  useEffect(() => {
+    const fetchAutisti = async () => {
+      try {
+        const q = query(collection(db, "Autisti"), orderBy("autista", "asc"));
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+          const autistiArray = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setAutisti(autistiArray);
+        });
+        return () => unsubscribe(); // Pulizia dell'ascoltatore
+      } catch (error) {
+        console.error("Errore nel recupero dei dati: ", error);
+      }
+    };
+
+    fetchAutisti();
+  }, []);
 
   // --- UPDATE DATI PARTENZA
   const handleSubmitPartenza = async (e) => {
@@ -102,16 +134,23 @@ export const ContextProvider = ({ children }) => {
         destinazione,
         timePartenza: timeStamp,
         isPrenotata: true,
-        kmRilevati: kmPartenza,
+        kmPartenza,
       });
       console.log("Stato prenotazione aggiornato con successo!");
     } catch (error) {
       console.error(
-        "Errore durante l'aggiornamento dello stato prenotazione:",
+        "Errore durante l'aggiornamento della prenotazione:",
         error
       );
     }
     navigate("/auto");
+  };
+
+  // --- UPDATE DATI RITORNO & RIEPILOGO
+  const handleSubmitRitorno = (e) => {
+    e.preventDefault();
+    handleRitorno();
+    handleRiepilogo();
   };
 
   // --- UPDATE DATI RITORNO
@@ -123,14 +162,11 @@ export const ContextProvider = ({ children }) => {
         timePartenza: "",
         timeRitorno: timeStamp,
         isPrenotata: false,
-        kmRilevati: kmRitorno,
+        kmPartenza: kmRitorno,
       });
       console.log("Stato ritorno aggiornato con successo!");
     } catch (error) {
-      console.error(
-        "Errore durante l'aggiornamento dello stato ritorno:",
-        error
-      );
+      console.error("Errore durante l'aggiornamento del ritorno:", error);
     }
     navigate("/riepilogo");
   };
@@ -139,12 +175,15 @@ export const ContextProvider = ({ children }) => {
   const handleRiepilogo = async () => {
     try {
       await addDoc(collection(db, "Prenotazioni"), {
-        autista: autista,
-        destinazione: destinazione,
+        autista,
+        marca: autoSelezionata.marca,
+        modello: autoSelezionata.modello,
+        destinazione,
         kmPartenza,
         kmRitorno,
         carburante,
         condizione,
+        timeRitorno: timeStamp,
       });
       console.log("Stato ritorno aggiornato con successo!");
     } catch (error) {
@@ -153,15 +192,27 @@ export const ContextProvider = ({ children }) => {
   };
 
   // --- SET AUTISTA SELEZIONATO
-  const handleAutista = (e) => setAutista(e.target.textContent);
+  const handleAutista = (e) => {
+    setAutista(e.target.textContent);
+    setKmPartenza(0);
+  };
 
+  // --- UPDATE KM DI PARTENZA
+  const handleKmPartenza = async () => {
+    try {
+      await updateDoc(doc(db, "Auto", autoSelezionata.id), {
+        kmPartenza,
+      });
+      console.log("Km aggiornati con successo!");
+    } catch (error) {
+      console.error("Errore durante l'aggiornamento dei km:", error);
+    }
+    navigate("/riepilogo");
+  };
 
-
-  // --- UPDATE KM RILEVATI
-  const handleKmAggiornati = () => {
+  const handleSubmitAggiornamentoKm = () => {
     const inputKmAggiornati = prompt("inserisci i km aggiornati:");
     if (inputKmAggiornati !== null) {
-      // ACCETTA SOLO NUMERI
       if (/^\d+$/.test(inputKmAggiornati)) {
         setKmPartenza(inputKmAggiornati);
       } else {
@@ -177,7 +228,7 @@ export const ContextProvider = ({ children }) => {
         setAutoSelezionata(auto);
         navigate("/ritorno");
       } else {
-        alert("non è una tua prenotazione");
+        alert(`Auto in uso da ${auto.autista}`);
       }
     } else {
       setAutoSelezionata(auto);
@@ -191,20 +242,22 @@ export const ContextProvider = ({ children }) => {
         autista,
         autisti,
         autoSelezionata,
+        destinazioni,
         kmPartenza,
         parcoAuto,
         riepilogo,
         handleAutista,
-      
-        handleKmAggiornati,
+        handleKmPartenza,
         handlePrenotazione,
         handleSubmitPartenza,
+        handleSubmitAggiornamentoKm,
         handleSubmitRitorno,
         setAutoSelezionata,
         setCarburante,
         setCondizione,
         setDestinazione,
         setKmRitorno,
+        setFiltro,
       }}
     >
       {children}

@@ -83,7 +83,7 @@ h1 {
 .autisti-titolo,
 .riepilogo-titolo,
 .parco-auto-titolo,
-.form-titolo{
+.form-titolo {
   color: #282c34;
   font-weight: bold;
   text-align: center;
@@ -105,12 +105,7 @@ h1 {
   margin-top: 20px;
 }
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 8bdefd1bf01fa77cc94ee0fba65bb4263302f2c0
-.autisti-list {
+.autisti-ul {
   list-style-type: none;
   padding: 0;
   display: grid;
@@ -121,7 +116,9 @@ h1 {
   text-decoration: none;
 }
 
-.autista-item {
+.autista-li {
+  display: flex;
+  justify-content: space-between;
   text-transform: capitalize;
   background-color: #282c34;
   color: white;
@@ -132,7 +129,7 @@ h1 {
   transition: background-color 0.3s, transform 0.3s;
 }
 
-.autista-item:hover {
+.autista-li:hover {
   background-color: orange;
   color: #282c34;
   transform: translateY(-2px);
@@ -191,7 +188,15 @@ h1 {
 /*------*/
 /* FORM */
 /*------*/
-.form-container {
+
+.form-ritorno-km-carburante,
+.form-partenza-km-destinazione-condizione {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-partenza-container,
+.form-ritorno-container {
   margin: 20px auto;
   padding: 20px;
   background-color: #fff;
@@ -200,33 +205,26 @@ h1 {
   color: #282c34;
 }
 
-button {
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 10px 20px;
-  background-color: cadetblue;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  width: 100%;
+.form-partenza-km-cruscotto-aggiornati {
+  display: flex;
+  justify-content: space-evenly;
 }
 
-.form-content {
+.form-content-veicolo-autista {
   margin-bottom: 20px;
 }
 
-.form-ritorno,
-<<<<<<< HEAD
-.form-partenza-cruscotto{
-=======
-.form-partenza {
->>>>>>> 8bdefd1bf01fa77cc94ee0fba65bb4263302f2c0
+.form-partenza-cruscotto {
+  text-align: center;
+}
+
+.form-ritorno-km,
+.form-ritorno-carburante,
+.form-partenza-cruscotto {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .form-input {
@@ -246,16 +244,22 @@ button {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom:1px solid #ccc;
+  border-bottom: 1px solid #ccc;
 }
 
-<<<<<<< HEAD
 .form-autista {
   text-transform: capitalize;
 }
 
-.form-partenza {
-margin: 20px 0;
+.form-destinazione {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.form-destinazione select {
+  width: 100%;
+  margin-left: 10px;
 }
 
 input[type="radio"] {
@@ -265,54 +269,31 @@ input[type="radio"] {
 .form-radio {
   display: flex;
   justify-content: space-between;
-  align-items:  center;
-=======
-
-
-
-
-
-input[type="radio"] {
-  margin-right: 5px;
-}
-
-.form-radio {
-  display: grid;
-  gap: 10px;
-}
-
-.info {
+  align-items: center;
   margin-bottom: 20px;
 }
 
-.info-icons {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #ccc;
+.btn-ritorno-termina,
+.btn-partenza-inizio,
+.btn-aggiorna-km {
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  background-color: cadetblue;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 40%;
+  height: 50px;
+  margin-left: auto;
 }
 
-
-
-
-
-
-
-.info > div {
-  margin-bottom: 10px;
-}
-
-
-.form-item--buttons {
-  display: flex;
-  justify-content: space-around;
-}
-
-.form-button-conferma {
+.btn-aggiorna-km {
   background-color: orange;
   color: #282c34;
-  margin-right: 5px;
->>>>>>> 8bdefd1bf01fa77cc94ee0fba65bb4263302f2c0
+  margin-bottom: 20px;
 }
 
 /* --------- */
@@ -320,7 +301,7 @@ input[type="radio"] {
 /* --------- */
 
 .riepilogo-ul {
-  text-transform: capitalize;  
+  text-transform: capitalize;
   list-style-type: none;
   padding: 0;
 }
@@ -343,13 +324,13 @@ input[type="radio"] {
   font-weight: bold;
 }
 
-.riepilogo-value-autista{
-color: cadetblue;
-font-weight: bold;
+.riepilogo-value-autista {
+  color: cadetblue;
+  font-weight: bold;
 }
 
 .riepilogo-field-autista {
- display: flex;
+  display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #ccc;
   padding: 5px 0 0 0;
@@ -388,6 +369,6 @@ font-weight: bold;
   font-size: 14px;
 }
 
-.footer-copyright{
+.footer-copyright {
   color: orange;
 }

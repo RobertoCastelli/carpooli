@@ -11,7 +11,9 @@ export const FormPartenza = () => {
   const {
     autista,
     autoSelezionata,
-    handleKmAggiornati,
+    destinazioni,
+    kmPartenza,
+    handleSubmitAggiornamentoKm,
     handleSubmitPartenza,
     setDestinazione,
     setCondizione,
@@ -20,8 +22,8 @@ export const FormPartenza = () => {
   return (
     <>
       <h3 className="form-titolo">form partenza</h3>
-      <div className="form-container">
-        <div className="form-content">
+      <div className="form-partenza-container">
+        <div className="form-content-veicolo-autista">
           <div className="form-veicolo">
             <FaCarSide size={30} /> {autoSelezionata.marca}{" "}
             {autoSelezionata.modello}
@@ -31,19 +33,26 @@ export const FormPartenza = () => {
           </div>
         </div>
 
-        <form onSubmit={handleSubmitPartenza} className="form">
-          <div className="form-content">
+        <form
+          onSubmit={handleSubmitPartenza}
+          className="form-partenza-km-destinazione-condizione"
+        >
+          <div className="form-partenza-km-cruscotto-aggiornati">
             <div className="form-partenza-cruscotto">
-              <label className="form-label">km cruscotto:</label>
-              <div>{autoSelezionata.kmRilevati}</div>
+              {autoSelezionata.kmPartenza} km cruscotto
             </div>
+            <button
+              className="btn-aggiorna-km"
+              type="button"
+              onClick={handleSubmitAggiornamentoKm}
+            >
+              aggiorna km
+            </button>
+
+            <div>{kmPartenza} km aggiornati</div>
           </div>
 
-          <button type="button" onClick={handleKmAggiornati}>
-            agiorna km cruscotto
-          </button>
-
-          <div className="form-partenza">
+          <div className="form-destinazione">
             <label htmlFor="destinazione">destinazione:</label>
             <select
               id="destinazione"
@@ -52,15 +61,16 @@ export const FormPartenza = () => {
               required
             >
               <option value="">Seleziona...</option>
-              <option value="lecco">Lecco</option>
-              <option value="como">Como</option>
-              <option value="milano">Milano</option>
+              {destinazioni.map((dest, index) => (
+                <option key={index} value={dest}>
+                  {dest}
+                </option>
+              ))}
             </select>
           </div>
-          <br />
 
-          <label>condizione auto:</label>
           <div className="form-radio">
+            <label>condizione auto:</label>
             <label>
               <input
                 type="radio"
@@ -68,7 +78,7 @@ export const FormPartenza = () => {
                 name="condizione"
                 value="pulita"
               />
-              <ImHappy size={30} />
+              <ImHappy size={30} color="green" />
             </label>
 
             <label>
@@ -78,15 +88,13 @@ export const FormPartenza = () => {
                 name="condizione"
                 value="sporca"
               />
-              <ImAngry size={30} />
+              <ImAngry size={30} color="brown" />
             </label>
           </div>
 
-          <br />
-
-          <div>
-            <button type="submit">inizia missione</button>
-          </div>
+          <button className="btn-partenza-inizio" type="submit">
+            inizia missione
+          </button>
         </form>
       </div>
     </>
