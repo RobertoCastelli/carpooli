@@ -1,0 +1,336 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+body {
+  margin: 0;
+  color: #282c34;
+  background-color: cadetblue;
+  letter-spacing: 1px;
+  font-family: "Montserrat", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+h1 {
+  margin: 0;
+}
+
+/* --------- */
+/* CONTAINER */
+/* --------- */
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 350px;
+  margin: auto;
+}
+.content {
+  flex-grow: 1;
+}
+
+/* ------ */
+/* NAVBAR */
+/* ------ */
+.navbar-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #282c34;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.navbar-ul {
+  list-style-type: none;
+  display: flex;
+  justify-content: space-evenly;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+.navbar-li {
+  display: inline;
+}
+
+.navbar-link {
+  color: cadetblue;
+  text-decoration: none;
+  font-size: 18px;
+  transition: color 0.3s;
+}
+
+.navbar-link:hover {
+  color: orange;
+}
+
+.active-link {
+  color: orange;
+  border-bottom: 2px solid orange;
+}
+
+.navbar-title {
+  text-transform: uppercase;
+  text-align: center;
+  color: #f3f3f3f0;
+  margin: 0;
+}
+
+.autisti-titolo,
+.riepilogo-titolo,
+.parco-auto-titolo,
+.form-titolo{
+  color: #282c34;
+  font-weight: bold;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.title-highlight {
+  color: cadetblue;
+}
+
+.title-subtitle {
+  font-size: 0.6rem;
+}
+
+/* ------- */
+/* AUTISTI */
+/* ------- */
+.autisti-list-container {
+  margin-top: 20px;
+}
+
+.autisti-list {
+  list-style-type: none;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.autista-link {
+  text-decoration: none;
+}
+
+.autista-item {
+  text-transform: capitalize;
+  background-color: #282c34;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.autista-item:hover {
+  background-color: orange;
+  color: #282c34;
+  transform: translateY(-2px);
+}
+
+/*-------------*/
+/* PARCO AUTO  */
+/*-------------*/
+.parco-auto-ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.parco-auto-li {
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.parco-auto-li:hover {
+  background-color: #e0e0e0;
+  transform: translateY(-2px);
+}
+
+.parco-auto-veicolo,
+.parco-auto-stato-prenotazione {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+}
+
+.parco-auto-prenotata {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+  color: brown;
+}
+
+.parco-auto-dettagli {
+  color: #555;
+  font-style: italic;
+  margin-top: 20px;
+}
+
+.parco-auto-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+/*------*/
+/* FORM */
+/*------*/
+.form-container {
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #282c34;
+}
+
+button {
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 10px 20px;
+  background-color: cadetblue;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 100%;
+}
+
+.form-content {
+  margin-bottom: 20px;
+}
+
+.form-ritorno,
+.form-partenza-cruscotto{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.form-input {
+  padding: 8px;
+  border-bottom: 1px solid #ccc;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-radius: 10px;
+  font-size: 14px;
+  background-color: #f3f3f3;
+  width: 40%;
+}
+
+.form-veicolo,
+.form-autista {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom:1px solid #ccc;
+}
+
+.form-autista {
+  text-transform: capitalize;
+}
+
+.form-partenza {
+margin: 20px 0;
+}
+
+input[type="radio"] {
+  margin-right: 10px;
+}
+
+.form-radio {
+  display: flex;
+  justify-content: space-between;
+  align-items:  center;
+}
+
+/* --------- */
+/* RIEPILOGO */
+/* --------- */
+
+.riepilogo-ul {
+  text-transform: capitalize;  
+  list-style-type: none;
+  padding: 0;
+}
+
+.riepilogo-li {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px 10px 15px 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.riepilogo-li:hover {
+  background-color: #f3f3f3;
+}
+
+.riepilogo-label-autista {
+  color: #282c34;
+  font-weight: bold;
+}
+
+.riepilogo-value-autista{
+color: cadetblue;
+font-weight: bold;
+}
+
+.riepilogo-field-autista {
+ display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  padding: 5px 0 0 0;
+}
+
+.riepilogo-field {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #ccc;
+  padding: 5px 0 0 15px;
+}
+
+.riepilogo-label {
+  color: #282c34;
+}
+
+.riepilogo-value {
+  color: #282c34;
+}
+
+/* ------ */
+/* FOOTER */
+/* ------ */
+.footer-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.footer-content {
+  background-color: #282c34;
+  color: white;
+  padding: 10px;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 14px;
+}
+
+.footer-copyright{
+  color: orange;
+}
