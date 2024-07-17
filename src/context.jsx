@@ -26,9 +26,8 @@ export const ContextProvider = ({ children }) => {
   const [destinazione, setDestinazione] = useState("");
   const [kmPartenza, setKmPartenza] = useState(0);
   const [kmRitorno, setKmRitorno] = useState(0);
-  const [condizione, setCondizione] = useState("");
   const [carburante, setCarburante] = useState(0);
-  const [riepilogo, setRiepilogo] = useState([]);
+  const [condizione, setCondizione] = useState("");
   const [filtro, setFiltro] = useState("tutte");
 
   // --- NAVIGATE
@@ -42,27 +41,6 @@ export const ContextProvider = ({ children }) => {
     hour: "2-digit",
     minute: "2-digit",
   });
-
-  // --- FETCH AUTISTI DAL DB
-  useEffect(() => {
-    const fetchAutisti = async () => {
-      try {
-        const q = query(collection(db, "Autisti"), orderBy("autista", "asc"));
-        const unsubscribe = onSnapshot(q, (snapshot) => {
-          const autistiArray = snapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
-          }));
-          setAutisti(autistiArray);
-        });
-        return () => unsubscribe(); // Pulizia dell'ascoltatore
-      } catch (error) {
-        console.error("Errore nel recupero dei dati: ", error);
-      }
-    };
-
-    fetchAutisti();
-  }, []);
 
   // --- FETCH AUTO DAL DB
   useEffect(() => {
@@ -100,20 +78,17 @@ export const ContextProvider = ({ children }) => {
     fetchAuto(filtro);
   }, [filtro]);
 
-  // --- FETCH RIEPILOGO DAL DB
+  // --- FETCH AUTISTI DAL DB
   useEffect(() => {
-    const fetchPrenotazioni = async () => {
+    const fetchAutisti = async () => {
       try {
-        const q = query(
-          collection(db, "Prenotazioni"),
-          orderBy("timeRitorno", "desc")
-        );
+        const q = query(collection(db, "Autisti"), orderBy("autista", "asc"));
         const unsubscribe = onSnapshot(q, (snapshot) => {
-          const prenotazioniArray = snapshot.docs.map((doc) => ({
+          const autistiArray = snapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
           }));
-          setRiepilogo(prenotazioniArray);
+          setAutisti(autistiArray);
         });
         return () => unsubscribe(); // Pulizia dell'ascoltatore
       } catch (error) {
@@ -121,7 +96,7 @@ export const ContextProvider = ({ children }) => {
       }
     };
 
-    fetchPrenotazioni();
+    fetchAutisti();
   }, []);
 
   // --- FETCH DESTINAZIONI DAL DB
@@ -147,27 +122,6 @@ export const ContextProvider = ({ children }) => {
 
     fetchDestinazioni();
   }, []);
-
-  // --- UPDATE DATI PARTENZA
-  const handleSubmitPartenza = async (e) => {
-    e.preventDefault();
-    try {
-      await updateDoc(doc(db, "Auto", autoSelezionata.id), {
-        autista,
-        destinazione,
-        timePartenza: timeStamp,
-        isPrenotata: true,
-        kmPartenza,
-      });
-      console.log("Stato prenotazione aggiornato con successo!");
-    } catch (error) {
-      console.error(
-        "Errore durante l'aggiornamento della prenotazione:",
-        error
-      );
-    }
-    navigate("/auto");
-  };
 
   // --- UPDATE DATI RITORNO & RIEPILOGO
   const handleSubmitRitorno = (e) => {
@@ -214,27 +168,30 @@ export const ContextProvider = ({ children }) => {
     }
   };
 
-  // --- SET AUTISTA SELEZIONATO
-  const handleAutista = (e) => {
-    setAutista(e.target.textContent);
-    setFiltro("tutte");
-    setKmPartenza(0);
-  };
-
-  // --- UPDATE KM DI PARTENZA
-  const handleKmPartenza = async () => {
+  // --- UPDATE DATI PARTENZA
+  const handleSubmitPartenza = async (e) => {
+    e.preventDefault();
     try {
       await updateDoc(doc(db, "Auto", autoSelezionata.id), {
+        autista,
+        destinazione,
+        timePartenza: timeStamp,
+        isPrenotata: true,
         kmPartenza,
+        condizione,
       });
-      console.log("Km aggiornati con successo!");
+      console.log("Stato prenotazione aggiornato con successo!");
     } catch (error) {
-      console.error("Errore durante l'aggiornamento dei km:", error);
+      console.error(
+        "Errore durante l'aggiornamento della prenotazione:",
+        error
+      );
     }
-    navigate("/riepilogo");
+    navigate("/");
   };
 
-  const handleSubmitAggiornamentoKm = () => {
+  // --- SET KM AGGIORNATI
+  const handleKmAggiornati = () => {
     const inputKmAggiornati = prompt("inserisci i km aggiornati:");
     if (inputKmAggiornati !== null) {
       if (/^\d+$/.test(inputKmAggiornati)) {
@@ -245,8 +202,15 @@ export const ContextProvider = ({ children }) => {
     }
   };
 
-  // --- HANDLE PRENOTAZIONI
-  const handlePrenotazione = (auto) => {
+  // --- SET AUTISTA SELEZIONATO
+  const handleAutistaSelezionato = (e) => {
+    setAutista(e.target.textContent);
+    setFiltro("tutte");
+    navigate("/auto");
+  };
+
+  // --- SET AUTO SELEZIONATA && Navigate to Partenza || Ritorno
+  const handleAutoSelezionata = (auto) => {
     if (auto.isPrenotata && auto.autista) {
       if (auto.autista === autista) {
         setAutoSelezionata(auto);
@@ -263,26 +227,25 @@ export const ContextProvider = ({ children }) => {
   return (
     <MyContext.Provider
       value={{
-        autista,
         autisti,
+        autista,
         parcoAuto,
         autoSelezionata,
-        destinazioni,
         filtro,
         kmPartenza,
-        riepilogo,
-        handleAutista,
-        handleKmPartenza,
-        handlePrenotazione,
+        destinazioni,
+        handleAutistaSelezionato,
+        handleAutoSelezionata,
+        handleKmAggiornati,
         handleSubmitPartenza,
-        handleSubmitAggiornamentoKm,
-        handleSubmitRitorno,
-        setAutoSelezionata,
-        setCarburante,
-        setCondizione,
         setDestinazione,
-        setKmRitorno,
         setFiltro,
+        setCondizione,
+        //controllati
+
+        handleSubmitRitorno,
+        setCarburante,
+        setKmRitorno,
       }}
     >
       {children}
