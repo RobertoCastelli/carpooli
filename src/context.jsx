@@ -22,6 +22,7 @@ export const ContextProvider = ({ children }) => {
   const [autoSelezionata, setAutoSelezionata] = useState([]);
   const [autisti, setAutisti] = useState([]);
   const [autista, setAutista] = useState("");
+  const [destinazioni, setDestinazioni] = useState([]);
   const [destinazione, setDestinazione] = useState("");
   const [kmPartenza, setKmPartenza] = useState(0);
   const [kmRitorno, setKmRitorno] = useState(0);
@@ -29,8 +30,6 @@ export const ContextProvider = ({ children }) => {
   const [carburante, setCarburante] = useState(0);
   const [riepilogo, setRiepilogo] = useState([]);
   const [filtro, setFiltro] = useState("tutte");
-
-  const [destinazioni] = useState(["leonardo", "newton", "pareto", "einstein"]);
 
   // --- NAVIGATE
   const navigate = useNavigate();
@@ -43,6 +42,27 @@ export const ContextProvider = ({ children }) => {
     hour: "2-digit",
     minute: "2-digit",
   });
+
+  // --- FETCH AUTISTI DAL DB
+  useEffect(() => {
+    const fetchAutisti = async () => {
+      try {
+        const q = query(collection(db, "Autisti"), orderBy("autista", "asc"));
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+          const autistiArray = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setAutisti(autistiArray);
+        });
+        return () => unsubscribe(); // Pulizia dell'ascoltatore
+      } catch (error) {
+        console.error("Errore nel recupero dei dati: ", error);
+      }
+    };
+
+    fetchAutisti();
+  }, []);
 
   // --- FETCH AUTO DAL DB
   useEffect(() => {
@@ -104,17 +124,20 @@ export const ContextProvider = ({ children }) => {
     fetchPrenotazioni();
   }, []);
 
-  // --- FETCH AUTISTI DAL DB
+  // --- FETCH DESTINAZIONI DAL DB
   useEffect(() => {
-    const fetchAutisti = async () => {
+    const fetchDestinazioni = async () => {
       try {
-        const q = query(collection(db, "Autisti"), orderBy("autista", "asc"));
+        const q = query(
+          collection(db, "Destinazioni"),
+          orderBy("destinazione", "asc")
+        );
         const unsubscribe = onSnapshot(q, (snapshot) => {
-          const autistiArray = snapshot.docs.map((doc) => ({
+          const destinazioniArray = snapshot.docs.map((doc) => ({
             id: doc.id,
             ...doc.data(),
           }));
-          setAutisti(autistiArray);
+          setDestinazioni(destinazioniArray);
         });
         return () => unsubscribe(); // Pulizia dell'ascoltatore
       } catch (error) {
@@ -122,7 +145,7 @@ export const ContextProvider = ({ children }) => {
       }
     };
 
-    fetchAutisti();
+    fetchDestinazioni();
   }, []);
 
   // --- UPDATE DATI PARTENZA
@@ -242,10 +265,11 @@ export const ContextProvider = ({ children }) => {
       value={{
         autista,
         autisti,
+        parcoAuto,
         autoSelezionata,
         destinazioni,
+        filtro,
         kmPartenza,
-        parcoAuto,
         riepilogo,
         handleAutista,
         handleKmPartenza,

@@ -62,9 +62,9 @@ export const FormPartenza = () => {
               required
             >
               <option value="">Seleziona...</option>
-              {destinazioni.map((dest, index) => (
-                <option key={index} value={dest}>
-                  {dest}
+              {destinazioni.map((d) => (
+                <option key={d.id} value={d.id}>
+                  {d.destinazione}
                 </option>
               ))}
             </select>

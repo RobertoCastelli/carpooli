@@ -7,15 +7,40 @@ import { FaCarSide } from "react-icons/fa";
 import { FaRoadLock } from "react-icons/fa6";
 
 export const ElencoAuto = () => {
-  const { parcoAuto, handlePrenotazione, setFiltro } = useContext(MyContext);
+  const { parcoAuto, handlePrenotazione, filtro, setFiltro } =
+    useContext(MyContext);
 
   return (
     <div className="parco-auto-container">
       <h3 className="parco-auto-titolo">parco auto</h3>
+
       <div className="parco-auto-filtri">
-        <button onClick={() => setFiltro("tutte")}>tutte</button>
-        <button onClick={() => setFiltro("prenotate")}>prenotate</button>
-        <button onClick={() => setFiltro("libere")}>libere</button>
+        <button
+          className={
+            filtro === "tutte" ? "btn-filtro-attivo" : "btn-filtro-disattivo"
+          }
+          onClick={() => setFiltro("tutte")}
+        >
+          tutte
+        </button>
+        <button
+          className={
+            filtro === "prenotate"
+              ? "btn-filtro-attivo"
+              : "btn-filtro-disattivo"
+          }
+          onClick={() => setFiltro("prenotate")}
+        >
+          prenotate
+        </button>
+        <button
+          className={
+            filtro === "libere" ? "btn-filtro-attivo" : "btn-filtro-disattivo"
+          }
+          onClick={() => setFiltro("libere")}
+        >
+          libere
+        </button>
       </div>
       <ul className="parco-auto-ul">
         {parcoAuto.map((auto) => (
