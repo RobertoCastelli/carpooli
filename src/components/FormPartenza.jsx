@@ -41,7 +41,7 @@ export const FormPartenza = () => {
             <div className="form-partenza-km-cruscotto">
               {kmPartenza === 0
                 ? autoSelezionata.kmPartenza + " km cruscotto"
-                : kmPartenza + "km aggiornati"}
+                : kmPartenza + " km aggiornati"}
             </div>
             <button
               className="btn-aggiorna-km"

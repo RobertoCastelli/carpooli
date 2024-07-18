@@ -1,5 +1,6 @@
 // --- REACT
 import React from "react";
+// --- NAVBAR
 import { Navbar } from "./Navbar";
 
 export const Title = () => {

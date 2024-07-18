@@ -5,6 +5,7 @@ import { db } from "./FirebaseConfig";
 import {
   query,
   doc,
+  addDoc,
   onSnapshot,
   updateDoc,
   collection,
@@ -28,6 +29,7 @@ export const ContextProvider = ({ children }) => {
   const [carburante, setCarburante] = useState(0);
   const [condizione, setCondizione] = useState("pulita");
   const [filtro, setFiltro] = useState("tutte");
+  const [riepilogo, setRiepilogo] = useState([]);
 
   // --- NAVIGATE
   const navigate = useNavigate();
@@ -122,47 +124,80 @@ export const ContextProvider = ({ children }) => {
     fetchDestinazioni();
   }, []);
 
+  // --- FETCH RIEPILOGO DAL DB
+  useEffect(() => {
+    const fetchRiepilogo = async () => {
+      try {
+        const q = query(
+          collection(db, "Riepilogo"),
+          orderBy("timeRitorno", "desc")
+        );
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+          const riepilogoArray = snapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
+          setRiepilogo(riepilogoArray);
+        });
+        return () => unsubscribe(); // Pulizia dell'ascoltatore
+      } catch (error) {
+        console.error("Errore nel recupero dei dati: ", error);
+      }
+    };
+
+    fetchRiepilogo();
+  }, []);
+
   // --- UPDATE DATI RITORNO
   const handleSubmitRitorno = async (e) => {
     e.preventDefault();
+    const updatedData = {
+      autoID: autoSelezionata.id,
+      autista: "",
+      destinazione: "",
+      timePartenza: "",
+      condizione: "pulita",
+      carburante: carburante,
+      isPrenotata: false,
+      kmPartenza: kmRitorno,
+      timeRitorno: timeStamp,
+    };
     try {
-      await updateDoc(doc(db, "Auto", autoSelezionata.id), {
-        autista: "",
-        destinazione: "",
-        timePartenza: "",
-        condizione: "pulita",
-        carburante: carburante,
-        isPrenotata: false,
-        kmPartenza: kmRitorno,
-        timeRitorno: timeStamp,
-      });
+      await updateDoc(doc(db, "Auto", autoSelezionata.id), updatedData);
       console.log("Stato ritorno aggiornato con successo!");
+      await addDoc(collection(db, "Riepilogo"), updatedData);
+      console.log("Dati aggiunti a Riepilogo con successo!");
     } catch (error) {
       console.error("Errore durante l'aggiornamento del ritorno:", error);
     }
-    navigate("/");
+    navigate("/riepilogo");
   };
 
-  // --- UPDATE DATI PARTENZA
+  // --- UPDATE DATI PARTENZA & ADD TO RIEPILOGO
   const handleSubmitPartenza = async (e) => {
     e.preventDefault();
+    const updatedData = {
+      autoID: autoSelezionata.id,
+      autista,
+      destinazione,
+      timePartenza: timeStamp,
+      isPrenotata: true,
+      kmPartenza,
+      condizione,
+    };
+
     try {
-      await updateDoc(doc(db, "Auto", autoSelezionata.id), {
-        autista,
-        destinazione,
-        timePartenza: timeStamp,
-        isPrenotata: true,
-        kmPartenza,
-        condizione,
-      });
+      await updateDoc(doc(db, "Auto", autoSelezionata.id), updatedData);
       console.log("Stato prenotazione aggiornato con successo!");
+      await addDoc(collection(db, "Riepilogo"), updatedData);
+      console.log("Dati di ritorno aggiunti a Riepilogo con successo!");
     } catch (error) {
       console.error(
         "Errore durante l'aggiornamento della prenotazione:",
         error
       );
     }
-    navigate("/");
+    navigate("/auto");
   };
 
   // --- SET KM AGGIORNATI
@@ -180,7 +215,6 @@ export const ContextProvider = ({ children }) => {
   // --- SET AUTISTA SELEZIONATO
   const handleAutistaSelezionato = (e) => {
     setAutista(e.target.textContent);
-    setFiltro("tutte");
     navigate("/auto");
   };
 
@@ -210,16 +244,15 @@ export const ContextProvider = ({ children }) => {
         filtro,
         kmPartenza,
         destinazioni,
+        riepilogo,
         handleAutistaSelezionato,
         handleAutoSelezionata,
         handleKmAggiornati,
         handleSubmitPartenza,
+        handleSubmitRitorno,
         setDestinazione,
         setFiltro,
         setCondizione,
-        //controllati
-
-        handleSubmitRitorno,
         setCarburante,
         setKmRitorno,
       }}
