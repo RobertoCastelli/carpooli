@@ -12,7 +12,7 @@ export const ElencoAuto = () => {
 
   return (
     <div className="parco-auto-container">
-      <h3 className="parco-auto-titolo">parco auto</h3>
+      <h3 className="parco-auto-titolo">elenco auto</h3>
       <div className="parco-auto-filtri">
         <button
           className={

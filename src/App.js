@@ -4,7 +4,7 @@ import { ContextProvider } from "./context";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // --- COMPONENTS
 import { Title } from "./components/Title";
-import { Autisti } from "./components/Autisti";
+import { ElencoAutisti } from "./components/ElencoAutisti";
 import { ElencoAuto } from "./components/ElencoAuto";
 import { FormPartenza } from "./components/FormPartenza";
 import { FormRitorno } from "./components/FormRitorno";
@@ -20,7 +20,7 @@ function App() {
           <div className="content">
             <Title />
             <Routes>
-              <Route exact path="/" element={<Autisti />} />
+              <Route exact path="/" element={<ElencoAutisti />} />
               <Route path="/auto" element={<ElencoAuto />} />
               <Route path="/partenza" element={<FormPartenza />} />
               <Route path="/ritorno" element={<FormRitorno />} />

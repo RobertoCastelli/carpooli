@@ -5,7 +5,7 @@ import { MyContext } from "../context";
 export const Manutenzione = () => {
   const { parcoAuto } = useContext(MyContext);
   return (
-    <div>
+    <div className="parco-auto-container">
       <ul>
         {parcoAuto.map((auto) => (
           <li key={auto.id}>

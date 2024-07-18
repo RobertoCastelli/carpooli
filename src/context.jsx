@@ -8,7 +8,6 @@ import {
   onSnapshot,
   updateDoc,
   collection,
-  addDoc,
   orderBy,
   where,
 } from "firebase/firestore";
@@ -27,7 +26,7 @@ export const ContextProvider = ({ children }) => {
   const [kmPartenza, setKmPartenza] = useState(0);
   const [kmRitorno, setKmRitorno] = useState(0);
   const [carburante, setCarburante] = useState(0);
-  const [condizione, setCondizione] = useState("");
+  const [condizione, setCondizione] = useState("pulita");
   const [filtro, setFiltro] = useState("tutte");
 
   // --- NAVIGATE
@@ -123,49 +122,25 @@ export const ContextProvider = ({ children }) => {
     fetchDestinazioni();
   }, []);
 
-  // --- UPDATE DATI RITORNO & RIEPILOGO
-  const handleSubmitRitorno = (e) => {
-    e.preventDefault();
-    handleRitorno();
-    handleRiepilogo();
-  };
-
   // --- UPDATE DATI RITORNO
-  const handleRitorno = async () => {
+  const handleSubmitRitorno = async (e) => {
+    e.preventDefault();
     try {
       await updateDoc(doc(db, "Auto", autoSelezionata.id), {
         autista: "",
         destinazione: "",
         timePartenza: "",
-        timeRitorno: timeStamp,
+        condizione: "pulita",
+        carburante: carburante,
         isPrenotata: false,
         kmPartenza: kmRitorno,
+        timeRitorno: timeStamp,
       });
       console.log("Stato ritorno aggiornato con successo!");
     } catch (error) {
       console.error("Errore durante l'aggiornamento del ritorno:", error);
     }
-    navigate("/riepilogo");
-  };
-
-  // --- ADD DATI RIEPILOGO
-  const handleRiepilogo = async () => {
-    try {
-      await addDoc(collection(db, "Prenotazioni"), {
-        autista,
-        marca: autoSelezionata.marca,
-        modello: autoSelezionata.modello,
-        destinazione,
-        kmPartenza,
-        kmRitorno,
-        carburante,
-        condizione,
-        timeRitorno: timeStamp,
-      });
-      console.log("Stato ritorno aggiornato con successo!");
-    } catch (error) {
-      console.error("Errore durante l'aggiornamento del riepilogo:", error);
-    }
+    navigate("/");
   };
 
   // --- UPDATE DATI PARTENZA
@@ -220,6 +195,7 @@ export const ContextProvider = ({ children }) => {
       }
     } else {
       setAutoSelezionata(auto);
+      setKmPartenza(0);
       navigate("/partenza");
     }
   };
