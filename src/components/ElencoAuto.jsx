@@ -7,13 +7,12 @@ import { FaCarSide } from "react-icons/fa";
 import { FaRoadLock } from "react-icons/fa6";
 
 export const ElencoAuto = () => {
-  const { parcoAuto, handlePrenotazione, filtro, setFiltro } =
+  const { parcoAuto, handleAutoSelezionata, filtro, setFiltro } =
     useContext(MyContext);
 
   return (
     <div className="parco-auto-container">
       <h3 className="parco-auto-titolo">parco auto</h3>
-
       <div className="parco-auto-filtri">
         <button
           className={
@@ -47,7 +46,7 @@ export const ElencoAuto = () => {
           <li
             key={auto.id}
             className="parco-auto-li"
-            onClick={() => handlePrenotazione(auto)}
+            onClick={() => handleAutoSelezionata(auto)}
           >
             <div className="parco-auto-veicolo">
               <FaCarSide size={30} />

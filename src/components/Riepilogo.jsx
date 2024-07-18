@@ -4,12 +4,18 @@ import React, { useContext } from "react";
 import { MyContext } from "../context";
 
 export const Riepilogo = () => {
-  const { riepilogo } = useContext(MyContext);
+  const { riepilogo, deleteAllDocumentsInCollection } = useContext(MyContext);
 
   return (
     <>
       <h3 className="riepilogo-titolo">riepilogo</h3>
       <div className="riepilogo-container">
+        <button
+          className="btn-riepilogo-delete"
+          onClick={deleteAllDocumentsInCollection}
+        >
+          cancella
+        </button>
         <ul className="riepilogo-ul">
           {riepilogo.map((record) => {
             const kmPercorsi = record.kmRitorno - record.kmPartenza;

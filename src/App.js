@@ -4,10 +4,11 @@ import { ContextProvider } from "./context";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 // --- COMPONENTS
 import { Title } from "./components/Title";
-import { ElencoAuto } from "./components/ElencoAuto";
 import { Autisti } from "./components/Autisti";
+import { ElencoAuto } from "./components/ElencoAuto";
 import { FormPartenza } from "./components/FormPartenza";
 import { FormRitorno } from "./components/FormRitorno";
+import { Manutenzione } from "./components/Manutenzione";
 import { Riepilogo } from "./components/Riepilogo";
 import { Footer } from "./components/Footer";
 
@@ -23,6 +24,7 @@ function App() {
               <Route path="/auto" element={<ElencoAuto />} />
               <Route path="/partenza" element={<FormPartenza />} />
               <Route path="/ritorno" element={<FormRitorno />} />
+              <Route path="/manutenzione" element={<Manutenzione />} />
               <Route path="/riepilogo" element={<Riepilogo />} />
             </Routes>
           </div>
