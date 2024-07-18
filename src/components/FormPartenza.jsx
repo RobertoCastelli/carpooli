@@ -12,11 +12,11 @@ export const FormPartenza = () => {
     autista,
     autoSelezionata,
     destinazioni,
-    kmPartenza,
-    handleSubmitAggiornamentoKm,
+    handleKmAggiornati,
     handleSubmitPartenza,
     setDestinazione,
     setCondizione,
+    kmPartenza,
   } = useContext(MyContext);
 
   return (
@@ -39,18 +39,17 @@ export const FormPartenza = () => {
         >
           <div className="form-partenza-km-cruscotto-aggiornati">
             <div className="form-partenza-km-cruscotto">
-              {autoSelezionata.kmPartenza} km cruscotto
+              {kmPartenza === 0
+                ? autoSelezionata.kmPartenza + " km cruscotto"
+                : kmPartenza + "km aggiornati"}
             </div>
             <button
               className="btn-aggiorna-km"
               type="button"
-              onClick={handleSubmitAggiornamentoKm}
+              onClick={handleKmAggiornati}
             >
               aggiorna km
             </button>
-            <div className="form-partenza-km-aggioranti">
-              {kmPartenza} km aggiornati
-            </div>
           </div>
 
           <div className="form-destinazione">
@@ -63,7 +62,7 @@ export const FormPartenza = () => {
             >
               <option value="">Seleziona...</option>
               {destinazioni.map((d) => (
-                <option key={d.id} value={d.id}>
+                <option key={d.id} value={d.destinazione}>
                   {d.destinazione}
                 </option>
               ))}
