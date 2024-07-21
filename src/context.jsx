@@ -242,7 +242,6 @@ export const ContextProvider = ({ children }) => {
       }
     } else {
       setAutoSelezionata(auto);
-      setKmPartenza(0);
       navigate("/partenza");
     }
   };
