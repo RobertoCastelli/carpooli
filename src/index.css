@@ -84,6 +84,14 @@ h1 {
 
 .navbar-li {
   display: inline;
+  text-align: center;
+}
+
+.navbar-li-text {
+  font-size: 0.6rem;
+  padding: 5px;
+  color: #ccc;
+  text-transform: uppercase;
 }
 
 .navbar-link {
@@ -99,7 +107,7 @@ h1 {
 
 .active-link {
   color: orange;
-  border-bottom: 2px solid orange;
+  /*   border-bottom: 2px solid orange; */
 }
 
 /* ------- */
@@ -149,11 +157,11 @@ h1 {
 
 .parco-auto-li {
   background-color: #fff;
+  cursor: pointer;
   padding: 20px;
   margin-bottom: 10px;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
 }
 
@@ -179,6 +187,7 @@ h1 {
 }
 
 .parco-auto-dettagli {
+  display: grid;
   color: #555;
   font-style: italic;
   margin-top: 20px;
@@ -318,7 +327,8 @@ input[type="radio"] {
 
 .btn-ritorno-termina,
 .btn-partenza-inizio,
-.btn-aggiorna-km {
+.btn-aggiorna-km,
+.btn-rientro {
   letter-spacing: 1px;
   text-transform: uppercase;
   padding: 10px 20px;

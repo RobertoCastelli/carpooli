@@ -31,6 +31,7 @@ export const ContextProvider = ({ children }) => {
   const [filtro, setFiltro] = useState("tutte");
   const [riepilogo, setRiepilogo] = useState([]);
   const [riepilogoTemp, setRiepilogoTemp] = useState([]);
+  const [isBtnDisabled, setIsBtnDisabled] = useState(false);
 
   // --- NAVIGATE
   const navigate = useNavigate();
@@ -172,15 +173,21 @@ export const ContextProvider = ({ children }) => {
       timeRitorno: timeStamp,
     };
     try {
-      await updateDoc(doc(db, "Auto", autoSelezionata.id), updatedData);
-      console.log("Stato ritorno aggiornato con successo!");
-      await addDoc(collection(db, "Riepilogo"), {
-        ...riepilogoTemp,
-        kmRitorno,
-        carburante,
-        timeRitorno: timeStamp,
-      });
-      console.log("Dati aggiunti a Riepilogo con successo!");
+      if (carburante !== null && kmRitorno !== null) {
+        await updateDoc(doc(db, "Auto", autoSelezionata.id), updatedData);
+        console.log("Stato ritorno aggiornato con successo!");
+        await addDoc(collection(db, "Riepilogo"), {
+          ...riepilogoTemp,
+          marca: autoSelezionata.marca,
+          modello: autoSelezionata.modello,
+          kmRitorno,
+          carburante,
+          timeRitorno: timeStamp,
+        });
+        console.log("Dati aggiunti a Riepilogo con successo!");
+      } else {
+        setIsBtnDisabled(true);
+      }
     } catch (error) {
       console.error("Errore durante l'aggiornamento del ritorno:", error);
     }
@@ -268,6 +275,7 @@ export const ContextProvider = ({ children }) => {
         setCarburante,
         setKmRitorno,
         isDataScaduta,
+        isBtnDisabled,
       }}
     >
       {children}

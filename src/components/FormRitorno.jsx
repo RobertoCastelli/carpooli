@@ -14,6 +14,7 @@ export const FormRitorno = () => {
     carburante,
     setCarburante,
     handleSubmitRitorno,
+    isBtnDisabled,
   } = useContext(MyContext);
 
   return (
@@ -54,7 +55,11 @@ export const FormRitorno = () => {
               className="form-input"
             />
           </div>
-          <button className="btn-ritorno-termina" type="submit">
+          <button
+            className="btn-ritorno-termina"
+            disabled={isBtnDisabled}
+            type="submit"
+          >
             termina missione
           </button>
         </form>
