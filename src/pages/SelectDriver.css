@@ -1,0 +1,33 @@
+.driver-container {
+  display: grid;
+  place-content: center;
+  text-align: center;
+  gap: 0.5rem;
+}
+
+.driver-title {
+  text-transform: uppercase;
+  margin: 1rem;
+  font-weight: bold;
+  width: 300px;
+}
+
+.driver-btn {
+  font-size: 1rem;
+  color: #ccc;
+  background-color: #282c34;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  text-transform: capitalize;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.driver-btn:hover {
+  color: #282c34;
+  background-color: orange;
+  transform: translateY(-2px);
+}

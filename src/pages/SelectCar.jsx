@@ -1,4 +1,5 @@
 import React from "react";
+import "./SelectCar.css";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../utils/AppContext";
 
@@ -19,10 +20,14 @@ function SelectCar() {
   };
 
   return (
-    <div>
-      <h3>seleziona auto</h3>
+    <div className="car-container">
+      <h3 className="car-title">seleziona auto</h3>
       {cars.map((car) => (
-        <button key={car} onClick={() => handleCarSelect(car)}>
+        <button
+          className="car-btn"
+          key={car}
+          onClick={() => handleCarSelect(car)}
+        >
           {car}
         </button>
       ))}

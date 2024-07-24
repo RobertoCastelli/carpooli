@@ -1,4 +1,5 @@
 import React from "react";
+import "./SelectDriver.css";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../utils/AppContext";
 
@@ -13,16 +14,20 @@ function SelectDriver() {
   };
 
   return (
-    <div>
-      <h3>seleziona conducente</h3>
+    <div className="driver-container">
+      <div className="driver-title">seleziona conducente</div>
       {drivers.length > 0 ? (
         drivers.map((driver) => (
-          <button key={driver} onClick={() => handleDriverSelect(driver)}>
+          <button
+            className="driver-btn"
+            key={driver}
+            onClick={() => handleDriverSelect(driver)}
+          >
             {driver}
           </button>
         ))
       ) : (
-        <p>No drivers available</p> // Gestisci il caso in cui non ci sono driver disponibili
+        <p>non ci sono conducenti in elenco</p> // Gestisci il caso in cui non ci sono driver disponibili
       )}
     </div>
   );

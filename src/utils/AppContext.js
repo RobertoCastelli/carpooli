@@ -1,5 +1,11 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import { db } from "./FirebaseConfig";
 
 // Creazione del Context per gestire lo stato dell'app
@@ -17,7 +23,9 @@ export const AppProvider = ({ children }) => {
   useEffect(() => {
     const fetchDrivers = async () => {
       const driversCollection = collection(db, "drivers");
-      const querySnapshot = await getDocs(driversCollection);
+      const querySnapshot = await getDocs(
+        query(driversCollection, orderBy("name", "asc"))
+      );
       setDrivers(querySnapshot.docs.map((doc) => doc.data().name));
     };
 

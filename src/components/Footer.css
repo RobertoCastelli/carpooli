@@ -1,0 +1,12 @@
+footer {
+  background-color: #282c34;
+  border-top-left-radius: 1rem;
+  border-top-right-radius: 1rem;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 1rem;
+}
+
+.footer-agis {
+  color: cadetblue;
+}

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./RegisterDeparture.css";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../utils/AppContext";
 
@@ -37,28 +38,33 @@ function RegisterDeparture() {
   };
 
   return (
-    <div>
-      <h1>Register Departure</h1>
+    <div className="departure-container">
+      <div className="departure-title">registra partenza</div>
       {error && <p style={{ color: "brown" }}>{error}</p>}
       <input
+        className="departure-input"
         type="number"
-        placeholder="Departure KM"
+        placeholder="inserisci km cruscotto"
         value={departureKM}
         onChange={(e) => setDepartureKM(e.target.value)}
       />
       <input
+        className="departure-input"
         type="text"
         placeholder="Car Condition"
         value={carCondition}
         onChange={(e) => setCarCondition(e.target.value)}
       />
       <input
+        className="departure-input"
         type="text"
         placeholder="Destination"
         value={destination}
         onChange={(e) => setDestination(e.target.value)}
       />
-      <button onClick={handleRegister}>Register Departure</button>
+      <button className="departure-btn" onClick={handleRegister}>
+        registra
+      </button>
     </div>
   );
 }

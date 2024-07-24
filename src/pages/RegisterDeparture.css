@@ -1,0 +1,51 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+.departure-container {
+  display: grid;
+  place-content: center;
+  text-align: center;
+  gap: 0.5rem;
+}
+
+.departure-title {
+  width: 300px;
+  text-transform: uppercase;
+  margin: 1rem;
+  font-weight: bold;
+}
+
+.departure-input {
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  color: #282c34;
+  padding: 1rem 1rem;
+  border: none;
+  border-radius: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Leggera ombra per profondità */
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.departure-input:focus {
+  border-color: #282c34;
+  outline: none;
+  box-shadow: 0 0 0 2px orange;
+}
+
+.departure-input::placeholder {
+  color: #aaa;
+  opacity: 1;
+}
+
+.departure-btn {
+  font-size: 1rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 1rem;
+  background-color: orange;
+  color: #282c34;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}

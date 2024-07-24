@@ -5,7 +5,7 @@ body {
   font-family: "Montserrat", sans-serif;
   letter-spacing: 0.05rem;
   background-color: var(--main-bg-color);
-  background: url("../images/bg1.jpg") no-repeat center/ cover;
+  background: url("../images/bg.jpg") no-repeat center/ cover;
   color: var(--main-black-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -17,9 +17,9 @@ body {
 
 :root {
   --main-black-color: #333;
-  --main-bg-color: cadetblue;
+  --main-bg-color: 95, 158, 160; /* cadetblue */
   --main-white-color: #ccc;
-  --main-blue-color: #282c34;
+  --main-dark-blue-color: #282c34;
 }
 
 .container {
@@ -28,7 +28,7 @@ body {
   min-height: 100vh;
   max-width: 380px;
   margin: auto;
-  background-color: var(--main-bg-color);
+  background-color: rgba(var(--main-bg-color), 0.95);
 }
 
 .content {
