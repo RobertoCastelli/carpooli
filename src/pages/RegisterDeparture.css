@@ -8,15 +8,19 @@
 }
 
 .departure-title {
-  width: 300px;
-  text-transform: uppercase;
-  margin: 1rem;
   font-weight: bold;
+  text-transform: uppercase;
+  width: 300px;
+  margin: 1rem;
 }
 
 .departure-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-family: "Montserrat", sans-serif;
   font-size: 1rem;
+  letter-spacing: 0.05rem;
   color: #282c34;
   padding: 1rem 1rem;
   border: none;
@@ -32,9 +36,17 @@
   box-shadow: 0 0 0 2px orange;
 }
 
-.departure-input::placeholder {
+.departure-input::placeholder,
+.departure-radio-placeholder {
   color: #aaa;
   opacity: 1;
+}
+
+/* radio */
+label {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .departure-btn {
@@ -42,10 +54,15 @@
   letter-spacing: 1px;
   text-transform: uppercase;
   padding: 1rem;
-  background-color: orange;
-  color: #282c34;
+  background-color: #282c34;
+  color: #ccc;
   border: none;
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s;
+}
+
+.departure-btn:hover {
+  color: #282c34;
+  background-color: orange;
 }

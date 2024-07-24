@@ -21,7 +21,7 @@ function SelectCar() {
 
   return (
     <div className="car-container">
-      <h3 className="car-title">seleziona auto</h3>
+      <div className="car-title">seleziona auto</div>
       {cars.map((car) => (
         <button
           className="car-btn"

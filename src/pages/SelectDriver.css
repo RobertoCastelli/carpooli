@@ -29,5 +29,4 @@
 .driver-btn:hover {
   color: #282c34;
   background-color: orange;
-  transform: translateY(-2px);
 }

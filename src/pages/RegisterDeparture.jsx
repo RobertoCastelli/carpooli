@@ -2,27 +2,18 @@ import React, { useState } from "react";
 import "./RegisterDeparture.css";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../utils/AppContext";
+import { ImHappy2, ImAngry2 } from "react-icons/im";
 
 function RegisterDeparture() {
   const [departureKM, setDepartureKM] = useState("");
   const [carCondition, setCarCondition] = useState("");
   const [destination, setDestination] = useState("");
-  const [error, setError] = useState(""); // Stato per gestire gli errori
 
   const { registerDeparture } = useAppContext();
   const navigate = useNavigate(); // Hook per la navigazione
 
   // Funzione per gestire la registrazione
   const handleRegister = async () => {
-    // Reset degli stati di errore e successo
-    setError("");
-
-    // Validazione dei dati
-    if (!departureKM || !carCondition || !destination) {
-      setError("compilare tutti i campi.");
-      return;
-    }
-
     try {
       await registerDeparture(departureKM, carCondition, destination);
       // Naviga alla pagina home
@@ -32,28 +23,21 @@ function RegisterDeparture() {
       setDepartureKM("");
       setCarCondition("");
       setDestination("");
-    } catch (e) {
-      setError("errore nella registrazione.");
+    } catch (err) {
+      console.error("errore nella registrazione", err);
     }
   };
 
   return (
     <div className="departure-container">
       <div className="departure-title">registra partenza</div>
-      {error && <p style={{ color: "brown" }}>{error}</p>}
       <input
         className="departure-input"
         type="number"
         placeholder="inserisci km cruscotto"
         value={departureKM}
         onChange={(e) => setDepartureKM(e.target.value)}
-      />
-      <input
-        className="departure-input"
-        type="text"
-        placeholder="Car Condition"
-        value={carCondition}
-        onChange={(e) => setCarCondition(e.target.value)}
+        required
       />
       <input
         className="departure-input"
@@ -61,7 +45,33 @@ function RegisterDeparture() {
         placeholder="Destination"
         value={destination}
         onChange={(e) => setDestination(e.target.value)}
+        required
       />
+      <div className="departure-input">
+        <div className="departure-radio-placeholder">condizione auto:</div>
+        <label htmlFor="carCondition">
+          <input
+            name="carCondition"
+            type="radio"
+            value="pulita"
+            checked={carCondition === "pulita"}
+            onChange={(e) => setCarCondition(e.target.value)}
+            required
+          />
+          <ImHappy2 size={30} color="green" />
+        </label>
+        <label htmlFor="carCondition">
+          <input
+            name="carCondition"
+            type="radio"
+            value="sporca"
+            checked={carCondition === "sporca"}
+            onChange={(e) => setCarCondition(e.target.value)}
+            required
+          />
+          <ImAngry2 size={30} color="brown" />
+        </label>
+      </div>
       <button className="departure-btn" onClick={handleRegister}>
         registra
       </button>
