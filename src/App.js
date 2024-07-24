@@ -1,21 +1,31 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AppProvider } from "./utils/AppContext";
-import SelectDriver from "./components/SelectDriver";
-import SelectCar from "./components/SelectCar";
-import RegisterDeparture from "./components/RegisterDeparture";
-import CheckOut from "./components/CheckOut";
+
+import Title from "./components/Title";
+import Footer from "./components/Footer";
+
+import SelectDriver from "./pages/SelectDriver";
+import SelectCar from "./pages/SelectCar";
+import RegisterDeparture from "./pages/RegisterDeparture";
+import CheckOut from "./pages/CheckOut";
 
 function AppContent() {
   return (
-    <Router>
-      <Routes>
-        <Route exact path="/" element={<SelectDriver />} />
-        <Route path="/select-car" element={<SelectCar />} />
-        <Route path="/register-departure" element={<RegisterDeparture />} />
-        <Route path="/check-out" element={<CheckOut />} />
-      </Routes>
-    </Router>
+    <div className="container">
+      <div className="content">
+        <Title />
+        <Router>
+          <Routes>
+            <Route exact path="/" element={<SelectDriver />} />
+            <Route path="/select-car" element={<SelectCar />} />
+            <Route path="/register-departure" element={<RegisterDeparture />} />
+            <Route path="/check-out" element={<CheckOut />} />
+          </Routes>
+        </Router>
+      </div>
+      <Footer />
+    </div>
   );
 }
 

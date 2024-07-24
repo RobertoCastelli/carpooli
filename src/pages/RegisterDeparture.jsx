@@ -7,7 +7,6 @@ function RegisterDeparture() {
   const [carCondition, setCarCondition] = useState("");
   const [destination, setDestination] = useState("");
   const [error, setError] = useState(""); // Stato per gestire gli errori
-  const [success, setSuccess] = useState(""); // Stato per gestire il successo
 
   const { registerDeparture } = useAppContext();
   const navigate = useNavigate(); // Hook per la navigazione
@@ -16,35 +15,31 @@ function RegisterDeparture() {
   const handleRegister = async () => {
     // Reset degli stati di errore e successo
     setError("");
-    setSuccess("");
 
     // Validazione dei dati
     if (!departureKM || !carCondition || !destination) {
-      setError("Please fill in all fields.");
+      setError("compilare tutti i campi.");
       return;
     }
 
     try {
       await registerDeparture(departureKM, carCondition, destination);
-      setSuccess("Departure registered successfully!");
-
-      // Naviga alla pagina di conferma o alla pagina successiva
-      navigate("/check-out"); // Modifica il percorso secondo le tue esigenze
+      // Naviga alla pagina home
+      navigate("/");
 
       // Reset dei campi dopo una registrazione riuscita
       setDepartureKM("");
       setCarCondition("");
       setDestination("");
     } catch (e) {
-      setError("Failed to register departure. Please try again.");
+      setError("errore nella registrazione.");
     }
   };
 
   return (
     <div>
       <h1>Register Departure</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+      {error && <p style={{ color: "brown" }}>{error}</p>}
       <input
         type="number"
         placeholder="Departure KM"

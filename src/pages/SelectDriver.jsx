@@ -14,7 +14,7 @@ function SelectDriver() {
 
   return (
     <div>
-      <h1>Select Driver</h1>
+      <h3>seleziona conducente</h3>
       {drivers.length > 0 ? (
         drivers.map((driver) => (
           <button key={driver} onClick={() => handleDriverSelect(driver)}>

@@ -20,7 +20,7 @@ function SelectCar() {
 
   return (
     <div>
-      <h1>Select Car</h1>
+      <h3>seleziona auto</h3>
       {cars.map((car) => (
         <button key={car} onClick={() => handleCarSelect(car)}>
           {car}

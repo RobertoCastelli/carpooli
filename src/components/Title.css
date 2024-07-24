@@ -1,0 +1,17 @@
+header {
+  background-color: #282c34;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+h1 {
+  color: cadetblue;
+  margin: 0;
+}
+
+h5 {
+  color: #ccc;
+  margin: 0;
+}

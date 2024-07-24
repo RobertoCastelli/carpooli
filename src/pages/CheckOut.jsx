@@ -6,7 +6,6 @@ function CheckOut() {
   const [returnKM, setReturnKM] = useState("");
   const [gasExpenses, setGasExpenses] = useState("");
   const [error, setError] = useState(""); // Stato per gestire gli errori
-  const [success, setSuccess] = useState(""); // Stato per gestire il successo
 
   const { checkOut } = useAppContext();
   const navigate = useNavigate(); // Hook per la navigazione
@@ -15,18 +14,15 @@ function CheckOut() {
   const handleCheckOut = async () => {
     // Reset degli stati di errore e successo
     setError("");
-    setSuccess("");
 
     // Validazione dei dati
     if (!returnKM || !gasExpenses) {
-      setError("Please fill in all fields.");
+      setError("compilare tutti i campi.");
       return;
     }
 
     try {
       await checkOut(returnKM, gasExpenses);
-      setSuccess("Check-Out completed successfully!");
-
       // Naviga alla pagina di conferma o alla pagina successiva
       navigate("/confirmation"); // Modifica il percorso secondo le tue esigenze
 
@@ -34,15 +30,14 @@ function CheckOut() {
       setReturnKM("");
       setGasExpenses("");
     } catch (e) {
-      setError("Failed to complete check-out. Please try again.");
+      setError("errore nel check-out");
     }
   };
 
   return (
     <div>
-      <h1>Check-Out</h1>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      {success && <p style={{ color: "green" }}>{success}</p>}
+      <h3>Check-Out</h3>
+      {error && <p style={{ color: "brown" }}>{error}</p>}
       <input
         type="number"
         placeholder="Return KM"
