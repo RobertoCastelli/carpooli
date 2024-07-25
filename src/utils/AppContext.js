@@ -18,6 +18,8 @@ export const AppProvider = ({ children }) => {
   const [isDriving, setIsDriving] = useState(false);
   const [drivers, setDrivers] = useState([]);
   const [cars, setCars] = useState([]);
+  const [selectedDestination, setSelectedDestination] = useState("");
+  const [destinations, setDestinations] = useState([]);
 
   // Effettua il fetch dei dati delle auto e degli autisti al montaggio del componente
   useEffect(() => {
@@ -26,16 +28,33 @@ export const AppProvider = ({ children }) => {
       const querySnapshot = await getDocs(
         query(driversCollection, orderBy("name", "asc"))
       );
-      setDrivers(querySnapshot.docs.map((doc) => doc.data().name));
+      setDrivers(
+        querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+      );
     };
 
     const fetchCars = async () => {
       const carsCollection = collection(db, "cars");
       const querySnapshot = await getDocs(carsCollection);
-      setCars(querySnapshot.docs.map((doc) => doc.data().name));
+      setCars(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+    };
+
+    const fetchDestinations = async () => {
+      const destinationsCollection = collection(db, "destinations");
+      const querySnapshot = await getDocs(destinationsCollection);
+      setDestinations(
+        querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }))
+      );
     };
 
     fetchDrivers();
+    fetchDestinations();
     fetchCars();
   }, []);
 
@@ -43,11 +62,13 @@ export const AppProvider = ({ children }) => {
   const registerDeparture = async (departureKM, carCondition, destination) => {
     const departuresCollection = collection(db, "departures");
     await addDoc(departuresCollection, {
+      selectedDriver,
+      activeCar,
+      isDriving: true,
       departureKM,
-      carCondition,
       destination,
+      carCondition,
     });
-    setIsDriving(true);
   };
 
   // Funzione per gestire il check-out dell'auto
@@ -69,6 +90,9 @@ export const AppProvider = ({ children }) => {
         setSelectedDriver,
         activeCar,
         setActiveCar,
+        destinations,
+        selectedDestination,
+        setSelectedDestination,
         isDriving,
         setIsDriving,
         drivers,

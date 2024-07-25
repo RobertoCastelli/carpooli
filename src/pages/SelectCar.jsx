@@ -5,11 +5,10 @@ import { useAppContext } from "../utils/AppContext";
 
 function SelectCar() {
   const navigate = useNavigate(); // Hook per la navigazione
-  const { cars, setActiveCar, setIsDriving, isDriving } = useAppContext();
+  const { cars, setActiveCar, isDriving } = useAppContext();
 
   const handleCarSelect = (car) => {
     setActiveCar(car);
-    setIsDriving(true);
 
     // Naviga alla pagina di check-out se già in viaggio, altrimenti alla pagina di registrazione partenza
     if (isDriving) {
@@ -25,10 +24,10 @@ function SelectCar() {
       {cars.map((car) => (
         <button
           className="car-btn"
-          key={car}
-          onClick={() => handleCarSelect(car)}
+          key={car.id}
+          onClick={() => handleCarSelect(car.name)}
         >
-          {car}
+          {car.name}
         </button>
       ))}
     </div>

@@ -6,7 +6,9 @@ const Title = () => {
   return (
     <header>
       <Navbar />
-      <h1>carpooli</h1>
+      <h1>
+        <span className="title-span">car</span>pooli
+      </h1>
       <h5>fleet manager</h5>
     </header>
   );

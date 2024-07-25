@@ -37,12 +37,12 @@
 }
 
 .departure-input::placeholder,
-.departure-radio-placeholder {
+select option:disabled {
   color: #aaa;
   opacity: 1;
 }
 
-/* radio */
+/*label radio */
 label {
   display: flex;
   justify-content: center;

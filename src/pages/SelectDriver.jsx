@@ -20,10 +20,10 @@ function SelectDriver() {
         drivers.map((driver) => (
           <button
             className="driver-btn"
-            key={driver}
-            onClick={() => handleDriverSelect(driver)}
+            key={driver.id}
+            onClick={() => handleDriverSelect(driver.name)}
           >
-            {driver}
+            {driver.name}
           </button>
         ))
       ) : (

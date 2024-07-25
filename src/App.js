@@ -15,14 +15,12 @@ function AppContent() {
     <div className="container">
       <div className="content">
         <Title />
-        <Router>
-          <Routes>
-            <Route exact path="/" element={<SelectDriver />} />
-            <Route path="/select-car" element={<SelectCar />} />
-            <Route path="/register-departure" element={<RegisterDeparture />} />
-            <Route path="/check-out" element={<CheckOut />} />
-          </Routes>
-        </Router>
+        <Routes>
+          <Route exact path="/" element={<SelectDriver />} />
+          <Route path="/select-car" element={<SelectCar />} />
+          <Route path="/register-departure" element={<RegisterDeparture />} />
+          <Route path="/check-out" element={<CheckOut />} />
+        </Routes>
       </div>
       <Footer />
     </div>
@@ -32,9 +30,11 @@ function AppContent() {
 // Wrappa l'applicazione con il Provider per fornire il contesto
 function App() {
   return (
-    <AppProvider>
-      <AppContent />
-    </AppProvider>
+    <Router>
+      <AppProvider>
+        <AppContent />
+      </AppProvider>
+    </Router>
   );
 }
 

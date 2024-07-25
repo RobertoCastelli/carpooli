@@ -7,22 +7,26 @@ import { ImHappy2, ImAngry2 } from "react-icons/im";
 function RegisterDeparture() {
   const [departureKM, setDepartureKM] = useState("");
   const [carCondition, setCarCondition] = useState("");
-  const [destination, setDestination] = useState("");
 
-  const { registerDeparture } = useAppContext();
+  const {
+    destinations,
+    selectedDestination,
+    setSelectedDestination,
+    registerDeparture,
+  } = useAppContext();
   const navigate = useNavigate(); // Hook per la navigazione
 
   // Funzione per gestire la registrazione
   const handleRegister = async () => {
     try {
-      await registerDeparture(departureKM, carCondition, destination);
+      await registerDeparture(departureKM, carCondition, selectedDestination);
       // Naviga alla pagina home
       navigate("/");
 
       // Reset dei campi dopo una registrazione riuscita
       setDepartureKM("");
       setCarCondition("");
-      setDestination("");
+      setSelectedDestination("");
     } catch (err) {
       console.error("errore nella registrazione", err);
     }
@@ -39,16 +43,28 @@ function RegisterDeparture() {
         onChange={(e) => setDepartureKM(e.target.value)}
         required
       />
-      <input
+      <select
         className="departure-input"
-        type="text"
-        placeholder="Destination"
-        value={destination}
-        onChange={(e) => setDestination(e.target.value)}
+        value={selectedDestination}
+        onChange={(e) => setSelectedDestination(e.target.value)}
         required
-      />
+      >
+        <option value="" disabled>
+          seleziona destinazione...
+        </option>
+        {destinations.map((dest) => (
+          <option
+            key={dest.id}
+            value={dest.name}
+            onChange={(e) => setSelectedDestination(e.target.value)}
+          >
+            {dest.name}
+          </option>
+        ))}
+      </select>
+
       <div className="departure-input">
-        <div className="departure-radio-placeholder">condizione auto:</div>
+        <div>condizione auto:</div>
         <label htmlFor="carCondition">
           <input
             name="carCondition"
