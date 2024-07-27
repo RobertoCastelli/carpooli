@@ -12,8 +12,12 @@ function Trips() {
         {trips.map((trip) => (
           <li className="trip-li" key={trip.id}>
             <div>tripID: {trip.id}</div>
-            <div>{trip.activeCar}</div>
-            <div>{trip.currentDriver}</div>
+            <div>car: {trip.activeCar}</div>
+            <div>driver: {trip.currentDriver}</div>
+            <div>condition: {trip.departure.carCondition}</div>
+            <div>km: {trip.departure.departureKM}</div>
+            <div>destination: {trip.destination}</div>
+            <div>time: {trip.timestamp}</div>
           </li>
         ))}
       </ul>

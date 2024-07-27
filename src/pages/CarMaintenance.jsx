@@ -3,7 +3,22 @@ import "./CarMaintenance.css";
 import { useAppContext } from "../utils/AppContext";
 
 function CarMaintenance() {
-  const { cars } = useAppContext();
+  const { cars, updateCarMaintenanceDates } = useAppContext();
+
+  const handleEditClick = (car) => {
+    const newTagliando = prompt(
+      "Inserisci la nuova data per il tagliando:",
+      car.tagliando
+    );
+    const newRevisione = prompt(
+      "Inserisci la nuova data per la revisione:",
+      car.revisione
+    );
+
+    if (newTagliando && newRevisione) {
+      updateCarMaintenanceDates(car.id, newTagliando, newRevisione);
+    }
+  };
 
   return (
     <div className="maintenance-container">
@@ -14,6 +29,9 @@ function CarMaintenance() {
             <div>{car.name}</div>
             <div>{car.tagliando}</div>
             <div>{car.revisione}</div>
+            <button className="edit-btn" onClick={() => handleEditClick(car)}>
+              Modifica
+            </button>
           </li>
         ))}
       </ul>

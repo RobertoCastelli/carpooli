@@ -1,32 +1,44 @@
+:root {
+  --background-color: #282c34;
+  --hover-background-color: orange;
+  --text-color: #ccc;
+  --hover-text-color: #282c34;
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
 .driver-container {
   display: grid;
+  gap: 0.5rem;
   place-content: center;
   text-align: center;
-  gap: 0.5rem;
 }
 
 .driver-title {
-  text-transform: uppercase;
-  margin: 1rem;
   font-weight: bold;
+  margin: 1rem;
+  text-transform: uppercase;
   width: 300px;
 }
 
 .driver-btn {
-  font-size: 1rem;
-  color: #ccc;
-  background-color: #282c34;
+  align-items: center;
+  background-color: var(--background-color);
   border: none;
+  border-radius: 10px;
+  box-shadow: var(--box-shadow);
+  color: var(--text-color);
   cursor: pointer;
+  display: flex;
+  font-size: 1rem;
+  height: 40px;
+  justify-content: space-between;
+  padding: 0 1rem;
   text-align: left;
   text-transform: capitalize;
-  padding: 1rem;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: background-color 0.3s, transform 0.3s;
 }
 
 .driver-btn:hover {
-  color: #282c34;
-  background-color: orange;
+  background-color: var(--hover-background-color);
+  color: var(--hover-text-color);
 }

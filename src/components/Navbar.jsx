@@ -1,10 +1,7 @@
-// --- REACT
 import React from "react";
 import "./Navbar.css";
-// --- ROUTER
 import { NavLink } from "react-router-dom";
 
-// --- ICONS
 import { FaRegRectangleList } from "react-icons/fa6";
 import { HiMiniWrenchScrewdriver } from "react-icons/hi2";
 import { FaPeopleGroup } from "react-icons/fa6";
@@ -21,7 +18,6 @@ const Navbar = () => {
         >
           <li>
             <FaPeopleGroup size={25} />
-
             <div className="navbar-label">home</div>
           </li>
         </NavLink>

@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import "./RegisterDeparture.css";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../utils/AppContext";
+
 import { ImHappy2, ImAngry2 } from "react-icons/im";
+import { FaRoad } from "react-icons/fa";
 
 function RegisterDeparture() {
   const [departureKM, setDepartureKM] = useState("");
@@ -89,7 +91,7 @@ function RegisterDeparture() {
         </label>
       </div>
       <button className="departure-btn" onClick={handleRegister}>
-        inizia viaggio
+        <FaRoad size={25} />
       </button>
     </div>
   );

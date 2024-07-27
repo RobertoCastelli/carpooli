@@ -1,12 +1,17 @@
 import React from "react";
 import "./SelectCar.css";
+import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../utils/AppContext";
+import click from "../sounds/click.wav";
 
 function SelectCar() {
-  const { cars, setActiveCar } = useAppContext();
+  const navigate = useNavigate(); // Hook per la navigazione
+  const { cars, setActiveCar, playSound } = useAppContext();
 
   const handleCarSelect = (car) => {
+    playSound(click);
     setActiveCar(car);
+    navigate("/register-departure");
   };
 
   return (

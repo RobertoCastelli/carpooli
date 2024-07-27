@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import {
+  doc,
   collection,
   getDocs,
   addDoc,
@@ -21,6 +22,13 @@ export const AppProvider = ({ children }) => {
   const [cars, setCars] = useState([]);
   const [destinations, setDestinations] = useState([]);
   const [trips, setTrips] = useState([]);
+  const [tripID, setTripID] = useState(null);
+
+  // Funzione per riprodurre un suono
+  const playSound = (src) => {
+    const audio = new Audio(src);
+    audio.play();
+  };
 
   // Genera un timestamp formattato per la data e l'ora correnti
   const timeStamp = new Date().toLocaleString("it-IT", {
@@ -90,14 +98,23 @@ export const AppProvider = ({ children }) => {
 
   // Funzione per gestire il check-out dell'auto
   const checkOut = async (tripID, returnKM, gasExpenses) => {
-    const checkoutsCollection = collection(db, "trip", tripID);
-    await updateDoc(checkoutsCollection, {
-      checkOut: {
-        returnKM,
-        gasExpenses,
-        timestamp: timeStamp,
-      },
-    });
+    const checkoutDocRef = doc(db, "trip", tripID);
+    try {
+      await updateDoc(checkoutDocRef, {
+        checkOut: {
+          returnKM,
+          gasExpenses,
+          timestamp: timeStamp,
+        },
+      });
+      alert("Rientro registrato con successo!");
+    } catch (error) {
+      console.error("Errore nella registrazione del rientro: ", error);
+      alert(
+        "Si è verificato un errore durante la registrazione del rientro. Per favore, riprova."
+      );
+    }
+    setTripID(null);
     setSelectedDriver(null);
     setActiveCar(null);
   };
@@ -118,6 +135,9 @@ export const AppProvider = ({ children }) => {
         trips,
         registerDeparture,
         checkOut,
+        tripID,
+        setTripID,
+        playSound,
       }}
     >
       {children}

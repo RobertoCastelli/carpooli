@@ -3,25 +3,24 @@ import "./CheckOut.css";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../utils/AppContext";
 
+import { FaFlagCheckered } from "react-icons/fa";
+
 function CheckOut() {
-  const [tripID, setTripID] = useState(null);
   const [returnKM, setReturnKM] = useState("");
   const [gasExpenses, setGasExpenses] = useState("");
 
-  const { checkOut } = useAppContext();
+  const { checkOut, tripID } = useAppContext();
   const navigate = useNavigate(); // Hook per la navigazione
 
   // Funzione per gestire il check-out
   const handleCheckOut = async () => {
     // Trova se il driver ha un viaggio attivo
-
     try {
       await checkOut(tripID, returnKM, gasExpenses);
       // Naviga alla Home
       navigate("/"); //
 
       // Reset dei campi dopo un check-out riuscito
-      setTripID(null);
       setReturnKM("");
       setGasExpenses("");
     } catch (error) {
@@ -31,7 +30,7 @@ function CheckOut() {
 
   return (
     <div className="checkout-container">
-      <div className="checkout-title">Check-Out</div>
+      <div className="checkout-title">check-Out</div>
       <input
         className="checkout-input"
         type="number"
@@ -47,7 +46,7 @@ function CheckOut() {
         onChange={(e) => setGasExpenses(e.target.value)}
       />
       <button className="checkout-btn" onClick={handleCheckOut}>
-        termina viaggio
+        <FaFlagCheckered size={25} color="black" />
       </button>
     </div>
   );

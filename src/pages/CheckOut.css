@@ -53,6 +53,9 @@ select option:disabled {
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s;
+  width: 50%;
+  height: 50px;
+  margin-left: auto;
 }
 
 .checkout-btn:hover {
