@@ -3,6 +3,7 @@ import {
   collection,
   getDocs,
   addDoc,
+  updateDoc,
   orderBy,
   query,
 } from "firebase/firestore";
@@ -15,71 +16,90 @@ const AppContext = createContext();
 export const AppProvider = ({ children }) => {
   const [selectedDriver, setSelectedDriver] = useState(null);
   const [activeCar, setActiveCar] = useState(null);
-  const [isDriving, setIsDriving] = useState(false);
+  const [selectedDestination, setSelectedDestination] = useState("");
   const [drivers, setDrivers] = useState([]);
   const [cars, setCars] = useState([]);
-  const [selectedDestination, setSelectedDestination] = useState("");
   const [destinations, setDestinations] = useState([]);
+  const [trips, setTrips] = useState([]);
 
-  // Effettua il fetch dei dati delle auto e degli autisti al montaggio del componente
+  // Genera un timestamp formattato per la data e l'ora correnti
+  const timeStamp = new Date().toLocaleString("it-IT", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+
+  // Funzione generica per fetch dei dati
+  const fetchData = async (collectionName, orderField = null) => {
+    try {
+      const collectionRef = collection(db, collectionName);
+      const q = query(collectionRef, orderBy(orderField, "asc"));
+      const querySnapshot = await getDocs(q);
+      return querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+    } catch (error) {
+      console.error(`Error fetching ${collectionName}:`, error);
+      return [];
+    }
+  };
+
   useEffect(() => {
-    const fetchDrivers = async () => {
-      const driversCollection = collection(db, "drivers");
-      const querySnapshot = await getDocs(
-        query(driversCollection, orderBy("name", "asc"))
-      );
-      setDrivers(
-        querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }))
-      );
+    // Funzione asincrona per caricare tutti i dati
+    const loadData = async () => {
+      const driversData = await fetchData("drivers", "name");
+      const carsData = await fetchData("cars", "name");
+      const destinationsData = await fetchData("destinations", "name");
+      const tripsData = await fetchData("trip", "currentDriver");
+
+      setDrivers(driversData);
+      setCars(carsData);
+      setDestinations(destinationsData);
+      setTrips(tripsData);
     };
 
-    const fetchCars = async () => {
-      const carsCollection = collection(db, "cars");
-      const querySnapshot = await getDocs(carsCollection);
-      setCars(querySnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-    };
-
-    const fetchDestinations = async () => {
-      const destinationsCollection = collection(db, "destinations");
-      const querySnapshot = await getDocs(destinationsCollection);
-      setDestinations(
-        querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }))
-      );
-    };
-
-    fetchDrivers();
-    fetchDestinations();
-    fetchCars();
+    loadData();
   }, []);
 
   // Funzione per registrare una partenza nel database
   const registerDeparture = async (departureKM, carCondition, destination) => {
-    const departuresCollection = collection(db, "departures");
-    await addDoc(departuresCollection, {
-      selectedDriver,
-      activeCar,
-      isDriving: true,
-      departureKM,
-      destination,
-      carCondition,
-    });
+    try {
+      const departuresCollection = collection(db, "trip");
+      await addDoc(departuresCollection, {
+        currentDriver: selectedDriver.id,
+        activeCar: activeCar.id,
+        departure: {
+          departureKM,
+          destination,
+          carCondition,
+          timestamp: timeStamp,
+        },
+        checkOut: null,
+      });
+      alert("Partenza registrata con successo!");
+    } catch (error) {
+      console.error("Errore nella registrazione della partenza: ", error);
+      alert(
+        "Si è verificato un errore durante la registrazione della partenza. Per favore, riprova."
+      );
+    }
   };
 
   // Funzione per gestire il check-out dell'auto
-  const checkOut = async (returnKM, gasExpenses) => {
-    const checkoutsCollection = collection(db, "checkouts");
-    await addDoc(checkoutsCollection, {
-      returnKM,
-      gasExpenses,
+  const checkOut = async (tripID, returnKM, gasExpenses) => {
+    const checkoutsCollection = collection(db, "trip", tripID);
+    await updateDoc(checkoutsCollection, {
+      checkOut: {
+        returnKM,
+        gasExpenses,
+        timestamp: timeStamp,
+      },
     });
+    setSelectedDriver(null);
     setActiveCar(null);
-    setIsDriving(false);
   };
 
   // Fornisce lo stato e le funzioni attraverso il contesto
@@ -93,10 +113,9 @@ export const AppProvider = ({ children }) => {
         destinations,
         selectedDestination,
         setSelectedDestination,
-        isDriving,
-        setIsDriving,
         drivers,
         cars,
+        trips,
         registerDeparture,
         checkOut,
       }}

@@ -38,7 +38,7 @@ function RegisterDeparture() {
       <input
         className="departure-input"
         type="number"
-        placeholder="inserisci km cruscotto"
+        placeholder="Inserire km cruscotto"
         value={departureKM}
         onChange={(e) => setDepartureKM(e.target.value)}
         required
@@ -50,7 +50,7 @@ function RegisterDeparture() {
         required
       >
         <option value="" disabled>
-          seleziona destinazione...
+          Seleziona destinazione...
         </option>
         {destinations.map((dest) => (
           <option
@@ -64,7 +64,7 @@ function RegisterDeparture() {
       </select>
 
       <div className="departure-input">
-        <div>condizione auto:</div>
+        <div>Condizione auto:</div>
         <label htmlFor="carCondition">
           <input
             name="carCondition"
@@ -74,7 +74,7 @@ function RegisterDeparture() {
             onChange={(e) => setCarCondition(e.target.value)}
             required
           />
-          <ImHappy2 size={30} color="green" />
+          <ImHappy2 size={25} color="green" />
         </label>
         <label htmlFor="carCondition">
           <input
@@ -85,11 +85,11 @@ function RegisterDeparture() {
             onChange={(e) => setCarCondition(e.target.value)}
             required
           />
-          <ImAngry2 size={30} color="brown" />
+          <ImAngry2 size={25} color="brown" />
         </label>
       </div>
       <button className="departure-btn" onClick={handleRegister}>
-        registra
+        inizia viaggio
       </button>
     </div>
   );

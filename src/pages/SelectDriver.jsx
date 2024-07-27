@@ -5,12 +5,19 @@ import { useAppContext } from "../utils/AppContext";
 
 function SelectDriver() {
   const navigate = useNavigate(); // Hook per la navigazione
-  const { drivers, setSelectedDriver } = useAppContext();
+  const { drivers, trips, setSelectedDriver } = useAppContext();
 
   // Funzione per gestire la selezione di un driver
   const handleDriverSelect = (driver) => {
     setSelectedDriver(driver);
-    navigate("/select-car"); // Naviga alla pagina di selezione dell'auto
+
+    // Trova se il driver ha un viaggio attivo
+    const isDriving = trips.find(
+      (trip) => trip.checkOut === null && trip.currentDriver === driver.id
+    );
+
+    // Naviga alla pagina appropriata in base allo stato del viaggio
+    isDriving ? navigate("/check-out") : navigate("/select-car");
   };
 
   return (
@@ -21,7 +28,7 @@ function SelectDriver() {
           <button
             className="driver-btn"
             key={driver.id}
-            onClick={() => handleDriverSelect(driver.name)}
+            onClick={() => handleDriverSelect(driver)}
           >
             {driver.name}
           </button>

@@ -9,6 +9,8 @@ import SelectDriver from "./pages/SelectDriver";
 import SelectCar from "./pages/SelectCar";
 import RegisterDeparture from "./pages/RegisterDeparture";
 import CheckOut from "./pages/CheckOut";
+import CarMaintenance from "./pages/CarMaintenance";
+import Trips from "./pages/Trips";
 
 function AppContent() {
   return (
@@ -20,6 +22,8 @@ function AppContent() {
           <Route path="/select-car" element={<SelectCar />} />
           <Route path="/register-departure" element={<RegisterDeparture />} />
           <Route path="/check-out" element={<CheckOut />} />
+          <Route path="/car-maintenance" element={<CarMaintenance />} />
+          <Route path="/trips" element={<Trips />} />
         </Routes>
       </div>
       <Footer />

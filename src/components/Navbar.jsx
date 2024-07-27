@@ -26,7 +26,7 @@ const Navbar = () => {
           </li>
         </NavLink>
         <NavLink
-          to="/manutenzione"
+          to="/car-maintenance"
           className={({ isActive }) =>
             isActive ? "active-navlink" : "navbar-li"
           }
@@ -38,7 +38,7 @@ const Navbar = () => {
           </li>
         </NavLink>
         <NavLink
-          to="/logs"
+          to="/trips"
           className={({ isActive }) =>
             isActive ? "active-navlink" : "navbar-li"
           }

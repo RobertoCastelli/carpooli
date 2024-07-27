@@ -2,7 +2,8 @@
 
 body {
   margin: 0;
-  font-family: "Montserrat", sans-serif;
+  padding: 0;
+  font-family: "Montserrat", "Roboto", sans-serif;
   letter-spacing: 0.05rem;
   background-color: var(--main-bg-color);
   background: url("../images/bg.jpg") no-repeat center/ cover;
