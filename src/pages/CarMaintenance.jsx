@@ -8,8 +8,15 @@ import { LuCalendarClock } from "react-icons/lu";
 function CarMaintenance() {
   const { cars, updateCarMaintenanceDates, timeStamp } = useAppContext();
 
+  // Funzione per convertire una stringa formattata come "dd/mm/yyyy" in un oggetto Date
+  const parseDate = (dateStr) => {
+    const [day, month, year] = dateStr.split("/");
+    return new Date(`${year}-${month}-${day}`);
+  };
+
   // Funzione per verificare se una data è passata rispetto alla data odierna
-  const isDatePast = (date) => date < timeStamp;
+  const isDatePast = (date) =>
+    parseDate(date) < parseDate(timeStamp.split(",")[0]);
 
   // Funzione per validare la data nel formato "dd/mm/yyyy"
   const isValidDate = (date) => {
@@ -55,20 +62,18 @@ function CarMaintenance() {
           <li className="maint-li" key={car.id}>
             <div className="maint-car">
               <FaCarSide size={25} />
-              Auto: {car.name}
+              {car.name}
             </div>
             <div
-              className="maint-tagliando"
               style={{ color: isDatePast(car.tagliando) ? "brown" : "green" }}
             >
               <FaOilCan size={25} />
-              Tagliando: {car.tagliando}
+              scadenza tagliando: {car.tagliando}
             </div>
             <div
-              className="maint-revisione"
               style={{ color: isDatePast(car.revisione) ? "brown" : "green" }}
             >
-              <GiSmokeBomb size={25} /> Revisione: {car.revisione}
+              <GiSmokeBomb size={25} /> scadenza revisione: {car.revisione}
             </div>
             <button className="maint-btn" onClick={() => handleMaintClick(car)}>
               <LuCalendarClock size={20} color="white" />

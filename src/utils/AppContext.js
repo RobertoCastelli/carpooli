@@ -2,11 +2,11 @@ import React, { createContext, useState, useEffect, useContext } from "react";
 import {
   doc,
   collection,
-  getDocs,
   addDoc,
   updateDoc,
   orderBy,
   query,
+  onSnapshot,
 } from "firebase/firestore";
 import { db } from "./FirebaseConfig";
 
@@ -39,37 +39,44 @@ export const AppProvider = ({ children }) => {
     minute: "2-digit",
   });
 
-  // Funzione generica per fetch dei dati
-  const fetchData = async (collectionName, orderField = null) => {
-    try {
-      const collectionRef = collection(db, collectionName);
-      const q = query(collectionRef, orderBy(orderField, "asc"));
-      const querySnapshot = await getDocs(q);
-      return querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
-    } catch (error) {
-      console.error(`Error fetching ${collectionName}:`, error);
-      return [];
-    }
+  // Funzione generica per fetch dei dati con onSnapshot
+  const fetchData = (collectionName, orderField, setData) => {
+    const collectionRef = collection(db, collectionName);
+    const q = query(collectionRef, orderBy(orderField, "asc"));
+    return onSnapshot(
+      q,
+      (querySnapshot) => {
+        const data = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+        setData(data);
+      },
+      (error) => {
+        console.error(`Error fetching ${collectionName}:`, error);
+        setData([]);
+      }
+    );
   };
 
   useEffect(() => {
-    // Funzione asincrona per caricare tutti i dati
-    const loadData = async () => {
-      const driversData = await fetchData("drivers", "name");
-      const carsData = await fetchData("cars", "name");
-      const destinationsData = await fetchData("destinations", "name");
-      const tripsData = await fetchData("trip", "currentDriver");
+    // Imposta gli snapshot per tutte le collezioni
+    const unsubDrivers = fetchData("drivers", "name", setDrivers);
+    const unsubCars = fetchData("cars", "name", setCars);
+    const unsubDestinations = fetchData(
+      "destinations",
+      "name",
+      setDestinations
+    );
+    const unsubTrips = fetchData("trip", "currentDriver", setTrips);
 
-      setDrivers(driversData);
-      setCars(carsData);
-      setDestinations(destinationsData);
-      setTrips(tripsData);
+    // Cleanup on unmount
+    return () => {
+      unsubDrivers();
+      unsubCars();
+      unsubDestinations();
+      unsubTrips();
     };
-
-    loadData();
   }, []);
 
   // Funzione per registrare una partenza nel database
@@ -86,7 +93,6 @@ export const AppProvider = ({ children }) => {
         },
         checkOut: null,
       });
-      alert("Partenza registrata con successo!");
     } catch (error) {
       console.error("Errore nella registrazione della partenza: ", error);
       alert(
@@ -100,22 +106,24 @@ export const AppProvider = ({ children }) => {
     const checkoutDocRef = doc(db, "trip", tripID);
     try {
       await updateDoc(checkoutDocRef, {
+        activeCar: null,
+        currentDriver: null,
         checkOut: {
+          driver: selectedDriver.name,
           returnKM,
           gasExpenses,
           timestamp: timeStamp,
         },
       });
-      alert("Rientro registrato con successo!");
     } catch (error) {
       console.error("Errore nella registrazione del rientro: ", error);
       alert(
         "Si è verificato un errore durante la registrazione del rientro. Per favore, riprova."
       );
     }
-    setTripID(null);
+    /*  setTripID(null);
     setSelectedDriver(null);
-    setActiveCar(null);
+    setActiveCar(null); */
   };
 
   // Funzione per aggiornare le date di manutenzione dell'auto
@@ -146,20 +154,20 @@ export const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        drivers,
+        cars,
+        destinations,
+        trips,
         selectedDriver,
         setSelectedDriver,
         activeCar,
         setActiveCar,
-        destinations,
         selectedDestination,
         setSelectedDestination,
-        drivers,
-        cars,
-        trips,
-        registerDeparture,
-        checkOut,
         tripID,
         setTripID,
+        registerDeparture,
+        checkOut,
         updateCarMaintenanceDates,
         playSound,
         timeStamp,

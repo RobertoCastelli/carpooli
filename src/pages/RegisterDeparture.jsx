@@ -1,16 +1,22 @@
 import React, { useState } from "react";
 import "./RegisterDeparture.css";
 import { useNavigate } from "react-router-dom";
+import engine from "../sounds/engine.wav";
 import { useAppContext } from "../utils/AppContext";
+import { FaCarSide } from "react-icons/fa";
+import { TbSteeringWheel } from "react-icons/tb";
 
 function RegisterDeparture() {
   const [departureKM, setDepartureKM] = useState("");
 
   const {
+    activeCar,
+    selectedDriver,
     destinations,
     selectedDestination,
     setSelectedDestination,
     registerDeparture,
+    playSound,
   } = useAppContext();
   const navigate = useNavigate(); // Hook per la navigazione
 
@@ -23,6 +29,9 @@ function RegisterDeparture() {
 
     try {
       await registerDeparture(departureKM, selectedDestination);
+      // Funzione per riprodurre un suono
+      playSound(engine);
+
       // Naviga alla pagina home
       navigate("/");
 
@@ -37,6 +46,15 @@ function RegisterDeparture() {
   return (
     <div className="departure-container">
       <div className="departure-title">registra partenza</div>
+      <div className="departure-subtitle">
+        <div>
+          <FaCarSide size={25} /> {activeCar.name}
+        </div>
+        <div>
+          <TbSteeringWheel size={25} />
+          {selectedDriver.name}
+        </div>
+      </div>
       <input
         className="departure-input"
         type="number"
@@ -56,11 +74,7 @@ function RegisterDeparture() {
           Seleziona destinazione...
         </option>
         {destinations.map((dest) => (
-          <option
-            key={dest.id}
-            value={dest.name}
-            onChange={(e) => setSelectedDestination(e.target.value)}
-          >
+          <option key={dest.id} value={dest.name}>
             {dest.name}
           </option>
         ))}

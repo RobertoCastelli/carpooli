@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import "./CheckOut.css";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../utils/AppContext";
+import horn from "../sounds/horn.wav";
+import { FaCarSide } from "react-icons/fa";
+import { TbSteeringWheel } from "react-icons/tb";
 
 function CheckOut() {
   const [returnKM, setReturnKM] = useState("");
   const [gasExpenses, setGasExpenses] = useState("");
 
-  const { checkOut, tripID } = useAppContext();
+  const { selectedDriver, checkOut, tripID, playSound } = useAppContext();
   const navigate = useNavigate(); // Hook per la navigazione
 
   // Funzione per gestire il check-out
@@ -15,8 +18,8 @@ function CheckOut() {
     // Trova se il driver ha un viaggio attivo
     try {
       await checkOut(tripID, returnKM, gasExpenses);
-      // Naviga alla Home
-      navigate("/"); //
+      playSound(horn); // Funzione per riprodurre un suono
+      navigate("/"); // Naviga alla Home
 
       // Reset dei campi dopo un check-out riuscito
       setReturnKM("");
@@ -29,6 +32,15 @@ function CheckOut() {
   return (
     <div className="checkout-container">
       <div className="checkout-title">check-Out</div>
+      <div className="checkout-subtitle">
+        <div>
+          <FaCarSide size={25} />
+        </div>
+        <div>
+          <TbSteeringWheel size={25} />
+          {selectedDriver.name}
+        </div>
+      </div>
       <input
         className="checkout-input"
         type="number"

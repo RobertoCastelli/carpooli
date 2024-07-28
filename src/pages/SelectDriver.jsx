@@ -10,29 +10,28 @@ function SelectDriver() {
   const { drivers, trips, setSelectedDriver, setTripID, playSound } =
     useAppContext();
 
+  // Funzione per ottenere il viaggio attivo per un driver
+  const getActiveTripForDriver = (driver) => {
+    return trips.find(
+      (trip) => trip.checkOut === null && trip.currentDriver === driver.name
+    );
+  };
+
   // Funzione per gestire la selezione di un driver
   const handleDriverSelect = (driver) => {
-    playSound(click); // Funzione per riprodurre un suono di click
+    playSound(click); // Funzione per riprodurre un suono
     setSelectedDriver(driver);
 
     // Trova se il driver ha un viaggio attivo
-    const isTripActive = trips.find(
-      (trip) => trip.checkOut === null && trip.currentDriver === driver.id
-    );
+    const activeTrip = getActiveTripForDriver(driver);
 
-    if (isTripActive) {
-      setTripID(isTripActive.id);
+    if (activeTrip) {
+      setTripID(activeTrip.id);
       navigate("/check-out");
     } else {
       navigate("/select-car");
     }
   };
-
-  // Funzione per verificare se un driver ha un viaggio attivo
-  const isDriverActive = (driverId) =>
-    trips.some(
-      (trip) => trip.checkOut === null && trip.currentDriver === driverId
-    );
 
   return (
     <div className="driver-container">
@@ -44,7 +43,7 @@ function SelectDriver() {
           onClick={() => handleDriverSelect(driver)}
         >
           {driver.name}
-          {isDriverActive(driver.id) && (
+          {getActiveTripForDriver(driver) && (
             <span>
               <TbSteeringWheel size={25} color="brown" />
             </span>
