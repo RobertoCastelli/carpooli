@@ -121,9 +121,6 @@ export const AppProvider = ({ children }) => {
         "Si è verificato un errore durante la registrazione del rientro. Per favore, riprova."
       );
     }
-    /*  setTripID(null);
-    setSelectedDriver(null);
-    setActiveCar(null); */
   };
 
   // Funzione per aggiornare le date di manutenzione dell'auto

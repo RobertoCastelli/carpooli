@@ -50,7 +50,9 @@ function Trips() {
       <ul className="trip-ul">
         {trips.map((trip) => (
           <li className="trip-li" key={trip.id}>
-            <div className="trip-driver">{trip.checkOut?.driver || "N/A"}</div>
+            <div className="trip-driver">
+              {trip.checkOut?.driver || trip.currentDriver}
+            </div>
             <div className="trip-item">
               <label>destinazione:</label>
               <div>{trip.departure?.destination || "N/A"}</div>

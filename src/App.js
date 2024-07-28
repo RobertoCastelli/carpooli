@@ -11,6 +11,7 @@ import RegisterDeparture from "./pages/RegisterDeparture";
 import CheckOut from "./pages/CheckOut";
 import CarMaintenance from "./pages/CarMaintenance";
 import Trips from "./pages/Trips";
+import QrCode from "./components/QrCode";
 
 function AppContent() {
   return (
@@ -23,6 +24,7 @@ function AppContent() {
           <Route path="/register-departure" element={<RegisterDeparture />} />
           <Route path="/check-out" element={<CheckOut />} />
           <Route path="/car-maintenance" element={<CarMaintenance />} />
+          <Route path="/qr-code" element={<QrCode />} />
           <Route path="/trips" element={<Trips />} />
         </Routes>
       </div>
