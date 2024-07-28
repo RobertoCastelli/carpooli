@@ -1,8 +1,7 @@
 import React from "react";
 import "./CarMaintenance.css";
 import { useAppContext } from "../utils/AppContext";
-import { FaCarSide, FaOilCan } from "react-icons/fa";
-import { GiSmokeBomb } from "react-icons/gi";
+import { FaCarSide } from "react-icons/fa";
 import { LuCalendarClock } from "react-icons/lu";
 
 function CarMaintenance() {
@@ -67,13 +66,14 @@ function CarMaintenance() {
             <div
               style={{ color: isDatePast(car.tagliando) ? "brown" : "green" }}
             >
-              <FaOilCan size={25} />
-              scadenza tagliando: {car.tagliando}
+              <label>tagliando:</label>
+              {car.tagliando}
             </div>
             <div
               style={{ color: isDatePast(car.revisione) ? "brown" : "green" }}
             >
-              <GiSmokeBomb size={25} /> scadenza revisione: {car.revisione}
+              <label>revisione:</label>
+              {car.revisione}
             </div>
             <button className="maint-btn" onClick={() => handleMaintClick(car)}>
               <LuCalendarClock size={20} color="white" />

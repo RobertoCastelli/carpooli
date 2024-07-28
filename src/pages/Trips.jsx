@@ -52,7 +52,7 @@ function Trips() {
           <li className="trip-li" key={trip.id}>
             <div className="trip-driver">{trip.checkOut?.driver || "N/A"}</div>
             <div className="trip-item">
-              <label>destination:</label>
+              <label>destinazione:</label>
               <div>{trip.departure?.destination || "N/A"}</div>
             </div>
             <div className="trip-item">
