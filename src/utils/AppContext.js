@@ -162,6 +162,7 @@ export const AppProvider = ({ children }) => {
         setTripID,
         updateCarMaintenanceDates,
         playSound,
+        timeStamp,
       }}
     >
       {children}
