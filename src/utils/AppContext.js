@@ -73,16 +73,15 @@ export const AppProvider = ({ children }) => {
   }, []);
 
   // Funzione per registrare una partenza nel database
-  const registerDeparture = async (departureKM, carCondition, destination) => {
+  const registerDeparture = async (departureKM, destination) => {
     try {
       const departuresCollection = collection(db, "trip");
       await addDoc(departuresCollection, {
-        currentDriver: selectedDriver.id,
-        activeCar: activeCar.id,
+        currentDriver: selectedDriver.name,
+        activeCar: activeCar.name,
         departure: {
           departureKM,
           destination,
-          carCondition,
           timestamp: timeStamp,
         },
         checkOut: null,
@@ -119,6 +118,30 @@ export const AppProvider = ({ children }) => {
     setActiveCar(null);
   };
 
+  // Funzione per aggiornare le date di manutenzione dell'auto
+  const updateCarMaintenanceDates = async (
+    carId,
+    newTagliando,
+    newRevisione
+  ) => {
+    const carDocRef = doc(db, "cars", carId);
+    try {
+      await updateDoc(carDocRef, {
+        tagliando: newTagliando,
+        revisione: newRevisione,
+      });
+      alert("Date di manutenzione aggiornate con successo!");
+    } catch (error) {
+      console.error(
+        "Errore nell'aggiornamento delle date di manutenzione: ",
+        error
+      );
+      alert(
+        "Si è verificato un errore durante l'aggiornamento delle date di manutenzione. Per favore, riprova."
+      );
+    }
+  };
+
   // Fornisce lo stato e le funzioni attraverso il contesto
   return (
     <AppContext.Provider
@@ -137,6 +160,7 @@ export const AppProvider = ({ children }) => {
         checkOut,
         tripID,
         setTripID,
+        updateCarMaintenanceDates,
         playSound,
       }}
     >

@@ -1,36 +1,14 @@
-:root {
-  --background-color: #282c34;
-  --hover-background-color: orange;
-  --text-color: #ccc;
-  --hover-text-color: #282c34;
-  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.driver-container {
-  display: grid;
-  gap: 0.5rem;
-  place-content: center;
-  text-align: center;
-}
-
-.driver-title {
-  font-weight: bold;
-  margin: 1rem;
-  text-transform: uppercase;
-  width: 300px;
-}
-
 .driver-btn {
   align-items: center;
-  background-color: var(--background-color);
+  background-color: #282c34;
   border: none;
   border-radius: 10px;
-  box-shadow: var(--box-shadow);
-  color: var(--text-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: #ccc;
   cursor: pointer;
   display: flex;
   font-size: 1rem;
-  height: 40px;
+  height: 60px;
   justify-content: space-between;
   padding: 0 1rem;
   text-align: left;
@@ -39,6 +17,6 @@
 }
 
 .driver-btn:hover {
-  background-color: var(--hover-background-color);
-  color: var(--hover-text-color);
+  background-color: orange;
+  color: #282c34;
 }

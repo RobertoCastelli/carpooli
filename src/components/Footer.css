@@ -11,3 +11,13 @@ footer {
 .footer-agis {
   color: cadetblue;
 }
+
+footer h1 {
+  color: cadetblue;
+  margin: 0;
+}
+
+footer h5 {
+  color: #ccc;
+  margin: 0;
+}

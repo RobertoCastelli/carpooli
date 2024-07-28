@@ -8,6 +8,7 @@
 }
 
 body {
+  margin: 0;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   background: url("../images/bg.jpg") no-repeat center/cover;
@@ -33,4 +34,28 @@ body {
 
 .content {
   flex: 1;
+}
+
+.driver-container,
+.car-container,
+.departure-container,
+.checkout-container,
+.trip-container,
+.maint-container {
+  display: grid;
+  gap: 0.5rem;
+  place-content: center;
+}
+
+.driver-title,
+.car-title,
+.departure-title,
+.checkout-title,
+.trip-title,
+.maint-title {
+  font-weight: bold;
+  margin: 1rem;
+  text-transform: uppercase;
+  width: 300px;
+  text-align: center;
 }

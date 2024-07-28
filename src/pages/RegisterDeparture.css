@@ -1,39 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 
-:root {
-  --background-color: #282c34;
-  --hover-background-color: orange;
-  --input-background-color: #fff;
-  --input-border-color: #282c34;
-  --input-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  --input-box-shadow-focus: 0 0 0 2px orange;
-  --input-color: #282c34;
-  --input-placeholder-color: #aaa;
-  --text-color: #ccc;
-}
-
-.departure-container {
-  display: grid;
-  gap: 0.5rem;
-  place-content: center;
-}
-
-.departure-title {
-  font-weight: bold;
-  margin: 1rem;
-  text-align: center;
-  text-transform: uppercase;
-  width: 300px;
-}
-
 .departure-input {
   align-items: center;
-  background-color: var(--input-background-color);
+  background-color: #fff;
   border: none;
   border-radius: 10px;
-  box-shadow: var(--input-box-shadow);
-  color: var(--input-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #282c34;
   display: flex;
+  height: 60px;
   font-family: "Montserrat", sans-serif;
   font-size: 1rem;
   justify-content: space-between;
@@ -43,25 +18,27 @@
 }
 
 .departure-input:focus {
-  border-color: var(--input-border-color);
-  box-shadow: var(--input-box-shadow-focus);
+  border-color: #282c34;
+  box-shadow: 0 0 0 2px orange;
   outline: none;
 }
 
-.departure-input::placeholder,
-select option:disabled {
-  color: var(--input-placeholder-color);
+.departure-input::placeholder {
+  color: #aaa;
   opacity: 1;
 }
 
 .departure-btn {
-  background-color: var(--background-color);
+  background-color: green;
   border: none;
   border-radius: 10px;
-  color: var(--text-color);
+  color: #ccc;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 1rem;
-  height: 50px;
+  height: 60px;
   width: 50%;
   margin-left: auto;
   letter-spacing: 1px;
@@ -71,6 +48,6 @@ select option:disabled {
 }
 
 .departure-btn:hover {
-  background-color: var(--hover-background-color);
-  color: var(--background-color);
+  background-color: orange;
+  color: #282c34;
 }

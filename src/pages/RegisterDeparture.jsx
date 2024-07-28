@@ -3,12 +3,8 @@ import "./RegisterDeparture.css";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../utils/AppContext";
 
-import { ImHappy2, ImAngry2 } from "react-icons/im";
-import { FaRoad } from "react-icons/fa";
-
 function RegisterDeparture() {
   const [departureKM, setDepartureKM] = useState("");
-  const [carCondition, setCarCondition] = useState("");
 
   const {
     destinations,
@@ -20,14 +16,18 @@ function RegisterDeparture() {
 
   // Funzione per gestire la registrazione
   const handleRegister = async () => {
+    if (!departureKM || !selectedDestination) {
+      alert("Per favore, riempi tutti i campi.");
+      return;
+    }
+
     try {
-      await registerDeparture(departureKM, carCondition, selectedDestination);
+      await registerDeparture(departureKM, selectedDestination);
       // Naviga alla pagina home
       navigate("/");
 
       // Reset dei campi dopo una registrazione riuscita
       setDepartureKM("");
-      setCarCondition("");
       setSelectedDestination("");
     } catch (err) {
       console.error("errore nella registrazione", err);
@@ -45,6 +45,7 @@ function RegisterDeparture() {
         onChange={(e) => setDepartureKM(e.target.value)}
         required
       />
+
       <select
         className="departure-input"
         value={selectedDestination}
@@ -65,33 +66,8 @@ function RegisterDeparture() {
         ))}
       </select>
 
-      <div className="departure-input">
-        <div>Condizione auto:</div>
-        <label htmlFor="carCondition">
-          <input
-            name="carCondition"
-            type="radio"
-            value="pulita"
-            checked={carCondition === "pulita"}
-            onChange={(e) => setCarCondition(e.target.value)}
-            required
-          />
-          <ImHappy2 size={25} color="green" />
-        </label>
-        <label htmlFor="carCondition">
-          <input
-            name="carCondition"
-            type="radio"
-            value="sporca"
-            checked={carCondition === "sporca"}
-            onChange={(e) => setCarCondition(e.target.value)}
-            required
-          />
-          <ImAngry2 size={25} color="brown" />
-        </label>
-      </div>
       <button className="departure-btn" onClick={handleRegister}>
-        <FaRoad size={25} />
+        start
       </button>
     </div>
   );

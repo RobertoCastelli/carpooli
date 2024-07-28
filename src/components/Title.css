@@ -8,14 +8,16 @@ header {
   height: 160px;
 }
 
-h1 {
+header h1 {
   color: cadetblue;
   margin: 0;
+  padding-top: 1rem;
 }
 
-h5 {
+header h5 {
   color: #ccc;
   margin: 0;
+  padding-bottom: 1rem;
 }
 
 .title-span {

@@ -17,7 +17,7 @@ const Navbar = () => {
           }
         >
           <li>
-            <FaPeopleGroup size={25} />
+            <FaPeopleGroup size={20} />
             <div className="navbar-label">home</div>
           </li>
         </NavLink>
@@ -28,7 +28,7 @@ const Navbar = () => {
           }
         >
           <li>
-            <HiMiniWrenchScrewdriver size={25} />
+            <HiMiniWrenchScrewdriver size={20} />
 
             <div className="navbar-label">manutenzione</div>
           </li>
@@ -40,7 +40,7 @@ const Navbar = () => {
           }
         >
           <li>
-            <FaRegRectangleList size={25} />
+            <FaRegRectangleList size={20} />
 
             <div className="navbar-label">logs</div>
           </li>

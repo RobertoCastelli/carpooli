@@ -3,8 +3,6 @@ import "./CheckOut.css";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../utils/AppContext";
 
-import { FaFlagCheckered } from "react-icons/fa";
-
 function CheckOut() {
   const [returnKM, setReturnKM] = useState("");
   const [gasExpenses, setGasExpenses] = useState("");
@@ -46,7 +44,7 @@ function CheckOut() {
         onChange={(e) => setGasExpenses(e.target.value)}
       />
       <button className="checkout-btn" onClick={handleCheckOut}>
-        <FaFlagCheckered size={25} color="black" />
+        stop
       </button>
     </div>
   );
