@@ -1,0 +1,25 @@
+header {
+  background-color: #282c34;
+  border-radius: 10px;
+  text-transform: uppercase;
+  text-align: center;
+  padding: 0 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+  height: 160px;
+}
+
+header h1 {
+  color: cadetblue;
+  margin: 0;
+  padding-top: 1rem;
+}
+
+header h5 {
+  color: #ccc;
+  margin: 0;
+  padding-bottom: 1rem;
+}
+
+.title-span {
+  color: #ccc;
+}

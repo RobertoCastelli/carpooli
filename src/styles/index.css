@@ -1,0 +1,61 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+:root {
+  --main-bg-color: 95, 158, 160; /* cadetblue */
+  --main-black-color: #333;
+  --main-dark-blue-color: #282c34;
+  --main-white-color: #ccc;
+}
+
+body {
+  margin: 0;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  background: url("../images/bg.jpg") no-repeat center/cover;
+  background-color: var(--main-bg-color);
+  color: var(--main-black-color);
+  font-family: "Montserrat", "Roboto", sans-serif;
+  letter-spacing: 0.05rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  background-color: rgba(var(--main-bg-color), 0.95);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  max-width: 380px;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+}
+
+.driver-container,
+.car-container,
+.departure-container,
+.checkout-container,
+.trip-container,
+.maint-container {
+  display: grid;
+  gap: 0.5rem;
+  place-content: center;
+}
+
+.driver-title,
+.car-title,
+.departure-title,
+.checkout-title,
+.trip-title,
+.maint-title {
+  font-weight: bold;
+  margin: 1rem;
+  text-transform: uppercase;
+  width: 300px;
+  text-align: center;
+}

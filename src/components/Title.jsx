@@ -1,18 +1,17 @@
-// --- REACT
 import React from "react";
-// --- NAVBAR
-import { Navbar } from "./Navbar";
+import "./Title.css";
+import Navbar from "./Navbar";
 
-export const Title = () => {
+const Title = () => {
   return (
-    <div className="title-container">
+    <header>
+      <h1>
+        <span className="title-span">car</span>pooli
+      </h1>
+      <h5>fleet manager</h5>
       <Navbar />
-      <div className="title-content">
-        <h1>
-          car<span className="title-highlight">pooli</span>
-        </h1>
-        <div className="title-subtitle">politecnico di milano</div>
-      </div>
-    </div>
+    </header>
   );
 };
+
+export default Title;

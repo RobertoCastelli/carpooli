@@ -1,0 +1,27 @@
+.navbar-ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  padding: 1rem 0;
+  margin: 0;
+}
+
+.navbar-li {
+  text-decoration: none;
+  color: cadetblue;
+}
+
+.navbar-li:hover {
+  color: orange;
+  cursor: pointer;
+}
+
+.navbar-label {
+  font-size: 0.7rem;
+}
+
+.active-navlink {
+  text-decoration: none;
+  color: orange;
+  border-bottom: 2px solid orange;
+}

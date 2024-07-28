@@ -1,36 +1,45 @@
-// --- CONTEXT
-import { ContextProvider } from "./context";
-// --- ROUTER
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// --- COMPONENTS
-import { Title } from "./components/Title";
-import { ElencoAutisti } from "./components/ElencoAutisti";
-import { ElencoAuto } from "./components/ElencoAuto";
-import { FormPartenza } from "./components/FormPartenza";
-import { FormRitorno } from "./components/FormRitorno";
-import { Manutenzione } from "./components/Manutenzione";
-import { Riepilogo } from "./components/Riepilogo";
-import { Footer } from "./components/Footer";
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { AppProvider } from "./utils/AppContext";
 
+import Title from "./components/Title";
+import Footer from "./components/Footer";
+
+import SelectDriver from "./pages/SelectDriver";
+import SelectCar from "./pages/SelectCar";
+import RegisterDeparture from "./pages/RegisterDeparture";
+import CheckOut from "./pages/CheckOut";
+import CarMaintenance from "./pages/CarMaintenance";
+import Trips from "./pages/Trips";
+import QrCode from "./components/QrCode";
+
+function AppContent() {
+  return (
+    <div className="container">
+      <div className="content">
+        <Title />
+        <Routes>
+          <Route exact path="/" element={<SelectDriver />} />
+          <Route path="/select-car" element={<SelectCar />} />
+          <Route path="/register-departure" element={<RegisterDeparture />} />
+          <Route path="/check-out" element={<CheckOut />} />
+          <Route path="/car-maintenance" element={<CarMaintenance />} />
+          <Route path="/qr-code" element={<QrCode />} />
+          <Route path="/trips" element={<Trips />} />
+        </Routes>
+      </div>
+      <Footer />
+    </div>
+  );
+}
+
+// Wrappa l'applicazione con il Provider per fornire il contesto
 function App() {
   return (
     <Router>
-      <ContextProvider>
-        <div className="container">
-          <div className="content">
-            <Title />
-            <Routes>
-              <Route exact path="/" element={<ElencoAutisti />} />
-              <Route path="/auto" element={<ElencoAuto />} />
-              <Route path="/partenza" element={<FormPartenza />} />
-              <Route path="/ritorno" element={<FormRitorno />} />
-              <Route path="/manutenzione" element={<Manutenzione />} />
-              <Route path="/riepilogo" element={<Riepilogo />} />
-            </Routes>
-          </div>
-          <Footer />
-        </div>
-      </ContextProvider>
+      <AppProvider>
+        <AppContent />
+      </AppProvider>
     </Router>
   );
 }

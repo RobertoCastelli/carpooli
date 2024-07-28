@@ -1,0 +1,3 @@
+[submodule "carpooli"]
+	path = carpooli
+	url = https://github.com/RobertoCastelli/carpooli.git

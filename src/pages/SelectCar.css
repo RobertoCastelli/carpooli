@@ -1,0 +1,19 @@
+.car-btn {
+  background-color: #282c34;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: #ccc;
+  cursor: pointer;
+  font-size: 1rem;
+  height: 60px;
+  padding: 0 1rem;
+  text-align: left;
+  text-transform: capitalize;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.car-btn:hover {
+  background-color: orange;
+  color: #282c34;
+}

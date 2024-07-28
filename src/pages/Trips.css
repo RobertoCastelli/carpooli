@@ -1,0 +1,35 @@
+.trip-ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.trip-li {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.trip-partenza,
+.trip-checkout,
+.trip-driver {
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border-bottom: 1px solid grey;
+}
+
+label {
+  text-transform: capitalize;
+  color: cadetblue;
+  font-weight: bold;
+}
+
+.trip-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
