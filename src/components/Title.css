@@ -1,11 +1,11 @@
 header {
   background-color: #282c34;
-  border-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
   text-transform: uppercase;
   text-align: center;
   padding: 0 1rem;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
-  height: 160px;
 }
 
 header h1 {
