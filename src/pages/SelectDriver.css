@@ -15,8 +15,3 @@
   text-transform: capitalize;
   transition: background-color 0.3s, transform 0.3s;
 }
-
-.driver-btn:hover {
-  background-color: orange;
-  color: #282c34;
-}

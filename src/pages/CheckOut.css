@@ -57,8 +57,3 @@ select option:disabled {
   height: 60px;
   margin-left: auto;
 }
-
-.checkout-btn:hover {
-  color: #282c34;
-  background-color: orange;
-}

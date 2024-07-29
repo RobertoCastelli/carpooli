@@ -22,9 +22,9 @@ function SelectCar() {
 
   return (
     <div className="car-container">
-      <div className="car-title">seleziona auto</div>
+      <div className="car-title">seleziona auto </div>
       {freeCars.length === 0 ? (
-        <div>Nessuna auto disponibile al momento</div>
+        <h5>Nessuna auto disponibile al momento</h5>
       ) : (
         freeCars.map((car) => (
           <button

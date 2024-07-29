@@ -42,10 +42,4 @@
   letter-spacing: 1px;
   padding: 1rem;
   text-transform: uppercase;
-  transition: background-color 0.3s;
-}
-
-.maint-btn:hover {
-  background-color: orange;
-  color: #282c34;
 }

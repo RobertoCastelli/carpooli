@@ -31,7 +31,19 @@ const Navbar = () => {
           <li>
             <HiMiniWrenchScrewdriver size={20} />
 
-            <div className="navbar-label">manutenzione</div>
+            <div className="navbar-label">controlli</div>
+          </li>
+        </NavLink>{" "}
+        <NavLink
+          to="/qr-code"
+          className={({ isActive }) =>
+            isActive ? "active-navlink" : "navbar-li"
+          }
+        >
+          <li>
+            <IoQrCodeSharp size={20} />
+
+            <div className="navbar-label">qr code</div>
           </li>
         </NavLink>
         <NavLink
@@ -44,18 +56,6 @@ const Navbar = () => {
             <FaRegRectangleList size={20} />
 
             <div className="navbar-label">logs</div>
-          </li>
-        </NavLink>
-        <NavLink
-          to="/qr-code"
-          className={({ isActive }) =>
-            isActive ? "active-navlink" : "navbar-li"
-          }
-        >
-          <li>
-            <IoQrCodeSharp size={20} />
-
-            <div className="navbar-label">qr code</div>
           </li>
         </NavLink>
       </ul>

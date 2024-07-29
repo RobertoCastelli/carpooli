@@ -59,8 +59,3 @@
   text-transform: uppercase;
   transition: background-color 0.3s;
 }
-
-.departure-btn:hover {
-  background-color: orange;
-  color: #282c34;
-}
