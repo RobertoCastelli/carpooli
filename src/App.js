@@ -1,10 +1,8 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AppProvider } from "./utils/AppContext";
-
 import Title from "./components/Title";
 import Footer from "./components/Footer";
-
 import SelectDriver from "./pages/SelectDriver";
 import SelectCar from "./pages/SelectCar";
 import RegisterDeparture from "./pages/RegisterDeparture";
@@ -13,11 +11,15 @@ import CarMaintenance from "./pages/CarMaintenance";
 import Trips from "./pages/Trips";
 import QrCode from "./components/QrCode";
 
+//TODO: scrolling content only
+//TODO: add calendar to input dates
+//!FIX: car not showing in checkout
+
 function AppContent() {
   return (
     <div className="container">
+      <Title />
       <div className="content">
-        <Title />
         <Routes>
           <Route exact path="/" element={<SelectDriver />} />
           <Route path="/select-car" element={<SelectCar />} />

@@ -15,7 +15,6 @@ body {
   color: var(--main-black-color);
   font-family: "Montserrat", "Roboto", sans-serif;
   letter-spacing: 0.05rem;
-  overflow: hidden;
 }
 
 * {
@@ -39,7 +38,6 @@ body {
 }
 
 .content {
-  overflow-y: auto;
   flex: 1;
 }
 

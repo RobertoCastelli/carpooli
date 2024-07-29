@@ -52,7 +52,6 @@ select option:disabled {
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s;
   width: 50%;
   height: 60px;
   margin-left: auto;
