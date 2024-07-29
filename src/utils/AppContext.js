@@ -43,6 +43,7 @@ export const AppProvider = ({ children }) => {
   const fetchData = (collectionName, orderField, setData) => {
     const collectionRef = collection(db, collectionName);
     const q = query(collectionRef, orderBy(orderField, "asc"));
+
     return onSnapshot(
       q,
       (querySnapshot) => {
@@ -127,13 +128,15 @@ export const AppProvider = ({ children }) => {
   const updateCarMaintenanceDates = async (
     carId,
     newTagliando,
-    newRevisione
+    newRevisione,
+    newBollo
   ) => {
     const carDocRef = doc(db, "cars", carId);
     try {
       await updateDoc(carDocRef, {
         tagliando: newTagliando,
         revisione: newRevisione,
+        bollo: newBollo,
       });
       alert("Date di manutenzione aggiornate con successo!");
     } catch (error) {

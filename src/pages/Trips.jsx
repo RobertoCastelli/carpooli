@@ -44,11 +44,14 @@ function Trips() {
     return "N/A";
   };
 
+  // Filtra i viaggi completi
+  const completedTrips = trips.filter((trip) => trip.checkOut !== null);
+
   return (
     <div className="trip-container">
       <div className="trip-title">logs</div>
       <ul className="trip-ul">
-        {trips.map((trip) => (
+        {completedTrips.map((trip) => (
           <li className="trip-li" key={trip.id}>
             <div className="trip-driver">
               {trip.checkOut?.driver || trip.currentDriver}

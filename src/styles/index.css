@@ -12,7 +12,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   background: rgba(var(--main-bg-color), 0.9);
-
   color: var(--main-black-color);
   font-family: "Montserrat", "Roboto", sans-serif;
   letter-spacing: 0.05rem;
@@ -23,6 +22,13 @@ body {
 }
 
 .container {
+  background: linear-gradient(
+      rgba(var(--main-bg-color), 0.9),
+      rgba(var(--main-bg-color), 0.9)
+    ),
+    url("../images/bg.jpg");
+  background-size: cover;
+  background-position: center;
   border-radius: 10px;
   display: flex;
   flex-direction: column;

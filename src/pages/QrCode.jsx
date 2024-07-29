@@ -9,7 +9,7 @@ const QrCode = () => {
         <QRCode
           size={200}
           value="https://carpooli.netlify.app"
-          bgColor="#ccc"
+          bgColor="#282c34"
           fgColor="#282c34"
         />
       </div>

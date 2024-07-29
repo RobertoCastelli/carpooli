@@ -26,22 +26,33 @@ function CarMaintenance() {
   // Gestore per aprire il prompt e ottenere le nuove date
   const handleMaintClick = async (car) => {
     const newTagliando = prompt(
-      `Inserisci nuova data tagliando per ${car.name} (formato: dd/mm/yyyy):`,
+      `Inserisci nuova data TAGLIANDO per ${car.name} (formato: dd/mm/yyyy):`,
       car.tagliando
     );
     const newRevisione = prompt(
-      `Inserisci nuova data revisione per ${car.name} (formato: dd/mm/yyyy):`,
+      `Inserisci nuova data REVISIONE per ${car.name} (formato: dd/mm/yyyy):`,
       car.revisione
+    );
+    const newBollo = prompt(
+      `Inserisci nuova data BOLLO per ${car.name} (formato: dd/mm/yyyy):`,
+      car.bollo
     );
 
     if (
       newTagliando &&
       newRevisione &&
+      newBollo &&
       isValidDate(newTagliando) &&
-      isValidDate(newRevisione)
+      isValidDate(newRevisione) &&
+      isValidDate(newBollo)
     ) {
       try {
-        await updateCarMaintenanceDates(car.id, newTagliando, newRevisione);
+        await updateCarMaintenanceDates(
+          car.id,
+          newTagliando,
+          newRevisione,
+          newBollo
+        );
       } catch (error) {
         console.error(
           "Errore nell'aggiornamento delle date di manutenzione:",
@@ -73,6 +84,10 @@ function CarMaintenance() {
               style={{ color: isDatePast(car.revisione) ? "brown" : "green" }}
             >
               <label>revisione:</label>
+              {car.revisione}
+            </div>{" "}
+            <div style={{ color: isDatePast(car.bollo) ? "brown" : "green" }}>
+              <label>bollo:</label>
               {car.revisione}
             </div>
             <button className="maint-btn" onClick={() => handleMaintClick(car)}>
