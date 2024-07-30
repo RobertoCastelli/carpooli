@@ -10,7 +10,8 @@ function CheckOut() {
   const [returnKM, setReturnKM] = useState("");
   const [gasExpenses, setGasExpenses] = useState("");
 
-  const { selectedDriver, checkOut, tripID, playSound } = useAppContext();
+  const { selectedDriver, activeCar, checkOut, tripID, playSound } =
+    useAppContext();
   const navigate = useNavigate(); // Hook per la navigazione
 
   // Funzione per gestire il check-out
@@ -35,6 +36,7 @@ function CheckOut() {
       <div className="checkout-subtitle">
         <div>
           <FaCarSide size={25} />
+          {activeCar}
         </div>
         <div>
           <TbSteeringWheel size={25} />

@@ -7,15 +7,20 @@ import click from "../sounds/click.wav";
 
 function SelectDriver() {
   const navigate = useNavigate(); // Hook per la navigazione
-  const { drivers, trips, setSelectedDriver, setTripID, playSound } =
-    useAppContext();
+  const {
+    drivers,
+    trips,
+    setSelectedDriver,
+    setActiveCar,
+    setTripID,
+    playSound,
+  } = useAppContext();
 
   // Funzione per ottenere il viaggio attivo per un driver
-  const getActiveTripForDriver = (driver) => {
-    return trips.find(
+  const getActiveTripForDriver = (driver) =>
+    trips.find(
       (trip) => trip.checkOut === null && trip.currentDriver === driver.name
     );
-  };
 
   // Funzione per gestire la selezione di un driver
   const handleDriverSelect = (driver) => {
@@ -27,6 +32,7 @@ function SelectDriver() {
 
     if (activeTrip) {
       setTripID(activeTrip.id);
+      setActiveCar(activeTrip.activeCar);
       navigate("/check-out");
     } else {
       navigate("/select-car");
