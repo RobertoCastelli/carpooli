@@ -7,7 +7,7 @@ import { FaCarSide } from "react-icons/fa";
 import { TbSteeringWheel } from "react-icons/tb";
 
 function RegisterDeparture() {
-  const [departureKM, setDepartureKM] = useState("");
+  const [departureKM, setDepartureKM] = useState(""); // Stato locale per il chilometraggio di partenza
 
   const {
     activeCar,
@@ -20,7 +20,8 @@ function RegisterDeparture() {
   } = useAppContext();
   const navigate = useNavigate(); // Hook per la navigazione
 
-  // Funzione per gestire la registrazione
+  // Funzione per gestire la registrazione della partenza
+  // Controlla che tutti i campi siano compilati prima di procedere
   const handleRegister = async () => {
     if (!departureKM || !selectedDestination) {
       alert("Per favore, riempi tutti i campi.");
@@ -28,24 +29,26 @@ function RegisterDeparture() {
     }
 
     try {
+      // Registra la partenza con i dettagli forniti
       await registerDeparture(departureKM, selectedDestination);
-      // Funzione per riprodurre un suono
+
+      // Riproduce il suono del motore
       playSound(engine);
 
       // Naviga alla pagina home
       navigate("/");
 
-      // Reset dei campi dopo una registrazione riuscita
+      // Reset dei campi dopo una registrazione riuscita per evitare dati residui
       setDepartureKM("");
       setSelectedDestination("");
     } catch (err) {
-      console.error("errore nella registrazione", err);
+      console.error("Errore nella registrazione", err);
     }
   };
 
   return (
     <div className="departure-container">
-      <div className="departure-title">registra partenza</div>
+      <div className="departure-title">Registra Partenza</div>
       <div className="departure-subtitle">
         <div>
           <FaCarSide size={25} /> {activeCar.name}
@@ -81,7 +84,7 @@ function RegisterDeparture() {
       </select>
 
       <button className="departure-btn" onClick={handleRegister}>
-        start
+        Start
       </button>
     </div>
   );

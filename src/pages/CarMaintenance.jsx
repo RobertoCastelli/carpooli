@@ -1,58 +1,56 @@
-import React from "react";
+import React, { useState } from "react";
 import "./CarMaintenance.css";
 import { useAppContext } from "../utils/AppContext";
 import { FaCarSide } from "react-icons/fa";
 import { LuCalendarClock } from "react-icons/lu";
 
 function CarMaintenance() {
-  const { cars, updateCarMaintenanceDates, timeStamp } = useAppContext();
+  const [showModal, setShowModal] = useState(false);
+  const [currentCar, setCurrentCar] = useState(null);
+  const [newTagliando, setNewTagliando] = useState("");
+  const [newRevisione, setNewRevisione] = useState("");
+  const [newBollo, setNewBollo] = useState("");
 
-  // Funzione per convertire una stringa formattata come "dd/mm/yyyy" in un oggetto Date
-  const parseDate = (dateStr) => {
-    const [day, month, year] = dateStr.split("/");
-    return new Date(`${year}-${month}-${day}`);
+  const { cars, updateCarMaintenanceDates } = useAppContext();
+
+  // Funzione per formattare una data in formato dd/mm/yyyy
+  const formatDate = (date) => {
+    const d = new Date(date);
+    const day = `0${d.getDate()}`.slice(-2);
+    const month = `0${d.getMonth() + 1}`.slice(-2);
+    const year = d.getFullYear();
+    return `${day}/${month}/${year}`;
   };
 
-  // Funzione per verificare se una data è passata rispetto alla data odierna
-  const isDatePast = (date) =>
-    parseDate(date) < parseDate(timeStamp.split(",")[0]);
-
-  // Funzione per validare la data nel formato "dd/mm/yyyy"
-  const isValidDate = (date) => {
-    const regex = /^\d{2}\/\d{2}\/\d{4}$/;
-    return regex.test(date);
+  // Funzione per gestire la visualizzazione del modale e prepopolare i campi
+  const handleMaintClick = (car) => {
+    setCurrentCar(car);
+    setNewTagliando(formatDate(car.tagliando) || "");
+    setNewRevisione(formatDate(car.revisione) || "");
+    setNewBollo(formatDate(car.bollo) || "");
+    setShowModal(true);
   };
 
-  // Gestore per aprire il prompt e ottenere le nuove date
-  const handleMaintClick = async (car) => {
-    const newTagliando = prompt(
-      `Inserisci nuova data TAGLIANDO per ${car.name} (formato: dd/mm/yyyy):`,
-      car.tagliando
-    );
-    const newRevisione = prompt(
-      `Inserisci nuova data REVISIONE per ${car.name} (formato: dd/mm/yyyy):`,
-      car.revisione
-    );
-    const newBollo = prompt(
-      `Inserisci nuova data BOLLO per ${car.name} (formato: dd/mm/yyyy):`,
-      car.bollo
-    );
-
-    if (
-      newTagliando &&
-      newRevisione &&
-      newBollo &&
-      isValidDate(newTagliando) &&
-      isValidDate(newRevisione) &&
-      isValidDate(newBollo)
-    ) {
+  // Funzione per salvare le nuove date e chiudere il modale
+  const handleSave = async () => {
+    if (currentCar && newTagliando && newRevisione && newBollo) {
       try {
-        await updateCarMaintenanceDates(
-          car.id,
-          newTagliando,
-          newRevisione,
-          newBollo
+        // Converte le date nel formato corretto per il salvataggio
+        const tagliandoDate = new Date(
+          newTagliando.split("/").reverse().join("-")
         );
+        const revisioneDate = new Date(
+          newRevisione.split("/").reverse().join("-")
+        );
+        const bolloDate = new Date(newBollo.split("/").reverse().join("-"));
+
+        await updateCarMaintenanceDates(
+          currentCar.id,
+          tagliandoDate.toISOString().split("T")[0],
+          revisioneDate.toISOString().split("T")[0],
+          bolloDate.toISOString().split("T")[0]
+        );
+        setShowModal(false);
       } catch (error) {
         console.error(
           "Errore nell'aggiornamento delle date di manutenzione:",
@@ -60,8 +58,13 @@ function CarMaintenance() {
         );
       }
     } else {
-      alert("Per favore, inserisci le date nel formato corretto (dd/mm/yyyy).");
+      alert("Per favore, inserisci tutte le date.");
     }
+  };
+
+  // Funzione per chiudere il modale senza salvare
+  const handleClose = () => {
+    setShowModal(false);
   };
 
   return (
@@ -74,21 +77,17 @@ function CarMaintenance() {
               <FaCarSide size={25} />
               {car.name}
             </div>
-            <div
-              style={{ color: isDatePast(car.tagliando) ? "brown" : "green" }}
-            >
+            <div>
               <label>tagliando:</label>
-              {car.tagliando}
+              {formatDate(car.tagliando)}
             </div>
-            <div
-              style={{ color: isDatePast(car.revisione) ? "brown" : "green" }}
-            >
+            <div>
               <label>revisione:</label>
-              {car.revisione}
-            </div>{" "}
-            <div style={{ color: isDatePast(car.bollo) ? "brown" : "green" }}>
+              {formatDate(car.revisione)}
+            </div>
+            <div>
               <label>bollo:</label>
-              {car.revisione}
+              {formatDate(car.bollo)}
             </div>
             <button className="maint-btn" onClick={() => handleMaintClick(car)}>
               <LuCalendarClock size={20} color="white" />
@@ -96,6 +95,50 @@ function CarMaintenance() {
           </li>
         ))}
       </ul>
+
+      {showModal && (
+        <div className="modal">
+          <div className="modal-content">
+            <h2>Modifica Manutenzione per {currentCar?.name}</h2>
+            <label>
+              Data TAGLIANDO:
+              <input
+                type="date"
+                value={newTagliando.split("/").reverse().join("-")}
+                onChange={(e) =>
+                  setNewTagliando(e.target.value.split("-").reverse().join("/"))
+                }
+              />
+            </label>
+            <label>
+              Data REVISIONE:
+              <input
+                type="date"
+                value={newRevisione.split("/").reverse().join("-")}
+                onChange={(e) =>
+                  setNewRevisione(e.target.value.split("-").reverse().join("/"))
+                }
+              />
+            </label>
+            <label>
+              Data BOLLO:
+              <input
+                type="date"
+                value={newBollo.split("/").reverse().join("-")}
+                onChange={(e) =>
+                  setNewBollo(e.target.value.split("-").reverse().join("/"))
+                }
+              />
+            </label>
+            <button className="modal-save-btn" onClick={handleSave}>
+              Salva
+            </button>
+            <button className="modal-close-btn" onClick={handleClose}>
+              Annulla
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
