@@ -32,8 +32,8 @@
   transform: translate(-50%, -50%); /* Per centrare l'elemento */
   padding: 5px 10px;
   width: 80%;
-  color: #f5f5f5; /* Colore del testo chiaro */
-  background-color: #333; /* Colore di sfondo scuro */
+  color: #ccc; /* Colore del testo chiaro */
+  background-color: #282c34; /* Colore di sfondo scuro */
   border-radius: 10px;
   white-space: nowrap; /* Impedisce la rottura delle parole */
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Leggera ombra */
