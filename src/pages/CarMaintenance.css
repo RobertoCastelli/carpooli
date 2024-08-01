@@ -45,6 +45,14 @@
   text-transform: uppercase;
 }
 
+.date {
+  color: black; /* Colore predefinito per le date */
+}
+
+.past-date {
+  color: red; /* Colore per le date superiori alla data odierna */
+}
+
 /* Stili aggiuntivi per la modale */
 .modal {
   position: fixed;

@@ -23,6 +23,13 @@ function CarMaintenance() {
     return `${day}/${month}/${year}`;
   };
 
+  // Funzione per verificare se una data è maggiore di oggi
+  const isDatePast = (date) => {
+    const today = new Date();
+    const dateToCheck = new Date(date);
+    return dateToCheck > today;
+  };
+
   // Funzione per gestire la visualizzazione del modale e prepopolare i campi
   const handleMaintClick = (car) => {
     setCurrentCar(car);
@@ -89,19 +96,27 @@ function CarMaintenance() {
               <FaCarSide size={25} />
               {car.name}
             </div>
-            <div>
+            <div
+              className={`date ${isDatePast(car.tagliando) ? "past-date" : ""}`}
+            >
               <label>tagliando:</label>
               {formatDate(car.tagliando)}
             </div>
-            <div>
+            <div
+              className={`date ${isDatePast(car.revisione) ? "past-date" : ""}`}
+            >
               <label>revisione:</label>
               {formatDate(car.revisione)}
             </div>
-            <div>
+            <div className={`date ${isDatePast(car.bollo) ? "past-date" : ""}`}>
               <label>bollo:</label>
               {formatDate(car.bollo)}
             </div>
-            <div>
+            <div
+              className={`date ${
+                isDatePast(car.assicurazione) ? "past-date" : ""
+              }`}
+            >
               <label>assicurazione:</label>
               {formatDate(car.assicurazione)}
             </div>
