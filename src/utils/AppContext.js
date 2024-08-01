@@ -111,6 +111,7 @@ export const AppProvider = ({ children }) => {
         currentDriver: null,
         checkOut: {
           driver: selectedDriver.name,
+          car: activeCar,
           returnKM,
           gasExpenses,
           timestamp: timeStamp,
@@ -129,7 +130,8 @@ export const AppProvider = ({ children }) => {
     carId,
     newTagliando,
     newRevisione,
-    newBollo
+    newBollo,
+    newAssicurazione
   ) => {
     const carDocRef = doc(db, "cars", carId);
     try {
@@ -137,6 +139,7 @@ export const AppProvider = ({ children }) => {
         tagliando: newTagliando,
         revisione: newRevisione,
         bollo: newBollo,
+        assicurazione: newAssicurazione,
       });
       alert("Date di manutenzione aggiornate con successo!");
     } catch (error) {
@@ -149,6 +152,14 @@ export const AppProvider = ({ children }) => {
       );
     }
   };
+
+  useEffect(() => {
+    console.log("selectedDriver changed:", selectedDriver);
+  }, [selectedDriver]);
+
+  useEffect(() => {
+    console.log("activeCar changed:", activeCar);
+  }, [activeCar]);
 
   // Fornisce lo stato e le funzioni attraverso il contesto
   return (

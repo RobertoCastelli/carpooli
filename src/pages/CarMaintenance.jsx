@@ -10,6 +10,7 @@ function CarMaintenance() {
   const [newTagliando, setNewTagliando] = useState("");
   const [newRevisione, setNewRevisione] = useState("");
   const [newBollo, setNewBollo] = useState("");
+  const [newAssicurazione, setNewAssicurazione] = useState("");
 
   const { cars, updateCarMaintenanceDates } = useAppContext();
 
@@ -28,12 +29,19 @@ function CarMaintenance() {
     setNewTagliando(formatDate(car.tagliando) || "");
     setNewRevisione(formatDate(car.revisione) || "");
     setNewBollo(formatDate(car.bollo) || "");
+    setNewAssicurazione(formatDate(car.assicurazione) || "");
     setShowModal(true);
   };
 
   // Funzione per salvare le nuove date e chiudere il modale
   const handleSave = async () => {
-    if (currentCar && newTagliando && newRevisione && newBollo) {
+    if (
+      currentCar &&
+      newTagliando &&
+      newRevisione &&
+      newBollo &&
+      newAssicurazione
+    ) {
       try {
         // Converte le date nel formato corretto per il salvataggio
         const tagliandoDate = new Date(
@@ -43,12 +51,16 @@ function CarMaintenance() {
           newRevisione.split("/").reverse().join("-")
         );
         const bolloDate = new Date(newBollo.split("/").reverse().join("-"));
+        const assicurazioneDate = new Date(
+          newAssicurazione.split("/").reverse().join("-")
+        );
 
         await updateCarMaintenanceDates(
           currentCar.id,
           tagliandoDate.toISOString().split("T")[0],
           revisioneDate.toISOString().split("T")[0],
-          bolloDate.toISOString().split("T")[0]
+          bolloDate.toISOString().split("T")[0],
+          assicurazioneDate.toISOString().split("T")[0]
         );
         setShowModal(false);
       } catch (error) {
@@ -89,6 +101,10 @@ function CarMaintenance() {
               <label>bollo:</label>
               {formatDate(car.bollo)}
             </div>
+            <div>
+              <label>assicurazione:</label>
+              {formatDate(car.assicurazione)}
+            </div>
             <button className="maint-btn" onClick={() => handleMaintClick(car)}>
               <LuCalendarClock size={20} color="white" />
             </button>
@@ -99,7 +115,7 @@ function CarMaintenance() {
       {showModal && (
         <div className="modal">
           <div className="modal-content">
-            <h2>Modifica Manutenzione per {currentCar?.name}</h2>
+            <h2>Modifica date per {currentCar?.name}</h2>
             <label>
               Data TAGLIANDO:
               <input
@@ -127,6 +143,18 @@ function CarMaintenance() {
                 value={newBollo.split("/").reverse().join("-")}
                 onChange={(e) =>
                   setNewBollo(e.target.value.split("-").reverse().join("/"))
+                }
+              />
+            </label>
+            <label>
+              Data ASSICURAZIONE:
+              <input
+                type="date"
+                value={newAssicurazione.split("/").reverse().join("-")}
+                onChange={(e) =>
+                  setNewAssicurazione(
+                    e.target.value.split("-").reverse().join("/")
+                  )
                 }
               />
             </label>

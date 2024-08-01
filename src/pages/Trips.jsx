@@ -54,7 +54,8 @@ function Trips() {
         {completedTrips.map((trip) => (
           <li className="trip-li" key={trip.id}>
             <div className="trip-driver">
-              {trip.checkOut?.driver || trip.currentDriver}
+              <div>{trip.checkOut?.car || "no car"}</div>
+              <div>{trip.checkOut?.driver || trip.currentDriver}</div>
             </div>
             <div className="trip-item">
               <label>destinazione:</label>
