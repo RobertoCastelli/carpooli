@@ -153,14 +153,6 @@ export const AppProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    console.log("selectedDriver changed:", selectedDriver);
-  }, [selectedDriver]);
-
-  useEffect(() => {
-    console.log("activeCar changed:", activeCar);
-  }, [activeCar]);
-
   // Fornisce lo stato e le funzioni attraverso il contesto
   return (
     <AppContext.Provider

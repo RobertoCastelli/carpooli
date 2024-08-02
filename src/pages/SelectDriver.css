@@ -14,3 +14,18 @@
   text-align: left;
   text-transform: capitalize;
 }
+.driver-title {
+  display: grid;
+}
+
+.driver-add {
+  width: 20%;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  margin: 10px auto 0;
+  padding: 0.5rem;
+  background-color: orange;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}

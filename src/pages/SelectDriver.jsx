@@ -3,6 +3,7 @@ import "./SelectDriver.css";
 import { useNavigate } from "react-router-dom";
 import { useAppContext } from "../utils/AppContext";
 import { TbSteeringWheel } from "react-icons/tb";
+import { IoPersonAddSharp } from "react-icons/io5";
 import click from "../sounds/click.wav";
 
 function SelectDriver() {
@@ -40,6 +41,9 @@ function SelectDriver() {
 
   return (
     <div className="driver-container">
+      <button className="driver-add">
+        <IoPersonAddSharp size={25} color="#282c34" />
+      </button>
       <div className="driver-title">Seleziona conducente</div>
       {drivers.map((driver) => {
         const activeTrip = getActiveTripForDriver(driver); // Memorizza il viaggio attivo se presente

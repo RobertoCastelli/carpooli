@@ -27,7 +27,7 @@ function CarMaintenance() {
   const isDatePast = (date) => {
     const today = new Date();
     const dateToCheck = new Date(date);
-    return dateToCheck > today;
+    return dateToCheck < today;
   };
 
   // Funzione per gestire la visualizzazione del modale e prepopolare i campi
@@ -130,7 +130,7 @@ function CarMaintenance() {
       {showModal && (
         <div className="modal">
           <div className="modal-content">
-            <h2>Modifica date per {currentCar?.name}</h2>
+            <h2>Aggiorna: {currentCar?.name}</h2>
             <label>
               Data TAGLIANDO:
               <input
