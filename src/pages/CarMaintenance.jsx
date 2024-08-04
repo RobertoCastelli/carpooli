@@ -132,7 +132,7 @@ function CarMaintenance() {
           <div className="modal-content">
             <h2>Aggiorna: {currentCar?.name}</h2>
             <label>
-              Data TAGLIANDO:
+              TAGLIANDO:
               <input
                 type="date"
                 value={newTagliando.split("/").reverse().join("-")}
@@ -142,7 +142,7 @@ function CarMaintenance() {
               />
             </label>
             <label>
-              Data REVISIONE:
+              REVISIONE:
               <input
                 type="date"
                 value={newRevisione.split("/").reverse().join("-")}
@@ -152,7 +152,7 @@ function CarMaintenance() {
               />
             </label>
             <label>
-              Data BOLLO:
+              BOLLO:
               <input
                 type="date"
                 value={newBollo.split("/").reverse().join("-")}
@@ -162,7 +162,7 @@ function CarMaintenance() {
               />
             </label>
             <label>
-              Data ASSICURAZIONE:
+              ASSICURAZIONE:
               <input
                 type="date"
                 value={newAssicurazione.split("/").reverse().join("-")}

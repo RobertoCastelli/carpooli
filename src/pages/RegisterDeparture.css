@@ -7,33 +7,33 @@
 
 .departure-subtitle div {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #282c34;
-  justify-content: space-between;
   padding-top: 0.5rem;
 }
 
 .departure-input {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  background-color: #fff;
+  height: 60px;
+  padding: 1rem;
   border: none;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  color: #282c34;
-  display: flex;
-  height: 60px;
   font-family: "Montserrat", sans-serif;
   font-size: 1rem;
-  justify-content: space-between;
+  color: #282c34;
+  background-color: #fff;
   letter-spacing: 0.05rem;
-  padding: 1rem;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
 .departure-input:focus {
   border-color: #282c34;
-  box-shadow: 0 0 0 2px orange;
   outline: none;
+  box-shadow: 0 0 0 2px orange;
 }
 
 .departure-input::placeholder {
@@ -42,20 +42,20 @@
 }
 
 .departure-btn {
-  background-color: green;
-  border: none;
-  border-radius: 10px;
-  color: #ccc;
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 1rem;
-  height: 60px;
   width: 50%;
+  height: 60px;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: #ccc;
+  background-color: green;
+  cursor: pointer;
   margin-left: auto;
   letter-spacing: 1px;
-  padding: 1rem;
-  text-transform: uppercase;
   transition: background-color 0.3s;
 }

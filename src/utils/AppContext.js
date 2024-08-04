@@ -153,6 +153,20 @@ export const AppProvider = ({ children }) => {
     }
   };
 
+  const addNewDriver = async (driver) => {
+    try {
+      const driversCollection = collection(db, "drivers");
+      await addDoc(driversCollection, {
+        name: driver,
+      });
+    } catch (error) {
+      console.error("Errore nella registrazione del nuovo conducente: ", error);
+      alert(
+        "Si è verificato un errore durante la registrazione del nuovo utente. Per favore, riprova."
+      );
+    }
+  };
+
   // Fornisce lo stato e le funzioni attraverso il contesto
   return (
     <AppContext.Provider
@@ -172,6 +186,7 @@ export const AppProvider = ({ children }) => {
         registerDeparture,
         checkOut,
         updateCarMaintenanceDates,
+        addNewDriver,
         playSound,
         timeStamp,
       }}

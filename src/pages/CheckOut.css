@@ -7,9 +7,9 @@
 
 .checkout-subtitle div {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #282c34;
-  justify-content: space-between;
   padding-top: 0.5rem;
 }
 
@@ -17,16 +17,16 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: "Montserrat", sans-serif;
-  font-size: 1rem;
   height: 60px;
-  letter-spacing: 0.05rem;
-  color: #282c34;
   padding: 1rem;
   border: none;
   border-radius: 10px;
-  background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Leggera ombra per profondità */
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  color: #282c34;
+  background-color: #fff;
+  letter-spacing: 0.05rem;
   transition: border-color 0.3s, box-shadow 0.3s;
 }
 
@@ -43,16 +43,16 @@ select option:disabled {
 }
 
 .checkout-btn {
-  font-size: 1rem;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 1rem;
-  background-color: brown;
-  color: #ccc;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
   width: 50%;
   height: 60px;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: #ccc;
+  background-color: brown;
+  letter-spacing: 1px;
+  cursor: pointer;
   margin-left: auto;
 }
