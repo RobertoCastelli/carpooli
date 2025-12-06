@@ -29,29 +29,68 @@ function Trips() {
     return "N/A";
   }
 
-  // Calcola i km di percorrenza
+  // MODIFICATO: resa la funzione robusta ai valori non numerici
   const calculateDistance = (departureKm, returnKm) => {
-    if (departureKm != null && returnKm != null) {
-      const departureKmNum = Number(departureKm);
-      const returnKmNum = Number(returnKm);
-
-      // Verifica se i valori sono numeri validi
-      if (!isNaN(departureKmNum) && !isNaN(returnKmNum)) {
-        return returnKmNum - departureKmNum;
-      }
-      return returnKm - departureKm;
-    }
-    return "N/A";
+    const dep = Number(departureKm);
+    const ret = Number(returnKm);
+    if (isNaN(dep) || isNaN(ret)) return "N/A";
+    return ret - dep;
   };
+  // PRECEDENTE (lasciato commentato per riferimento):
+  // const calculateDistance = (departureKm, returnKm) => {
+  //   if (departureKm != null && returnKm != null) {
+  //     const departureKmNum = Number(departureKm);
+  //     const returnKmNum = Number(returnKm);
+  //
+  //     // Verifica se i valori sono numeri validi
+  //     if (!isNaN(departureKmNum) && !isNaN(returnKmNum)) {
+  //       return returnKmNum - departureKmNum;
+  //     }
+  //     return returnKm - departureKm;
+  //   }
+  //   return "N/A";
+  // };
 
   // Filtra i viaggi completi
   const completedTrips = trips.filter((trip) => trip.checkOut !== null);
+
+  // MODIFICATO: ordina i viaggi completi per data (discendente, usa prima il check-out, altrimenti la partenza)
+  const sortedTrips = [...completedTrips].sort((a, b) => {
+    const dateA = parseDate(
+      a.checkOut?.timestamp || a.departure?.timestamp || ""
+    );
+    const dateB = parseDate(
+      b.checkOut?.timestamp || b.departure?.timestamp || ""
+    );
+
+    const timeA = !isNaN(dateA) ? dateA.getTime() : -Infinity;
+    const timeB = !isNaN(dateB) ? dateB.getTime() : -Infinity;
+
+    return timeB - timeA; // dal piA1 recente al piA1 vecchio
+  });
+  // PRECEDENTE: ordinamento per km percorsi (lasciato commentato per riferimento)
+  // const sortedTrips = [...completedTrips].sort((a, b) => {
+  //   const distA = calculateDistance(
+  //     a.departure?.departureKM,
+  //     a.checkOut?.returnKM
+  //   );
+  //   const distB = calculateDistance(
+  //     b.departure?.departureKM,
+  //     b.checkOut?.returnKM
+  //   );
+  //
+  //   const kmA = typeof distA === "number" && !isNaN(distA) ? distA : -Infinity;
+  //   const kmB = typeof distB === "number" && !isNaN(distB) ? distB : -Infinity;
+  //
+  //   return kmB - kmA; // dal maggiore al minore
+  // });
 
   return (
     <div className="trip-container">
       <div className="trip-title">logs</div>
       <ul className="trip-ul">
-        {completedTrips.map((trip) => (
+        {/* MODIFICATO: uso sortedTrips per mostrare i log ordinati per data */}
+        {sortedTrips.map((trip) => (
           <li className="trip-li" key={trip.id}>
             <div className="trip-driver">
               <div>{trip.checkOut?.car || "no car"}</div>
