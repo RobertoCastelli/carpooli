@@ -52,7 +52,7 @@ export default function BookingCalendar() {
     <div className="booking-calendar">
       <div className="booking-header">
         <div>
-          <h2>Prenotazioni</h2>
+          <h2>Prenota</h2>
           <p>
             {weekStart} – {weekEnd}
           </p>
