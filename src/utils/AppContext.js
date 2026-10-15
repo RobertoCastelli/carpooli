@@ -7,6 +7,7 @@ import {
   orderBy,
   query,
   onSnapshot,
+  runTransaction,
 } from "firebase/firestore";
 import { db } from "./FirebaseConfig";
 
@@ -23,6 +24,7 @@ export const AppProvider = ({ children }) => {
   const [destinations, setDestinations] = useState([]);
   const [trips, setTrips] = useState([]);
   const [tripID, setTripID] = useState(null);
+  const [bookings, setBookings] = useState([]);
 
   // Funzione per riprodurre un suono
   const playSound = (src) => {
@@ -56,7 +58,7 @@ export const AppProvider = ({ children }) => {
       (error) => {
         console.error(`Error fetching ${collectionName}:`, error);
         setData([]);
-      }
+      },
     );
   };
 
@@ -67,9 +69,10 @@ export const AppProvider = ({ children }) => {
     const unsubDestinations = fetchData(
       "destinations",
       "name",
-      setDestinations
+      setDestinations,
     );
     const unsubTrips = fetchData("trip", "currentDriver", setTrips);
+    const unsubBookings = fetchData("bookings", "date", setBookings);
 
     // Cleanup on unmount
     return () => {
@@ -77,6 +80,7 @@ export const AppProvider = ({ children }) => {
       unsubCars();
       unsubDestinations();
       unsubTrips();
+      unsubBookings();
     };
   }, []);
 
@@ -97,7 +101,7 @@ export const AppProvider = ({ children }) => {
     } catch (error) {
       console.error("Errore nella registrazione della partenza: ", error);
       alert(
-        "Si è verificato un errore durante la registrazione della partenza. Per favore, riprova."
+        "Si è verificato un errore durante la registrazione della partenza. Per favore, riprova.",
       );
     }
   };
@@ -120,7 +124,7 @@ export const AppProvider = ({ children }) => {
     } catch (error) {
       console.error("Errore nella registrazione del rientro: ", error);
       alert(
-        "Si è verificato un errore durante la registrazione del rientro. Per favore, riprova."
+        "Si è verificato un errore durante la registrazione del rientro. Per favore, riprova.",
       );
     }
   };
@@ -131,7 +135,7 @@ export const AppProvider = ({ children }) => {
     newTagliando,
     newRevisione,
     newBollo,
-    newAssicurazione
+    newAssicurazione,
   ) => {
     const carDocRef = doc(db, "cars", carId);
     try {
@@ -145,10 +149,10 @@ export const AppProvider = ({ children }) => {
     } catch (error) {
       console.error(
         "Errore nell'aggiornamento delle date di manutenzione: ",
-        error
+        error,
       );
       alert(
-        "Si è verificato un errore durante l'aggiornamento delle date di manutenzione. Per favore, riprova."
+        "Si è verificato un errore durante l'aggiornamento delle date di manutenzione. Per favore, riprova.",
       );
     }
   };
@@ -162,8 +166,27 @@ export const AppProvider = ({ children }) => {
     } catch (error) {
       console.error("Errore nella registrazione del nuovo conducente: ", error);
       alert(
-        "Si è verificato un errore durante la registrazione del nuovo utente. Per favore, riprova."
+        "Si è verificato un errore durante la registrazione del nuovo utente. Per favore, riprova.",
       );
+    }
+  };
+
+  const handleBooking = async (key, driverId, date) => {
+    const bookingRef = doc(db, "bookings", key);
+
+    try {
+      await runTransaction(db, async (transaction) => {
+        const existing = await transaction.get(bookingRef);
+
+        if (driverId) {
+          transaction.set(bookingRef, { driverId, date });
+        } else if (existing.exists()) {
+          transaction.delete(bookingRef);
+        }
+      });
+    } catch (error) {
+      console.error("Errore prenotazione:", error);
+      alert("Impossibile aggiornare la prenotazione.");
     }
   };
 
@@ -189,6 +212,8 @@ export const AppProvider = ({ children }) => {
         addNewDriver,
         playSound,
         timeStamp,
+        bookings,
+        handleBooking,
       }}
     >
       {children}

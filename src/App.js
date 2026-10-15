@@ -10,10 +10,7 @@ import CheckOut from "./pages/CheckOut";
 import CarMaintenance from "./pages/CarMaintenance";
 import Trips from "./pages/Trips";
 import QrCode from "./components/QrCode";
-
-//TODO: scrolling content only
-//TODO: add calendar to input dates
-//!FIX: car not showing in checkout
+import BookingCalendar from "./pages/BookingCalendar";
 
 function AppContent() {
   return (
@@ -28,6 +25,7 @@ function AppContent() {
           <Route path="/car-maintenance" element={<CarMaintenance />} />
           <Route path="/qr-code" element={<QrCode />} />
           <Route path="/trips" element={<Trips />} />
+          <Route path="/calendar" element={<BookingCalendar />} />
         </Routes>
       </div>
       <Footer />
