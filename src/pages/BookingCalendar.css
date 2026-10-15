@@ -1,6 +1,5 @@
 .booking-calendar {
   width: 100%;
-  padding: 0;
 }
 
 .booking-header {
@@ -28,8 +27,8 @@
   padding: 10px 14px;
   border: none;
   border-radius: 8px;
-  color: #ccc;
-  background: #282c34;
+  color: var(--main-white-color);
+  background: var(--main-dark-blue-color);
   cursor: pointer;
 }
 
@@ -49,17 +48,17 @@
   padding: 8px 2px;
   border-radius: 5px;
   font-size: 0.7rem;
-  color: #ccc;
-  background: #282c34;
+  color: var(--main-white-color);
+  background: var(--main-dark-blue-color);
   overflow-wrap: anywhere;
-}
-
-.booking-table td {
-  padding: 0;
 }
 
 .booking-table th:first-child {
   width: 23%;
+}
+
+.booking-table td {
+  padding: 0;
 }
 
 .booking-cell {
@@ -70,30 +69,13 @@
   width: 100%;
   min-height: 65px;
   padding: 4px;
-  border: none;
   border-radius: 6px;
-  font-family: inherit;
-  font-size: 0.7rem;
-  text-align: center;
-  color: #282c34;
-  background: #f1f5f9;
+  color: var(--main-dark-blue-color);
   background: white;
-  cursor: pointer;
-  text-align-last: center;
-}
-
-.booking-cell:active {
-  background: orange;
-}
-
-.booking-cell:focus-visible {
-  outline: 2px solid orange;
-  outline-offset: 1px;
 }
 
 .booking-cell.booked {
   font-weight: 600;
-  color: #282c34;
   background: orange;
 }
 
@@ -101,9 +83,7 @@
   font-size: 0.7rem;
   line-height: 1.2;
   text-align: center;
-  overflow-wrap: anywhere;
   overflow-wrap: break-word;
-  white-space: normal;
 }
 
 .booking-cell select {
@@ -113,6 +93,11 @@
   cursor: pointer;
   inset: 0;
   opacity: 0;
+}
+
+.booking-cell:focus-within {
+  outline: 2px solid orange;
+  outline-offset: 1px;
 }
 
 .booking-table th.booking-today {

@@ -88,7 +88,7 @@ function CarMaintenance() {
 
   return (
     <div className="maint-container">
-      <div className="maint-title">manutenzione</div>
+      <div className="maint-title">controlli</div>
       <ul className="maint-ul">
         {cars.map((car) => (
           <li className="maint-li" key={car.id}>

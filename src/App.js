@@ -9,7 +9,7 @@ import RegisterDeparture from "./pages/RegisterDeparture";
 import CheckOut from "./pages/CheckOut";
 import CarMaintenance from "./pages/CarMaintenance";
 import Trips from "./pages/Trips";
-import QrCode from "./components/QrCode";
+import QrCode from "./pages/QrCode";
 import BookingCalendar from "./pages/BookingCalendar";
 
 function AppContent() {

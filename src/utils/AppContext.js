@@ -7,7 +7,8 @@ import {
   orderBy,
   query,
   onSnapshot,
-  runTransaction,
+  setDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import { db } from "./FirebaseConfig";
 
@@ -175,15 +176,11 @@ export const AppProvider = ({ children }) => {
     const bookingRef = doc(db, "bookings", key);
 
     try {
-      await runTransaction(db, async (transaction) => {
-        const existing = await transaction.get(bookingRef);
-
-        if (driverId) {
-          transaction.set(bookingRef, { driverId, date });
-        } else if (existing.exists()) {
-          transaction.delete(bookingRef);
-        }
-      });
+      if (driverId) {
+        await setDoc(bookingRef, { driverId, date });
+      } else {
+        await deleteDoc(bookingRef);
+      }
     } catch (error) {
       console.error("Errore prenotazione:", error);
       alert("Impossibile aggiornare la prenotazione.");

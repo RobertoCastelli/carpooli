@@ -14,7 +14,7 @@
     "request-promise-core": "^1.1.4",
     "request-promise-native": "^1.0.9",
     "tough-cookie": "^4.1.4",
-    "web-vitals": "^2.1.4nstall "
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",

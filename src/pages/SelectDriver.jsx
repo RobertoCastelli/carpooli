@@ -26,7 +26,7 @@ function SelectDriver() {
   // Funzione per ottenere il viaggio attivo per un driver
   const getActiveTripForDriver = (driver) =>
     trips.find(
-      (trip) => trip.checkOut === null && trip.currentDriver === driver.name
+      (trip) => trip.checkOut === null && trip.currentDriver === driver.name,
     );
 
   // Funzione per gestire la selezione di un driver
@@ -60,7 +60,7 @@ function SelectDriver() {
     } catch (error) {
       console.error("Errore nell'aggiungere il conducente:", error);
       alert(
-        "Si è verificato un errore durante l'aggiunta del conducente. Per favore, riprova più tardi."
+        "Si è verificato un errore durante l'aggiunta del conducente. Per favore, riprova più tardi.",
       );
     }
   };

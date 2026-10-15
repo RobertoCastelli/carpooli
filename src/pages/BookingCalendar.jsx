@@ -81,7 +81,7 @@ export default function BookingCalendar() {
         <table className="booking-table">
           <thead>
             <tr>
-              <th>gg auto</th>
+              <th></th>
               {cars.map((car) => (
                 <th key={car.id}>{car.name}</th>
               ))}
