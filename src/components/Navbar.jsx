@@ -4,13 +4,24 @@ import { NavLink } from "react-router-dom";
 
 import { FaRegRectangleList } from "react-icons/fa6";
 import { HiMiniWrenchScrewdriver } from "react-icons/hi2";
-import { FaPeopleGroup } from "react-icons/fa6";
-import { IoQrCodeSharp } from "react-icons/io5";
+import { IoQrCodeSharp, IoCalendar } from "react-icons/io5";
+import { TbSteeringWheel } from "react-icons/tb";
 
 const Navbar = () => {
   return (
     <div className="navbar-container">
       <ul className="navbar-ul">
+        <NavLink
+          to="/calendar"
+          className={({ isActive }) =>
+            isActive ? "active-navlink" : "navbar-li"
+          }
+        >
+          <li>
+            <IoCalendar size={20} />
+            <div className="navbar-label">prenota</div>
+          </li>
+        </NavLink>{" "}
         <NavLink
           to="/"
           className={({ isActive }) =>
@@ -18,8 +29,8 @@ const Navbar = () => {
           }
         >
           <li>
-            <FaPeopleGroup size={20} />
-            <div className="navbar-label">home</div>
+            <TbSteeringWheel size={20} />
+            <div className="navbar-label">guida</div>
           </li>
         </NavLink>
         <NavLink

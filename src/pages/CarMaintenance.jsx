@@ -52,14 +52,14 @@ function CarMaintenance() {
       try {
         // Converte le date nel formato corretto per il salvataggio
         const tagliandoDate = new Date(
-          newTagliando.split("/").reverse().join("-")
+          newTagliando.split("/").reverse().join("-"),
         );
         const revisioneDate = new Date(
-          newRevisione.split("/").reverse().join("-")
+          newRevisione.split("/").reverse().join("-"),
         );
         const bolloDate = new Date(newBollo.split("/").reverse().join("-"));
         const assicurazioneDate = new Date(
-          newAssicurazione.split("/").reverse().join("-")
+          newAssicurazione.split("/").reverse().join("-"),
         );
 
         await updateCarMaintenanceDates(
@@ -67,13 +67,13 @@ function CarMaintenance() {
           tagliandoDate.toISOString().split("T")[0],
           revisioneDate.toISOString().split("T")[0],
           bolloDate.toISOString().split("T")[0],
-          assicurazioneDate.toISOString().split("T")[0]
+          assicurazioneDate.toISOString().split("T")[0],
         );
         setShowModal(false);
       } catch (error) {
         console.error(
           "Errore nell'aggiornamento delle date di manutenzione:",
-          error
+          error,
         );
       }
     } else {
@@ -88,7 +88,7 @@ function CarMaintenance() {
 
   return (
     <div className="maint-container">
-      <div className="maint-title">Manutenzione Auto</div>
+      <div className="maint-title">controlli</div>
       <ul className="maint-ul">
         {cars.map((car) => (
           <li className="maint-li" key={car.id}>
@@ -168,7 +168,7 @@ function CarMaintenance() {
                 value={newAssicurazione.split("/").reverse().join("-")}
                 onChange={(e) =>
                   setNewAssicurazione(
-                    e.target.value.split("-").reverse().join("/")
+                    e.target.value.split("-").reverse().join("/"),
                   )
                 }
               />
