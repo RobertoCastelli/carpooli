@@ -1,52 +1,134 @@
+/* =========================================
+   LOGS - ELENCO VIAGGI
+   ========================================= */
+
 .trip-ul {
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
+/* Tessera esterna */
 .trip-li {
   position: relative;
-  padding: 40px 10px 10px 10px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  background-color: #fff;
+  color: var(--main-white-color);
+  background-color: var(--main-dark-blue-color);
   margin-bottom: 20px;
 }
 
-.trip-partenza,
-.trip-checkout,
-.trip-driver {
-  font-weight: bold;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border-bottom: 1px solid grey;
-}
+/* =========================================
+   VEICOLO E CONDUCENTE
+   ========================================= */
 
+/* Intestazione senza sfondo interno */
 .trip-driver {
-  position: absolute;
-  top: 0;
-  left: 50%;
   display: grid;
-  width: 80%;
-  padding: 5px 10px;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Leggera ombra */
-  text-align: center;
-  color: #ccc; /* Colore del testo chiaro */
-  background-color: #282c34; /* Colore di sfondo scuro */
-  transform: translate(-50%, -50%); /* Per centrare l'elemento */
-  white-space: nowrap; /* Impedisce la rottura delle parole */
-}
-
-label {
+  gap: 0.25rem;
+  width: 100%;
+  padding: 10px;
+  font-family: "Montserrat", sans-serif;
   font-weight: bold;
-  text-transform: capitalize;
-  color: cadetblue;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 12px;
 }
 
+/* =========================================
+   RIQUADRO UNICO DEI DATI
+   ========================================= */
+
+.trip-data-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  border-radius: 6px;
+  background-color: #404650;
+}
+
+/* Righe informative senza sfondi individuali */
 .trip-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+/* Etichette */
+.trip-li label {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: var(--main-white-color);
+}
+
+/* Valori tecnici */
+.trip-value {
+  min-width: 0;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 400;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
+/* =========================================
+   SEZIONI PARTENZA E CHECK-OUT
+   ========================================= */
+
+.trip-partenza,
+.trip-checkout {
+  font-weight: bold;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  margin-bottom: 6px;
+  margin-top: 12px;
+  padding-bottom: 5px;
+}
+
+.trip-partenza {
+  color: #45b86b;
+}
+
+.trip-checkout {
+  color: #e47777;
+}
+
+/* =========================================
+   TITOLO ED ESPORTAZIONE CSV
+   ========================================= */
+
+.trip-title {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  width: fit-content;
+  margin: 1rem auto;
+  justify-self: center;
+}
+
+.trip-export {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  border: none;
+  font-family: inherit;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.trip-export:focus-visible {
+  outline: 2px solid orange;
+  outline-offset: 2px;
 }

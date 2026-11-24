@@ -15,7 +15,9 @@ function getMonday(date) {
 }
 
 export default function BookingCalendar() {
-  const { cars, drivers, bookings, handleBooking } = useAppContext();
+  const { cars, drivers, bookings, trips, handleBooking, setCarMaintenance } =
+    useAppContext();
+
   const [weekOffset, setWeekOffset] = useState(0);
 
   const monday = getMonday(new Date());
@@ -48,11 +50,67 @@ export default function BookingCalendar() {
     bookings.map((booking) => [booking.id, booking.driverId]),
   );
 
+  // Converte la data di partenza nel formato del calendario
+  const getDepartureDate = (timestamp) => {
+    if (typeof timestamp !== "string") return null;
+
+    const match = timestamp.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})/);
+
+    if (!match) return null;
+
+    const [, day, month, year] = match;
+
+    const date = new Date(Number(year), Number(month) - 1, Number(day));
+
+    if (
+      date.getFullYear() !== Number(year) ||
+      date.getMonth() !== Number(month) - 1 ||
+      date.getDate() !== Number(day)
+    ) {
+      return null;
+    }
+
+    return [year, month.padStart(2, "0"), day.padStart(2, "0")].join("-");
+  };
+
+  // Recupera il viaggio aperto nella giornata selezionata
+  const getActiveTrip = (car, dateKey) =>
+    trips.find((trip) => {
+      if (trip.checkOut !== null || trip.activeCar !== car.name) {
+        return false;
+      }
+
+      const departureDate = getDepartureDate(trip.departure?.timestamp);
+
+      return (
+        departureDate !== null && departureDate <= dateKey && dateKey <= today
+      );
+    });
+
+  const handleCalendarChange = async (car, key, dateKey, value) => {
+    // Attiva la manutenzione globale
+    if (value === "MANUTENZIONE") {
+      await setCarMaintenance(car, true);
+      return;
+    }
+
+    // Riattiva il veicolo
+    if (car.outOfService === true) {
+      if (value === "") {
+        await setCarMaintenance(car, false);
+      }
+      return;
+    }
+
+    // Normale prenotazione
+    await handleBooking(key, value, dateKey);
+  };
+
   return (
     <div className="booking-calendar">
       <div className="booking-header">
         <div>
-          <h2>Prenota</h2>
+          <div className="booking-title">Prenota</div>
           <p>
             {weekStart} – {weekEnd}
           </p>
@@ -74,6 +132,19 @@ export default function BookingCalendar() {
           >
             ▶
           </button>
+        </div>
+
+        {/* Legenda dei colori del calendario */}
+        <div className="booking-legend" aria-label="Legenda colori calendario">
+          <div className="booking-legend-item">
+            <span className="booking-legend-color booking-legend-booked" />
+            <span>Prenotata</span>
+          </div>
+
+          <div className="booking-legend-item">
+            <span className="booking-legend-color booking-legend-in-use" />
+            <span>In uso</span>
+          </div>
         </div>
       </div>
 
@@ -108,31 +179,61 @@ export default function BookingCalendar() {
                   {cars.map((car) => {
                     const key = `${car.id}_${dateKey}`;
                     const driverId = bookingsByKey[key];
+                    const activeTrip = getActiveTrip(car, dateKey);
+
+                    const isInUse = Boolean(activeTrip);
+
+                    const isMaintenance = car.outOfService === true;
+
+                    const driverName = isMaintenance
+                      ? "FERMA"
+                      : isInUse
+                        ? activeTrip.currentDriver
+                        : drivers.find((driver) => driver.id === driverId)
+                            ?.name || "LIBERA";
 
                     return (
                       <td key={car.id}>
                         <div
-                          className={`booking-cell ${driverId ? "booked" : ""}`}
+                          className={`booking-cell ${
+                            isMaintenance
+                              ? "maintenance"
+                              : isInUse
+                                ? "in-use"
+                                : driverId
+                                  ? "booked"
+                                  : ""
+                          }`}
                         >
-                          <span className="booking-name">
-                            {drivers.find((d) => d.id === driverId)?.name ||
-                              "LIBERA"}
-                          </span>
+                          <span className="booking-name">{driverName}</span>
 
                           <select
-                            value={driverId || ""}
-                            onChange={(e) =>
-                              handleBooking(key, e.target.value, dateKey)
+                            value={
+                              car.outOfService === true
+                                ? "MANUTENZIONE"
+                                : driverId || ""
                             }
-                            aria-label={`Prenotazione ${car.name} del ${dateKey}`}
+                            disabled={isInUse}
+                            onChange={(e) =>
+                              handleCalendarChange(
+                                car,
+                                key,
+                                dateKey,
+                                e.target.value,
+                              )
+                            }
+                            aria-label={`Stato ${car.name} del ${dateKey}`}
                           >
                             <option value="">LIBERA</option>
 
-                            {drivers.map((driver) => (
-                              <option key={driver.id} value={driver.id}>
-                                {driver.name}
-                              </option>
-                            ))}
+                            <option value="MANUTENZIONE">FERMA</option>
+
+                            {car.outOfService !== true &&
+                              drivers.map((driver) => (
+                                <option key={driver.id} value={driver.id}>
+                                  {driver.name}
+                                </option>
+                              ))}
                           </select>
                         </div>
                       </td>

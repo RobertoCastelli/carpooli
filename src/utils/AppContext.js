@@ -85,6 +85,37 @@ export const AppProvider = ({ children }) => {
     };
   }, []);
 
+  // Attiva o disattiva lo stato di manutenzione del veicolo
+  const setCarMaintenance = async (car, inMaintenance) => {
+    if (!car?.id) {
+      alert("Veicolo non valido.");
+      return false;
+    }
+
+    // Non mettere in manutenzione un veicolo in uso
+    if (
+      inMaintenance &&
+      trips.some((trip) => trip.activeCar === car.name && trip.checkOut == null)
+    ) {
+      alert(
+        "Prima di mettere il veicolo in manutenzione, registra il rientro.",
+      );
+      return false;
+    }
+
+    try {
+      await updateDoc(doc(db, "cars", car.id), {
+        outOfService: inMaintenance,
+      });
+
+      return true;
+    } catch (error) {
+      console.error("Errore aggiornamento manutenzione:", error);
+      alert("Impossibile aggiornare lo stato del veicolo.");
+      return false;
+    }
+  };
+
   // Funzione per registrare una partenza nel database
   const registerDeparture = async (departureKM, destination) => {
     try {
@@ -104,12 +135,15 @@ export const AppProvider = ({ children }) => {
       alert(
         "Si è verificato un errore durante la registrazione della partenza. Per favore, riprova.",
       );
+
+      throw error;
     }
   };
 
   // Funzione per gestire il check-out dell'auto
-  const checkOut = async (tripID, returnKM, gasExpenses) => {
+  const checkOut = async (tripID, returnKM, gasExpenses, refuelingLevel) => {
     const checkoutDocRef = doc(db, "trip", tripID);
+
     try {
       await updateDoc(checkoutDocRef, {
         activeCar: null,
@@ -119,6 +153,7 @@ export const AppProvider = ({ children }) => {
           car: activeCar,
           returnKM,
           gasExpenses,
+          refuelingLevel,
           timestamp: timeStamp,
         },
       });
@@ -127,6 +162,9 @@ export const AppProvider = ({ children }) => {
       alert(
         "Si è verificato un errore durante la registrazione del rientro. Per favore, riprova.",
       );
+
+      // Segnala alla pagina che il salvataggio non è riuscito
+      throw error;
     }
   };
 
@@ -206,6 +244,7 @@ export const AppProvider = ({ children }) => {
         registerDeparture,
         checkOut,
         updateCarMaintenanceDates,
+        setCarMaintenance,
         addNewDriver,
         playSound,
         timeStamp,

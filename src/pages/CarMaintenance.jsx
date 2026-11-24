@@ -99,17 +99,17 @@ function CarMaintenance() {
             <div
               className={`date ${isDatePast(car.tagliando) ? "past-date" : ""}`}
             >
-              <label>tagliando:</label>
+              <label>tagliando</label>
               {formatDate(car.tagliando)}
             </div>
             <div
               className={`date ${isDatePast(car.revisione) ? "past-date" : ""}`}
             >
-              <label>revisione:</label>
+              <label>revisione</label>
               {formatDate(car.revisione)}
             </div>
             <div className={`date ${isDatePast(car.bollo) ? "past-date" : ""}`}>
-              <label>bollo:</label>
+              <label>bollo</label>
               {formatDate(car.bollo)}
             </div>
             <div
@@ -117,7 +117,7 @@ function CarMaintenance() {
                 isDatePast(car.assicurazione) ? "past-date" : ""
               }`}
             >
-              <label>assicurazione:</label>
+              <label>assicurazione</label>
               {formatDate(car.assicurazione)}
             </div>
             <button className="maint-btn" onClick={() => handleMaintClick(car)}>
@@ -130,9 +130,9 @@ function CarMaintenance() {
       {showModal && (
         <div className="modal">
           <div className="modal-content">
-            <h2>Aggiorna: {currentCar?.name}</h2>
+            <h2>Aggiorna {currentCar?.name}</h2>
             <label>
-              TAGLIANDO:
+              Tagliando
               <input
                 type="date"
                 value={newTagliando.split("/").reverse().join("-")}
@@ -142,7 +142,7 @@ function CarMaintenance() {
               />
             </label>
             <label>
-              REVISIONE:
+              Revisione
               <input
                 type="date"
                 value={newRevisione.split("/").reverse().join("-")}
@@ -152,7 +152,7 @@ function CarMaintenance() {
               />
             </label>
             <label>
-              BOLLO:
+              Bollo
               <input
                 type="date"
                 value={newBollo.split("/").reverse().join("-")}
@@ -162,7 +162,7 @@ function CarMaintenance() {
               />
             </label>
             <label>
-              ASSICURAZIONE:
+              Assicurazione
               <input
                 type="date"
                 value={newAssicurazione.split("/").reverse().join("-")}

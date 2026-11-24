@@ -7,11 +7,6 @@
   margin-bottom: 20px;
 }
 
-.booking-header h2 {
-  font-size: 1.2rem;
-  text-transform: uppercase;
-}
-
 .booking-header p {
   font-size: 0.85rem;
 }
@@ -35,6 +30,39 @@
 .booking-navigation button:disabled {
   cursor: default;
   opacity: 0.3;
+}
+
+/* Legenda minimale calendario */
+.booking-legend {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+.booking-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.7rem;
+}
+
+.booking-legend-color {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex-shrink: 0;
+}
+
+.booking-legend-booked {
+  background: orange;
+}
+
+.booking-legend-in-use {
+  background: brown;
 }
 
 .booking-table {
@@ -79,6 +107,13 @@
   background: orange;
 }
 
+/* Veicolo in uso: cella bloccata */
+.booking-cell.in-use {
+  font-weight: 600;
+  color: var(--main-white-color);
+  background: brown;
+}
+
 .booking-name {
   font-size: 0.7rem;
   line-height: 1.2;
@@ -95,6 +130,11 @@
   opacity: 0;
 }
 
+/* Impedisce la modifica nelle celle occupate */
+.booking-cell select:disabled {
+  cursor: default;
+}
+
 .booking-cell:focus-within {
   outline: 2px solid orange;
   outline-offset: 1px;
@@ -104,4 +144,19 @@
   outline: 2px solid orange;
   color: orange;
   outline-offset: -2px;
+}
+
+/* Date del calendario in JetBrains Mono */
+.booking-table tbody th > div {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Veicolo in manutenzione */
+.booking-cell.maintenance {
+  font-weight: 600;
+  color: #ffffff;
+  background: #343a40;
 }
