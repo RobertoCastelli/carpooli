@@ -1,4 +1,7 @@
-/* Stili per la parte esistente del componente */
+/* =========================================
+   CONTROLLI - ELENCO VEICOLI
+   ========================================= */
+
 .maint-ul {
   margin: 0;
   padding: 0;
@@ -6,14 +9,16 @@
 }
 
 .maint-li {
-  margin: 0 0 10px 0;
-  padding: 20px 10px;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  margin: 0 0 10px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  background-color: #fff;
+  color: var(--main-white-color);
+  background-color: var(--main-dark-blue-color);
 }
 
+/* Righe informative */
 .maint-li div {
   display: flex;
   justify-content: space-between;
@@ -21,12 +26,49 @@
   padding-top: 0.5rem;
 }
 
-.maint-car {
+/* Intestazione automobile */
+.maint-li .maint-car {
+  display: grid;
+  grid-template-columns: 25px minmax(0, 1fr) 25px;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 10px;
+  border: none;
   font-weight: bold;
-  text-transform: uppercase;
-  border-bottom: 1px solid grey;
+  text-align: center;
+  margin-bottom: 10px;
 }
 
+.maint-car svg {
+  grid-column: 1;
+  color: var(--main-white-color);
+}
+
+/* Date delle scadenze */
+.maint-li .date {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--main-white-color);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Etichette delle tessere */
+.maint-li .date label {
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+  color: var(--main-white-color);
+}
+
+/* Date scadute */
+.maint-li .date.past-date {
+  color: #ff9a91;
+}
+
+/* Pulsante modifica */
 .maint-btn {
   display: flex;
   justify-content: center;
@@ -35,77 +77,135 @@
   height: 20px;
   padding: 1rem;
   border: none;
-  border-radius: 10px;
+  border-radius: 0.5rem;
   font-size: 1rem;
   text-transform: uppercase;
-  background-color: #282c34;
+  color: var(--main-white-color);
+  background-color: #404650;
   cursor: pointer;
-  margin-top: 10px;
-  margin-left: auto;
   letter-spacing: 1px;
+  margin-left: auto;
+  margin-top: 10px;
 }
 
-.date {
-  color: black; /* Colore predefinito per le date */
+.maint-btn:focus-visible {
+  outline: 2px solid orange;
+  outline-offset: 2px;
 }
 
-.past-date {
-  color: red; /* Colore per le date superiori alla data odierna */
-}
+/* =========================================
+   MODAL CONTROLLI
+   ========================================= */
 
-/* Stili aggiuntivi per la modale */
-.modal {
+/* Sfondo oscurato */
+.maint-container .modal {
   position: fixed;
-  top: 0;
-  left: 0;
+  z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 16px;
+  background-color: rgba(0, 0, 0, 0.65);
+  inset: 0;
+}
+
+/* Tessera del modal */
+.maint-container .modal-content {
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-.modal-content {
-  width: 380px;
-  max-width: 500px;
-  padding: 10px;
+  max-width: 380px;
+  max-height: calc(100dvh - 32px);
+  padding: 20px;
   border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  background-color: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  font-family: "Montserrat", sans-serif;
+  text-align: right;
+  color: var(--main-white-color);
+  background-color: var(--main-dark-blue-color);
+  overflow-y: auto;
 }
 
-.modal h2 {
-  margin-bottom: 20px;
-  font-size: 1.5rem;
+/* Titolo */
+.maint-container .modal h2 {
+  margin: 0 0 20px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  text-align: center;
+  color: var(--main-white-color);
+  overflow-wrap: anywhere;
 }
 
-.modal label {
+/* Etichette: stessa tipografia delle tessere */
+.maint-container .modal label {
+  display: grid;
+  grid-template-columns: 105px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: left;
+  text-transform: capitalize;
+  color: var(--main-white-color);
+  margin-bottom: 12px;
+}
+
+/* Campi data a destra */
+.maint-container .modal input[type="date"] {
   display: block;
-  margin-bottom: 10px;
-}
-
-.modal input[type="date"] {
-  width: calc(100% - 20px);
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.modal-save-btn,
-.modal-close-btn {
-  width: 100px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  text-transform: uppercase;
-  color: white;
-  background-color: #282c34;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-.modal-close-btn {
+  width: 100%;
+  height: 52px;
+  min-width: 0;
+  margin: 0;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  font-weight: 400;
   color: #282c34;
-  background-color: #ccc;
+  background-color: #fff;
+  color-scheme: light;
+  font-variant-numeric: tabular-nums;
+}
+
+.maint-container .modal input[type="date"]:focus {
+  border-color: orange;
+  outline: none;
+  box-shadow: 0 0 0 1px orange;
+}
+
+/* =========================================
+   MODAL - PULSANTI
+   ========================================= */
+
+.maint-container .modal-save-btn,
+.maint-container .modal-close-btn {
+  min-width: 100px;
+  min-height: 46px;
+  padding: 10px 14px;
+  border: none;
+  border-radius: 8px;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #fff;
+  cursor: pointer;
+}
+
+.maint-container .modal-save-btn {
+  background-color: green;
+  margin-right: 8px;
+}
+
+.maint-container .modal-close-btn {
+  background-color: #404650;
+}
+
+.maint-container .modal-save-btn:focus-visible,
+.maint-container .modal-close-btn:focus-visible {
+  outline: 2px solid orange;
+  outline-offset: 2px;
 }

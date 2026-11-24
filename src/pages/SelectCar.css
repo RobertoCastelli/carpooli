@@ -1,13 +1,260 @@
+/* =========================================
+   FLOTTA - CONTENITORE
+   ========================================= */
+
+.car-container {
+  grid-template-columns: minmax(0, 1fr);
+  justify-content: center;
+  width: 100%;
+}
+
+.car-title {
+  width: auto;
+  margin: 1rem;
+  text-align: center;
+}
+
+/* =========================================
+   TESSERA VEICOLO
+   ========================================= */
+
 .car-btn {
-  height: 60px;
-  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+  min-width: 0;
+  min-height: 60px;
+  padding: 1rem;
   border: none;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: inherit;
   font-size: 1rem;
   text-align: left;
-  text-transform: capitalize;
-  color: #ccc;
-  background-color: #282c34;
+  color: var(--main-white-color);
+  background-color: var(--main-dark-blue-color);
   cursor: pointer;
+}
+
+/* Nome veicolo */
+.car-name {
+  display: grid;
+  grid-template-columns: 25px minmax(0, 1fr) 25px;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-width: 0;
+  font-family: inherit;
+  font-weight: bold;
+  text-align: center;
+  text-transform: capitalize;
+  margin-bottom: 0.5rem;
+  overflow-wrap: normal;
+}
+
+.car-name-icon {
+  grid-column: 1;
+  font-size: 25px;
+  color: var(--main-white-color);
+}
+
+/* =========================================
+   STATO OPERATIVO
+   ========================================= */
+
+.car-status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0.5rem;
+  border-radius: 5px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-left: 4px solid transparent;
+}
+
+.car-status-available {
+  border-left-color: green;
+}
+
+.car-status-booked {
+  border-left-color: orange;
+}
+
+.car-status-in-use,
+.car-status-maintenance {
+  border-left-color: brown;
+}
+
+/* =========================================
+   CONDUCENTE E PRENOTAZIONE
+   ========================================= */
+
+.car-driver,
+.car-booking {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: left;
+  overflow-wrap: normal;
+}
+
+.car-driver svg,
+.car-booking svg {
+  color: var(--main-white-color);
+  flex-shrink: 0;
+}
+
+/* =========================================
+   DATI VEICOLO - GRIGLIA A DUE COLONNE
+   ========================================= */
+
+.car-details {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  row-gap: 0.5rem;
+  column-gap: 0.5rem;
+  width: 100%;
+}
+
+/* Etichetta sopra, valore sotto */
+.car-detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 0.4rem;
+  min-width: 0;
+  padding: 0.65rem;
+  border-radius: 6px;
+  background-color: #404650;
+}
+
+/* Etichette: JetBrains Mono, grassetto bianco */
+.car-detail-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.7rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #fff;
+}
+
+.car-detail-label svg {
+  color: #fff;
+  flex-shrink: 0;
+}
+
+/* Riscontri: Montserrat, stessa dimensione */
+.car-detail-value {
+  display: block;
+  min-width: 0;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  line-height: 1.3;
+  color: var(--main-white-color);
+  overflow-wrap: anywhere;
+  padding-left: 0;
+}
+
+/* =========================================
+   INDICATORE RIFORNIMENTO
+   ========================================= */
+
+.car-fuel {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.car-fuel-segment {
+  width: 18px;
+  height: 12px;
+  border-radius: 2px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.car-fuel-active {
+  background-color: cadetblue;
+}
+
+/* Riserva con pulsazione */
+.car-fuel-reserve {
+  background-color: brown;
+  animation: fuel-reserve-pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes fuel-reserve-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(165, 42, 42, 0);
+    opacity: 1;
+  }
+
+  50% {
+    box-shadow: 0 0 7px 2px rgba(165, 42, 42, 0.5);
+    opacity: 0.35;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .car-fuel-reserve {
+    animation: none;
+  }
+}
+
+/* =========================================
+   START / STOP
+   ========================================= */
+
+.car-action {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: normal;
+  text-align: right;
+  margin-top: 0.5rem;
+}
+
+.car-action-checkin {
+  font-weight: bold;
+  color: green;
+}
+
+.car-action-checkout {
+  font-weight: bold;
+  color: brown;
+}
+
+.car-action-unavailable {
+  color: var(--main-white-color);
+}
+
+.car-btn:disabled {
+  cursor: default;
+}
+
+.car-btn:focus-visible {
+  outline: 2px solid orange;
+  outline-offset: 2px;
 }

@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { AppProvider } from "./utils/AppContext";
 import Title from "./components/Title";
 import Footer from "./components/Footer";
-import SelectDriver from "./pages/SelectDriver";
 import SelectCar from "./pages/SelectCar";
 import RegisterDeparture from "./pages/RegisterDeparture";
 import CheckOut from "./pages/CheckOut";
@@ -18,7 +17,7 @@ function AppContent() {
       <Title />
       <div className="content">
         <Routes>
-          <Route exact path="/" element={<SelectDriver />} />
+          <Route exact path="/" element={<SelectCar />} />
           <Route path="/select-car" element={<SelectCar />} />
           <Route path="/register-departure" element={<RegisterDeparture />} />
           <Route path="/check-out" element={<CheckOut />} />

@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <footer>
       <h5>
-        <span className="footer-agis">a.g.i.s.</span> 2024 v.01.07
+        <span className="footer-agis">agis ⁓ slgs</span> v.02.1126
       </h5>
     </footer>
   );
